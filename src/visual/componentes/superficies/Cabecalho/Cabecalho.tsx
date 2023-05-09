@@ -1,4 +1,4 @@
-import Elo from "../../../navegacao/Elo/Elo";
+import Elo from "../../navegacao/Elo/Elo";
 import Botao from "../../entradas/Botao/Botao";
 import {
     CabecalhoConteiner,
