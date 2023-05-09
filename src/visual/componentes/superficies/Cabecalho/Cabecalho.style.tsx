@@ -2,22 +2,18 @@ import { styled } from "@mui/material";
 
 export const CabecalhoConteiner = styled("div")`
     display: grid;
-    grid-template-columns: 200px 300px 300px 1fr;
-    grid-template-areas: "imagem link1 link2 botao";
+    grid-template-columns: 200px 250px 1fr;
+    grid-template-areas: "imagem link botao";
     padding: ${({ theme }) => theme.spacing(4)};
-	max-width: 1000px;
+	max-width: 992px;
 `;
 
 export const CabecalhoLogo = styled("img")`
     grid-area: imagem;
 `;
 
-export const CabecalhoLink1 = styled("div")`
-    grid-area: link1;
-`;
-
-export const CabecalhoLink2 = styled("div")`
-    grid-area: link2;
+export const CabecalhoLink = styled("div")`
+    grid-area: link;
 `;
 
 export const CabecalhoBotao = styled("div")`

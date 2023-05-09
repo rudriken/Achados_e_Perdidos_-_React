@@ -5,7 +5,7 @@ interface EloProps {
     url?: string;
 }
 
-export default function Elo({ rotulo, url = "" }: EloProps) {
+export default function Elo({ rotulo, url }: EloProps) {
     return (
         <>
             <Link href={url}>{rotulo}</Link>

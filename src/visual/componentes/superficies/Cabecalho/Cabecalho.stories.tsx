@@ -13,4 +13,6 @@ const Modelo: StoryFn<typeof Cabecalho> = (argumentos) => {
 export const Header = Modelo.bind({});
 Header.args = {
     imagem: "img/logos/logo.svg",
+    link: "Objetos",
+    botao: "Cadastrar um Local",
 };
