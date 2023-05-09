@@ -5,6 +5,6 @@ export const Botao = styled(Button)`
     border-radius: 3px;
     text-transform: none;
     font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: ${({ theme }) => theme.typography.fontFamily};
     padding: ${({ theme }) => theme.spacing(3) + " " + theme.spacing(7)};
 `;

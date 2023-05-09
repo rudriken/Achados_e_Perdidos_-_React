@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 
 export const TituloPagina_Conteiner = styled("div")`
     justify-items: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: ${({ theme }) => theme.typography.fontFamily};
     text-align: center;
 `;
 
