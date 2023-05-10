@@ -8,7 +8,7 @@ import {
 
 interface CabecalhoProps {
     imagem: string;
-    link: string;
+    link?: string;
     botao?: string;
 }
 

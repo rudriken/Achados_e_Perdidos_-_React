@@ -6,6 +6,7 @@ export const CabecalhoConteiner = styled("div")`
     grid-template-areas: "imagem link botao";
     padding: ${({ theme }) => theme.spacing(4)};
     max-width: 992px;
+	box-shadow: 0px 1px 0px black;
 `;
 
 export const CabecalhoLogo = styled("img")`
