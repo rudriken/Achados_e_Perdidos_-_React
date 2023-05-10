@@ -1,4 +1,3 @@
-import Elo from "../../navegacao/Elo/Elo";
 import Botao from "../../entradas/Botao/Botao";
 import {
     CabecalhoConteiner,
@@ -9,26 +8,18 @@ import {
 
 interface CabecalhoProps {
     imagem: string;
-    link: string
+    link: string;
     botao?: string;
 }
 
-export default function Cabecalho({
-    imagem,
-    link,
-    botao,
-}: CabecalhoProps): JSX.Element {
+export default function Cabecalho({ imagem, link, botao }: CabecalhoProps): JSX.Element {
     return (
         <CabecalhoConteiner>
             <CabecalhoLogo src={imagem} alt={"Achados e Perdidos"} />
-            <CabecalhoLink>
-                {link ? <Elo rotulo={link} url={"/"} /> : <div></div>}
-            </CabecalhoLink>
+            <CabecalhoLink>{link ? <Botao texto={link} /> : <div></div>}</CabecalhoLink>
             <CabecalhoBotao>
                 {botao ? (
-                    <Botao variant={"contained"} color={"primary"}>
-                        {botao}
-                    </Botao>
+                    <Botao modo={"contained"} cor={"primary"} texto={botao} />
                 ) : (
                     <div></div>
                 )}

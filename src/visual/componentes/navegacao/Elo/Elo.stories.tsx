@@ -1,13 +1,15 @@
 import { Meta, StoryFn } from "@storybook/react";
 import Elo from "./Elo";
 
+const Componente = Elo;
+
 export default {
     title: "navegacao/Elo",
-    component: Elo,
-} as Meta<typeof Elo>;
+    component: Componente,
+} as Meta<typeof Componente>;
 
-const Modelo: StoryFn<typeof Elo> = (argumentos) => {
-    return <Elo {...argumentos}></Elo>;
+const Modelo: StoryFn<typeof Componente> = (argumentos) => {
+    return <Elo {...argumentos} />;
 };
 
 export const MeuElo = Modelo.bind({});

@@ -1,12 +1,14 @@
 import { Meta, StoryFn } from "@storybook/react";
 import Cabecalho from "./Cabecalho";
 
+const Componente = Cabecalho;
+
 export default {
     title: "superficies/Cabecalho",
-    component: Cabecalho,
-} as Meta<typeof Cabecalho>;
+    component: Componente,
+} as Meta<typeof Componente>;
 
-const Modelo: StoryFn<typeof Cabecalho> = (argumentos) => {
+const Modelo: StoryFn<typeof Componente> = (argumentos) => {
     return <Cabecalho {...argumentos} />;
 };
 

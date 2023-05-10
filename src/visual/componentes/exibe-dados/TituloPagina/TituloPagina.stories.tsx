@@ -1,13 +1,15 @@
 import { Meta, StoryFn } from "@storybook/react";
 import TituloPagina from "./TituloPagina";
 
+const Componente = TituloPagina;
+
 export default {
     title: "exibe-dados/TituloPagina",
-    component: TituloPagina,
-} as Meta<typeof TituloPagina>;
+    component: Componente,
+} as Meta<typeof Componente>;
 
-const Modelo: StoryFn<typeof TituloPagina> = (argumentos) => {
-    return <TituloPagina {...argumentos}></TituloPagina>;
+const Modelo: StoryFn<typeof Componente> = (argumentos) => {
+    return <TituloPagina {...argumentos} />;
 };
 
 export const TituloDaPagina = Modelo.bind({});

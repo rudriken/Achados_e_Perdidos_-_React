@@ -1,6 +1,6 @@
 import { styled, Button } from "@mui/material";
 
-export const Botao = styled(Button)`
+export const BotaoEstilizado = styled(Button)`
     height: 50px;
     border-radius: 3px;
     text-transform: none;
