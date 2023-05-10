@@ -23,15 +23,14 @@ export default function Inicial() {
                 >
                     <CampoDeTexto
                         placeholder={"Digite o nome do local"}
-                        fullWidth
                         name={"local"}
+                        style={{ maxWidth: "600px", width: "100%" }}
                     />
                 </div>
                 <div
                     style={{
                         display: "flex",
                         justifyContent: "center",
-                        marginTop: 32,
                     }}
                 >
                     <Botao texto={"Buscar"} modo={"contained"} tipo="submit" />
