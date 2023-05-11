@@ -7,7 +7,10 @@ interface BotaoProps {
     cor?: coresTipo;
     tipo?: tiposTipo;
     desabilitado?: boolean;
-    aoClicar?: () => {};
+    largura?: number;
+    margem?: number;
+    preenchimento?: number;
+    aoClicar?: () => void;
 }
 
 export default function Botao({
@@ -16,6 +19,9 @@ export default function Botao({
     cor = "primary",
     tipo = "button",
     desabilitado = false,
+    largura = 150,
+    margem = 0,
+    preenchimento = 0,
     aoClicar,
 }: BotaoProps) {
     return (
@@ -25,6 +31,7 @@ export default function Botao({
             type={tipo}
             disabled={desabilitado}
             onClick={aoClicar}
+            style={{ width: largura, margin: margem, padding: preenchimento }}
         >
             {texto}
         </BotaoEstilizado>
