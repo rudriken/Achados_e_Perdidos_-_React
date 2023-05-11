@@ -9,7 +9,7 @@ export default {
 } as Meta<typeof Componente>;
 
 const Modelo: StoryFn<typeof Componente> = (argumentos) => {
-    return <Elo {...argumentos} />;
+    return <Componente {...argumentos} />;
 };
 
 export const MeuElo = Modelo.bind({});

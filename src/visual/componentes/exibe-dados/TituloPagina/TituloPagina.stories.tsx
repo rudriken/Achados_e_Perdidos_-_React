@@ -9,11 +9,11 @@ export default {
 } as Meta<typeof Componente>;
 
 const Modelo: StoryFn<typeof Componente> = (argumentos) => {
-    return <TituloPagina {...argumentos} />;
+    return <Componente {...argumentos} />;
 };
 
-export const TituloDaPagina = Modelo.bind({});
-TituloDaPagina.args = {
+export const MeuTituloPagina = Modelo.bind({});
+MeuTituloPagina.args = {
     titulo: "Cadastrar-se na plataforma",
     subtitulo: "Primeiro vamos precisar de alguns dados pessoais",
 };
@@ -31,7 +31,7 @@ export default meta;
 
 type Historia = StoryObj<typeof TituloPagina>;
 
-export const TituloDaPagina: Historia = {
+export const MeuTituloPagina: Historia = {
     decorators: [],
     name: "Título da Página",
     parameters: {},

@@ -9,11 +9,11 @@ export default {
 } as Meta<typeof Componente>;
 
 const Modelo: StoryFn<typeof Componente> = (argumentos) => {
-    return <Cabecalho {...argumentos} />;
+    return <Componente {...argumentos} />;
 };
 
-export const Header = Modelo.bind({});
-Header.args = {
+export const MeuCabecalho = Modelo.bind({});
+MeuCabecalho.args = {
     imagem: "img/logos/logo.svg",
     link: "Objetos",
     botao: "Cadastrar um Local",
