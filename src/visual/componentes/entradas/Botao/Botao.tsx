@@ -6,6 +6,7 @@ interface BotaoProps {
     modo?: modosTipo;
     cor?: coresTipo;
     tipo?: tiposTipo;
+    desabilitado?: boolean;
     aoClicar?: () => {};
 }
 
@@ -14,10 +15,17 @@ export default function Botao({
     modo = "text",
     cor = "primary",
     tipo = "button",
+    desabilitado = false,
     aoClicar,
 }: BotaoProps) {
     return (
-        <BotaoEstilizado variant={modo} color={cor} onClick={aoClicar} type={tipo}>
+        <BotaoEstilizado
+            variant={modo}
+            color={cor}
+            type={tipo}
+            disabled={desabilitado}
+            onClick={aoClicar}
+        >
             {texto}
         </BotaoEstilizado>
     );
