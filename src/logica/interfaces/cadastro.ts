@@ -1,15 +1,12 @@
 export interface Cadastro {
-    nome: T;
-    endereco: T;
-    contato: T;
-    descricao: T;
-    imagem_local: T;
-    usuario_nome: T;
-    usuario_email: T;
-    usuario_password: T;
-    usuario_password_confirmation: T;
+    nome: string;
+    endereco: string;
+    contato: string;
+    descricao: string;
+    imagem_local: string;
+    usuario_nome: string;
+    usuario_email: string;
+    usuario_password: string;
+    usuario_password_confirmation: string;
 }
 
-interface T {
-    value: string;
-}

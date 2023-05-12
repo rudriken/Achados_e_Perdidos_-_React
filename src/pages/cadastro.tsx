@@ -1,14 +1,21 @@
-import { useState } from "react";
 import { Container } from "@mui/material";
-import useCadastro from "@/logica/ganchos/useCadastro";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import { CampoDeTexto } from "@/visual/componentes/entradas/CampoDeTexto/CampoDeTexto.style";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
+import { useForm, Controller } from "react-hook-form";
+import { Cadastro } from "@/logica/interfaces/cadastro";
 
 export default function Cadastro() {
-    const [valorSenha, alterarValorSenha] = useState("");
-    const [valorConfirmarSenha, alterarValorConfirmarSenha] = useState("");
+    const {
+        control,
+        formState: { errors },
+        handleSubmit,
+    } = useForm<Cadastro>();
+
+    function teste(dados: object) {
+        console.log(dados);
+    }
 
     return (
         <Container
@@ -19,48 +26,104 @@ export default function Cadastro() {
                 titulo={"Cadastrar-se na plataforma"}
                 subtitulo={"Primeiro vamos precisar de alguns dados pessoais"}
             />
-            <form onSubmit={useCadastro}>
+            <form onSubmit={handleSubmit(teste)}>
                 <fieldset style={{ borderColor: "gray", marginBottom: 32 }}>
                     <fieldset
                         style={{ border: "none", margin: 32, padding: 20, fontSize: 20 }}
                     >
                         <legend style={{ fontFamily: `Arial` }}>Dados do Local</legend>
                         <div style={{ display: "flex", flexDirection: "column" }}>
-                            <CampoDeTexto
-                                label={"Nome do local"}
-                                placeholder={"Digite o nome do local"}
+                            <Controller
+                                control={control}
                                 name={"nome"}
-                                required
+                                defaultValue={""}
+                                render={({ field }) => {
+                                    return (
+                                        <CampoDeTexto
+                                            value={field.value}
+                                            onChange={(valor) =>
+                                                field.onChange(valor.target.value)
+                                            }
+                                            label={"Nome do local"}
+                                            placeholder={"Digite o nome do local"}
+                                            required
+                                            error={errors?.nome !== undefined}
+                                            helperText={errors?.nome?.message}
+                                        />
+                                    );
+                                }}
                             />
-                            <CampoDeTexto
-                                label={"Endereço"}
-                                placeholder={"Digite o endereço"}
+                            <Controller
+                                control={control}
                                 name={"endereco"}
-                                required
+                                defaultValue={""}
+                                render={({ field }) => {
+                                    return (
+                                        <CampoDeTexto
+                                            value={field.value}
+                                            onChange={(valor) =>
+                                                field.onChange(valor.target.value)
+                                            }
+                                            label={"Endereço"}
+                                            placeholder={"Digite o endereço"}
+                                            required
+                                            error={errors?.endereco !== undefined}
+                                            helperText={errors?.endereco?.message}
+                                        />
+                                    );
+                                }}
                             />
-                            <CampoDeTexto
-                                label={"Modos de contato"}
-                                placeholder={
-                                    "Digite o modo como o usuário pode entrar em contato com você"
-                                }
+                            <Controller
+                                control={control}
                                 name={"contato"}
-                                required
+                                defaultValue={""}
+                                render={({ field }) => {
+                                    return (
+                                        <CampoDeTexto
+                                            value={field.value}
+                                            onChange={(valor) =>
+                                                field.onChange(valor.target.value)
+                                            }
+                                            label={"Modos de contato"}
+                                            placeholder={
+                                                "Digite o modo como o usuário pode entrar em contato com você"
+                                            }
+                                            required
+                                            error={errors?.contato !== undefined}
+                                            helperText={errors?.contato?.message}
+                                        />
+                                    );
+                                }}
                             />
-                            <CampoDeTexto
-                                label={"Descrição"}
-                                placeholder={"Digite a descriçao do local"}
+                            <Controller
+                                control={control}
                                 name={"descricao"}
-                                required
+                                defaultValue={""}
+                                render={({ field }) => {
+                                    return (
+                                        <CampoDeTexto
+                                            value={field.value}
+                                            onChange={(valor) =>
+                                                field.onChange(valor.target.value)
+                                            }
+                                            label={"Descrição"}
+                                            placeholder={"Digite a descriçao do local"}
+                                            required
+                                            error={errors?.descricao !== undefined}
+                                            helperText={errors?.descricao?.message}
+                                        />
+                                    );
+                                }}
                             />
                             <CampoDeTexto
                                 label={"Imagem do local"}
                                 placeholder={"Selecione a imagem do local"}
                                 name={"imagem_local"}
-                                required
                             />
                         </div>
                     </fieldset>
                 </fieldset>
+
                 <fieldset style={{ borderColor: "gray", marginBottom: 32 }}>
                     <fieldset
                         style={{ border: "none", margin: 32, padding: 20, fontSize: 20 }}
@@ -69,36 +132,93 @@ export default function Cadastro() {
                             Dados do administrador do Local
                         </legend>
                         <div style={{ display: "flex", flexDirection: "column" }}>
-                            <CampoDeTexto
-                                label={"Nome"}
-                                placeholder={"Digite o seu nome completo"}
+                            <Controller
+                                control={control}
                                 name={"usuario_nome"}
-                                required
+                                defaultValue={""}
+                                render={({ field }) => {
+                                    return (
+                                        <CampoDeTexto
+                                            value={field.value}
+                                            onChange={(valor) =>
+                                                field.onChange(valor.target.value)
+                                            }
+                                            label={"Nome"}
+                                            placeholder={"Digite o seu nome completo"}
+                                            required
+                                            error={errors?.usuario_nome !== undefined}
+                                            helperText={errors?.usuario_nome?.message}
+                                        />
+                                    );
+                                }}
                             />
-                            <CampoDeTexto
-                                label={"E-mail"}
-                                placeholder={"Digite o seu e-mail"}
+                            <Controller
+                                control={control}
                                 name={"usuario_email"}
-                                type={"email"}
-                                required
+                                defaultValue={""}
+                                render={({ field }) => {
+                                    return (
+                                        <CampoDeTexto
+                                            value={field.value}
+                                            onChange={(valor) =>
+                                                field.onChange(valor.target.value)
+                                            }
+                                            label={"E-mail"}
+                                            placeholder={"Digite o seu e-mail"}
+                                            type={"email"}
+                                            required
+                                            error={errors?.usuario_email !== undefined}
+                                            helperText={errors?.usuario_email?.message}
+                                        />
+                                    );
+                                }}
                             />
-                            <CampoDeTexto
-                                label={"Senha"}
-                                placeholder={"Digite a sua senha"}
+                            <Controller
+                                control={control}
                                 name={"usuario_password"}
-                                type={"password"}
-                                required
-                                value={valorSenha}
-                                onChange={(e) => alterarValorSenha(e.target.value)}
+                                defaultValue={""}
+                                render={({ field }) => {
+                                    return (
+                                        <CampoDeTexto
+                                            value={field.value}
+                                            onChange={(valor) =>
+                                                field.onChange(valor.target.value)
+                                            }
+                                            label={"Senha"}
+                                            placeholder={"Digite a sua senha"}
+                                            required
+                                            type={"password"}
+                                            error={errors?.usuario_password !== undefined}
+                                            helperText={errors?.usuario_password?.message}
+                                        />
+                                    );
+                                }}
                             />
-                            <CampoDeTexto
-                                label={"Confirme a sua senha"}
-                                placeholder={"Confirme a sua senha"}
+                            <Controller
+                                control={control}
                                 name={"usuario_password_confirmation"}
-                                type={"password"}
-                                required
-                                value={valorConfirmarSenha}
-                                onChange={(e) => alterarValorConfirmarSenha(e.target.value)}
+                                defaultValue={""}
+                                render={({ field }) => {
+                                    return (
+                                        <CampoDeTexto
+                                            value={field.value}
+                                            onChange={(valor) =>
+                                                field.onChange(valor.target.value)
+                                            }
+                                            label={"Confirme a sua senha"}
+                                            placeholder={"Confirme a sua senha"}
+                                            required
+                                            type={"password"}
+                                            error={
+                                                errors?.usuario_password_confirmation !==
+                                                undefined
+                                            }
+                                            helperText={
+                                                errors?.usuario_password_confirmation?.message
+                                            }
+                                        />
+                                    );
+                                }}
                             />
                         </div>
                     </fieldset>
@@ -108,7 +228,7 @@ export default function Cadastro() {
                         texto={"Cadastre-se"}
                         modo={"contained"}
                         tipo={"submit"}
-                        desabilitado={valorSenha !== valorConfirmarSenha || valorSenha === ""}
+                        desabilitado={false}
                     />
                 </div>
             </form>
