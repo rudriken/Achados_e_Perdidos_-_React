@@ -4,17 +4,21 @@ import { CampoDeTexto } from "@/visual/componentes/entradas/CampoDeTexto/CampoDe
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { useForm, Controller } from "react-hook-form";
-import { Cadastro } from "@/logica/interfaces/cadastro";
+import { Cadastro_Interface } from "@/logica/interfaces/cadastro";
 import CampoDeArquivo from "@/visual/componentes/entradas/CampoDeArquivo/CampoDeArquivo";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
 
 export default function Cadastro() {
     const {
         control,
         formState: { errors },
         handleSubmit,
-    } = useForm<Cadastro>();
+    } = useForm<Cadastro_Interface>({
+        resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
+    });
 
-    function teste1(dados: object) {
+    function formularioSubmetido(dados: Cadastro_Interface) {
         console.log(dados);
     }
 
@@ -27,7 +31,7 @@ export default function Cadastro() {
                 titulo={"Cadastrar-se na plataforma"}
                 subtitulo={"Primeiro vamos precisar de alguns dados pessoais"}
             />
-            <form onSubmit={handleSubmit(teste1)} autoComplete={"on"}>
+            <form onSubmit={handleSubmit(formularioSubmetido)} autoComplete={"on"}>
                 <fieldset style={{ borderColor: "gray", marginBottom: 32 }}>
                     <fieldset
                         style={{ border: "none", margin: 32, padding: 20, fontSize: 20 }}
@@ -109,7 +113,6 @@ export default function Cadastro() {
                                             }
                                             label={"Descrição"}
                                             placeholder={"Digite a descriçao do local"}
-                                            required
                                             error={errors?.descricao !== undefined}
                                             helperText={errors?.descricao?.message}
                                         />

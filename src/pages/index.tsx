@@ -4,23 +4,29 @@ import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { CampoDeTexto } from "@/visual/componentes/entradas/CampoDeTexto/CampoDeTexto.style";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import { useForm } from "react-hook-form";
-import { Cadastro } from "@/logica/interfaces/cadastro";
+import { Local_Interface } from "@/logica/interfaces/cadastro";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
 
 export default function Inicial() {
     const {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm<Cadastro>();
+    } = useForm<Local_Interface>({
+        resolver: yupResolver(ServicoEstruturaFormulario.buscaLocal()),
+    });
 
-    function teste(dados: object) {
+    function formularioSubmetido(dados: Local_Interface) {
         console.log(dados);
     }
 
     return (
-        <Container>
-            <form onSubmit={handleSubmit(teste)}>
-                <Cabecalho imagem={"img/logos/logo.svg"} botao={"Cadastrar um local"} />
+        <Container
+            style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}
+        >
+            <Cabecalho imagem={"img/logos/logo.svg"} botao={"Cadastrar um local"} />
+            <form onSubmit={handleSubmit(formularioSubmetido)}>
                 <TituloPagina
                     titulo={"Perdeu um Objeto?"}
                     subtitulo={

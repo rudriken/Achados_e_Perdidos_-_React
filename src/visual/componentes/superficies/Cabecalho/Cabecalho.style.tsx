@@ -5,7 +5,7 @@ export const CabecalhoConteiner = styled("div")`
     grid-template-columns: 200px 200px 1fr;
     grid-template-areas: "imagem link botao";
     padding: ${({ theme }) => theme.spacing(4)};
-	box-shadow: 0px 1px 0px black;
+    box-shadow: 0px 1px 0px black;
 `;
 
 export const CabecalhoLogo = styled("img")`

@@ -1,13 +1,16 @@
-export interface Cadastro {
+export interface Cadastro_Interface extends Local_Interface {
+    usuario: Usuario_Interface;
+}
+
+export interface Local_Interface {
     nome: string;
     endereco: string;
     contato: string;
     descricao: string;
     imagem_local: string;
-    usuario: Usuario;
 }
 
-interface Usuario {
+export interface Usuario_Interface {
     nome: string;
     email: string;
     password: string;
