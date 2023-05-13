@@ -5,6 +5,7 @@ import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPa
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { useForm, Controller } from "react-hook-form";
 import { Cadastro } from "@/logica/interfaces/cadastro";
+import CampoDeArquivo from "@/visual/componentes/entradas/CampoDeArquivo/CampoDeArquivo";
 
 export default function Cadastro() {
     const {
@@ -13,7 +14,7 @@ export default function Cadastro() {
         handleSubmit,
     } = useForm<Cadastro>();
 
-    function teste(dados: object) {
+    function teste1(dados: object) {
         console.log(dados);
     }
 
@@ -26,7 +27,7 @@ export default function Cadastro() {
                 titulo={"Cadastrar-se na plataforma"}
                 subtitulo={"Primeiro vamos precisar de alguns dados pessoais"}
             />
-            <form onSubmit={handleSubmit(teste)}>
+            <form onSubmit={handleSubmit(teste1)} autoComplete={"on"}>
                 <fieldset style={{ borderColor: "gray", marginBottom: 32 }}>
                     <fieldset
                         style={{ border: "none", margin: 32, padding: 20, fontSize: 20 }}
@@ -115,10 +116,25 @@ export default function Cadastro() {
                                     );
                                 }}
                             />
-                            <CampoDeTexto
-                                label={"Imagem do local"}
-                                placeholder={"Selecione a imagem do local"}
+                            <Controller
+                                control={control}
                                 name={"imagem_local"}
+                                defaultValue={""}
+                                render={({ field }) => {
+                                    return (
+                                        <CampoDeArquivo
+                                            value={field.value}
+                                            onChange={(valor) =>
+                                                field.onChange(valor.item(0)?.name)
+                                            }
+                                            label={"Imagem do local"}
+                                            placeholder={"Selecione a imagem do local"}
+                                            required
+                                            error={errors?.imagem_local !== undefined}
+                                            helperText={errors?.imagem_local?.message}
+                                        />
+                                    );
+                                }}
                             />
                         </div>
                     </fieldset>
@@ -134,7 +150,7 @@ export default function Cadastro() {
                         <div style={{ display: "flex", flexDirection: "column" }}>
                             <Controller
                                 control={control}
-                                name={"usuario_nome"}
+                                name={"usuario.nome"}
                                 defaultValue={""}
                                 render={({ field }) => {
                                     return (
@@ -146,15 +162,15 @@ export default function Cadastro() {
                                             label={"Nome"}
                                             placeholder={"Digite o seu nome completo"}
                                             required
-                                            error={errors?.usuario_nome !== undefined}
-                                            helperText={errors?.usuario_nome?.message}
+                                            error={errors?.usuario?.nome !== undefined}
+                                            helperText={errors?.usuario?.nome?.message}
                                         />
                                     );
                                 }}
                             />
                             <Controller
                                 control={control}
-                                name={"usuario_email"}
+                                name={"usuario.email"}
                                 defaultValue={""}
                                 render={({ field }) => {
                                     return (
@@ -167,15 +183,15 @@ export default function Cadastro() {
                                             placeholder={"Digite o seu e-mail"}
                                             type={"email"}
                                             required
-                                            error={errors?.usuario_email !== undefined}
-                                            helperText={errors?.usuario_email?.message}
+                                            error={errors?.usuario?.email !== undefined}
+                                            helperText={errors?.usuario?.email?.message}
                                         />
                                     );
                                 }}
                             />
                             <Controller
                                 control={control}
-                                name={"usuario_password"}
+                                name={"usuario.password"}
                                 defaultValue={""}
                                 render={({ field }) => {
                                     return (
@@ -188,15 +204,15 @@ export default function Cadastro() {
                                             placeholder={"Digite a sua senha"}
                                             required
                                             type={"password"}
-                                            error={errors?.usuario_password !== undefined}
-                                            helperText={errors?.usuario_password?.message}
+                                            error={errors?.usuario?.password !== undefined}
+                                            helperText={errors?.usuario?.password?.message}
                                         />
                                     );
                                 }}
                             />
                             <Controller
                                 control={control}
-                                name={"usuario_password_confirmation"}
+                                name={"usuario.password_confirmation"}
                                 defaultValue={""}
                                 render={({ field }) => {
                                     return (
@@ -210,11 +226,12 @@ export default function Cadastro() {
                                             required
                                             type={"password"}
                                             error={
-                                                errors?.usuario_password_confirmation !==
+                                                errors?.usuario?.password_confirmation !==
                                                 undefined
                                             }
                                             helperText={
-                                                errors?.usuario_password_confirmation?.message
+                                                errors?.usuario?.password_confirmation
+                                                    ?.message
                                             }
                                         />
                                     );

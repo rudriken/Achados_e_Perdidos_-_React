@@ -4,9 +4,12 @@ export interface Cadastro {
     contato: string;
     descricao: string;
     imagem_local: string;
-    usuario_nome: string;
-    usuario_email: string;
-    usuario_password: string;
-    usuario_password_confirmation: string;
+    usuario: Usuario;
 }
 
+interface Usuario {
+    nome: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+}

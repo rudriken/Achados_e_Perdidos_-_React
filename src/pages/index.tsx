@@ -3,11 +3,23 @@ import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPa
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { CampoDeTexto } from "@/visual/componentes/entradas/CampoDeTexto/CampoDeTexto.style";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
+import { useForm } from "react-hook-form";
+import { Cadastro } from "@/logica/interfaces/cadastro";
 
 export default function Inicial() {
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm<Cadastro>();
+
+    function teste(dados: object) {
+        console.log(dados);
+    }
+
     return (
         <Container>
-            <form method="GET" action="">
+            <form onSubmit={handleSubmit(teste)}>
                 <Cabecalho imagem={"img/logos/logo.svg"} botao={"Cadastrar um local"} />
                 <TituloPagina
                     titulo={"Perdeu um Objeto?"}
@@ -22,9 +34,11 @@ export default function Inicial() {
                     }}
                 >
                     <CampoDeTexto
+                        {...register("nome")}
                         placeholder={"Digite o nome do local"}
-                        name={"local"}
                         style={{ maxWidth: "600px", width: "100%" }}
+                        error={errors?.nome !== undefined}
+                        helperText={errors?.nome?.message}
                     />
                 </div>
                 <div
