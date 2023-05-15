@@ -16,8 +16,8 @@ interface DialogoProps {
     rotuloConfirmar?: string;
     temBotaoFechar?: boolean;
     temBotaoConfirmar?: boolean;
-	aoFechar: () => {};
-	aoConfirmar: () => {};
+    aoFechar?: () => void;
+    aoConfirmar?: () => {};
 }
 
 export default function Dialogo({
@@ -32,7 +32,7 @@ export default function Dialogo({
 }: DialogoProps): JSX.Element {
     const larguraBotao = 120;
     const margemBotao = 8;
-	const [abrir, alterarAbrir] = useState(aberto);
+    const [abrir, alterarAbrir] = useState(aberto);
 
     return (
         <DialogoConteiner open={abrir}>
@@ -56,7 +56,7 @@ export default function Dialogo({
                                 modo={"text"}
                                 largura={larguraBotao}
                                 margem={margemBotao}
-								aoClicar={() => alterarAbrir(false)}
+                                aoClicar={() => alterarAbrir(false)}
                             />
                         ) : null}
                     </div>

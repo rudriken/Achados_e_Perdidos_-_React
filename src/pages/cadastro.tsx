@@ -8,6 +8,9 @@ import { Cadastro_Interface } from "@/logica/interfaces/cadastro";
 import CampoDeArquivo from "@/visual/componentes/entradas/CampoDeArquivo/CampoDeArquivo";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
+import { ServicoAPI } from "@/logica/servicos/ServicoAPI";
+import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
+import { useState } from "react";
 
 export default function Cadastro() {
     const {
@@ -17,9 +20,16 @@ export default function Cadastro() {
     } = useForm<Cadastro_Interface>({
         resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
     });
+    const [mensagem, alterarMensagem] = useState(false);
 
-    function formularioSubmetido(dados: Cadastro_Interface) {
-        console.log(dados);
+    async function formularioSubmetido(dados: Cadastro_Interface) {
+        try {
+            // console.log(dados);
+            await ServicoAPI.post<Cadastro_Interface>("api/locais", dados);
+            alterarMensagem(true);
+        } catch (erro) {
+            return false;
+        }
     }
 
     return (
@@ -252,6 +262,15 @@ export default function Cadastro() {
                     />
                 </div>
             </form>
+            {mensagem ? (
+                <Dialogo
+                    aberto
+                    titulo={"Sucesso!"}
+                    subtitulo={"Cadastro feito com sucesso!"}
+                    temBotaoFechar
+                    aoFechar={() => alterarMensagem(false)}
+                />
+            ) : null}
         </Container>
     );
 }

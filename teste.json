@@ -1,0 +1,13 @@
+{
+    "nome": "Droga Minas",
+    "endereco": "Av. Comendador Alexandrino Garcia, 1315",
+    "contato": "(34) 9 8765-4321",
+    "descricao": "",
+    "imagem_local": "Captura de tela 2021-01-07 20.10.58.png",
+    "usuario": {
+        "nome": "Rodrigo Gomes de Mendonça",
+        "email": "rod_igomail@hotmail.com",
+        "password": "12345678",
+        "password_confirmation": "12345678"
+    }
+}
