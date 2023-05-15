@@ -24,7 +24,6 @@ export default function Cadastro() {
 
     async function formularioSubmetido(dados: Cadastro_Interface) {
         try {
-            // console.log(dados);
             await ServicoAPI.post<Cadastro_Interface>("api/locais", dados);
             alterarMensagem(true);
         } catch (erro) {
