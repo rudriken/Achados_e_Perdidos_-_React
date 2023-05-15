@@ -1,30 +1,27 @@
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
-import { CampoDeTexto } from "@/visual/componentes/entradas/CampoDeTexto/CampoDeTexto.style";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
-import { useForm, Controller } from "react-hook-form";
-import { Cadastro_Interface } from "@/logica/interfaces/cadastro";
-import CampoDeArquivo from "@/visual/componentes/entradas/CampoDeArquivo/CampoDeArquivo";
+import { useForm, FormProvider } from "react-hook-form";
+import { LocalUsuario_Interface } from "@/logica/interfaces/interfaces";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
 import { ServicoAPI } from "@/logica/servicos/ServicoAPI";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { useState } from "react";
+import Formulario_Local from "@/visual/componentes/entradas/Formularios/Formularios/Formulario_Local";
+import Formulario_Usuario from "@/visual/componentes/entradas/Formularios/Formularios/Formulario_Usuario";
 
 export default function Cadastro() {
-    const {
-        control,
-        formState: { errors },
-        handleSubmit,
-    } = useForm<Cadastro_Interface>({
-        resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
-    });
+    const formularioMetodos = useForm<LocalUsuario_Interface>({
+            resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
+        }),
+        { handleSubmit } = formularioMetodos;
     const [mensagem, alterarMensagem] = useState(false);
 
-    async function formularioSubmetido(dados: Cadastro_Interface) {
+    async function formularioSubmetido(dados: LocalUsuario_Interface) {
         try {
-            await ServicoAPI.post<Cadastro_Interface>("api/locais", dados);
+            await ServicoAPI.post<LocalUsuario_Interface>("api/locais", dados);
             alterarMensagem(true);
         } catch (erro) {
             return false;
@@ -32,244 +29,69 @@ export default function Cadastro() {
     }
 
     return (
-        <Container
-            style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}
-        >
+        <FormProvider {...formularioMetodos}>
             <Cabecalho imagem={"img/logos/logo.svg"} />
-            <TituloPagina
-                titulo={"Cadastrar-se na plataforma"}
-                subtitulo={"Primeiro vamos precisar de alguns dados pessoais"}
-            />
-            <form onSubmit={handleSubmit(formularioSubmetido)} autoComplete={"on"}>
-                <fieldset style={{ borderColor: "gray", marginBottom: 32 }}>
-                    <fieldset
-                        style={{ border: "none", margin: 32, padding: 20, fontSize: 20 }}
-                    >
-                        <legend style={{ fontFamily: `Arial` }}>Dados do Local</legend>
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                            <Controller
-                                control={control}
-                                name={"nome"}
-                                defaultValue={""}
-                                render={({ field }) => {
-                                    return (
-                                        <CampoDeTexto
-                                            value={field.value}
-                                            onChange={(valor) =>
-                                                field.onChange(valor.target.value)
-                                            }
-                                            label={"Nome do local"}
-                                            placeholder={"Digite o nome do local"}
-                                            required
-                                            error={errors?.nome !== undefined}
-                                            helperText={errors?.nome?.message}
-                                        />
-                                    );
-                                }}
-                            />
-                            <Controller
-                                control={control}
-                                name={"endereco"}
-                                defaultValue={""}
-                                render={({ field }) => {
-                                    return (
-                                        <CampoDeTexto
-                                            value={field.value}
-                                            onChange={(valor) =>
-                                                field.onChange(valor.target.value)
-                                            }
-                                            label={"Endereço"}
-                                            placeholder={"Digite o endereço"}
-                                            required
-                                            error={errors?.endereco !== undefined}
-                                            helperText={errors?.endereco?.message}
-                                        />
-                                    );
-                                }}
-                            />
-                            <Controller
-                                control={control}
-                                name={"contato"}
-                                defaultValue={""}
-                                render={({ field }) => {
-                                    return (
-                                        <CampoDeTexto
-                                            value={field.value}
-                                            onChange={(valor) =>
-                                                field.onChange(valor.target.value)
-                                            }
-                                            label={"Modos de contato"}
-                                            placeholder={
-                                                "Digite o modo como o usuário pode entrar em contato com você"
-                                            }
-                                            required
-                                            error={errors?.contato !== undefined}
-                                            helperText={errors?.contato?.message}
-                                        />
-                                    );
-                                }}
-                            />
-                            <Controller
-                                control={control}
-                                name={"descricao"}
-                                defaultValue={""}
-                                render={({ field }) => {
-                                    return (
-                                        <CampoDeTexto
-                                            value={field.value}
-                                            onChange={(valor) =>
-                                                field.onChange(valor.target.value)
-                                            }
-                                            label={"Descrição"}
-                                            placeholder={"Digite a descriçao do local"}
-                                            error={errors?.descricao !== undefined}
-                                            helperText={errors?.descricao?.message}
-                                        />
-                                    );
-                                }}
-                            />
-                            <Controller
-                                control={control}
-                                name={"imagem_local"}
-                                defaultValue={""}
-                                render={({ field }) => {
-                                    return (
-                                        <CampoDeArquivo
-                                            value={field.value}
-                                            onChange={(valor) =>
-                                                field.onChange(valor.item(0)?.name)
-                                            }
-                                            label={"Imagem do local"}
-                                            placeholder={"Selecione a imagem do local"}
-                                            required
-                                            error={errors?.imagem_local !== undefined}
-                                            helperText={errors?.imagem_local?.message}
-                                        />
-                                    );
-                                }}
-                            />
-                        </div>
-                    </fieldset>
-                </fieldset>
-
-                <fieldset style={{ borderColor: "gray", marginBottom: 32 }}>
-                    <fieldset
-                        style={{ border: "none", margin: 32, padding: 20, fontSize: 20 }}
-                    >
-                        <legend style={{ fontFamily: `Arial` }}>
-                            Dados do administrador do Local
-                        </legend>
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                            <Controller
-                                control={control}
-                                name={"usuario.nome"}
-                                defaultValue={""}
-                                render={({ field }) => {
-                                    return (
-                                        <CampoDeTexto
-                                            value={field.value}
-                                            onChange={(valor) =>
-                                                field.onChange(valor.target.value)
-                                            }
-                                            label={"Nome"}
-                                            placeholder={"Digite o seu nome completo"}
-                                            required
-                                            error={errors?.usuario?.nome !== undefined}
-                                            helperText={errors?.usuario?.nome?.message}
-                                        />
-                                    );
-                                }}
-                            />
-                            <Controller
-                                control={control}
-                                name={"usuario.email"}
-                                defaultValue={""}
-                                render={({ field }) => {
-                                    return (
-                                        <CampoDeTexto
-                                            value={field.value}
-                                            onChange={(valor) =>
-                                                field.onChange(valor.target.value)
-                                            }
-                                            label={"E-mail"}
-                                            placeholder={"Digite o seu e-mail"}
-                                            type={"email"}
-                                            required
-                                            error={errors?.usuario?.email !== undefined}
-                                            helperText={errors?.usuario?.email?.message}
-                                        />
-                                    );
-                                }}
-                            />
-                            <Controller
-                                control={control}
-                                name={"usuario.password"}
-                                defaultValue={""}
-                                render={({ field }) => {
-                                    return (
-                                        <CampoDeTexto
-                                            value={field.value}
-                                            onChange={(valor) =>
-                                                field.onChange(valor.target.value)
-                                            }
-                                            label={"Senha"}
-                                            placeholder={"Digite a sua senha"}
-                                            required
-                                            type={"password"}
-                                            error={errors?.usuario?.password !== undefined}
-                                            helperText={errors?.usuario?.password?.message}
-                                        />
-                                    );
-                                }}
-                            />
-                            <Controller
-                                control={control}
-                                name={"usuario.password_confirmation"}
-                                defaultValue={""}
-                                render={({ field }) => {
-                                    return (
-                                        <CampoDeTexto
-                                            value={field.value}
-                                            onChange={(valor) =>
-                                                field.onChange(valor.target.value)
-                                            }
-                                            label={"Confirme a sua senha"}
-                                            placeholder={"Confirme a sua senha"}
-                                            required
-                                            type={"password"}
-                                            error={
-                                                errors?.usuario?.password_confirmation !==
-                                                undefined
-                                            }
-                                            helperText={
-                                                errors?.usuario?.password_confirmation
-                                                    ?.message
-                                            }
-                                        />
-                                    );
-                                }}
-                            />
-                        </div>
-                    </fieldset>
-                </fieldset>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    <Botao
-                        texto={"Cadastre-se"}
-                        modo={"contained"}
-                        tipo={"submit"}
-                        desabilitado={false}
-                    />
-                </div>
-            </form>
-            {mensagem ? (
-                <Dialogo
-                    aberto
-                    titulo={"Sucesso!"}
-                    subtitulo={"Cadastro feito com sucesso!"}
-                    temBotaoFechar
-                    aoFechar={() => alterarMensagem(false)}
+            <Container>
+                <TituloPagina
+                    titulo={"Cadastrar-se na plataforma"}
+                    subtitulo={"Primeiro vamos precisar de alguns dados pessoais"}
                 />
-            ) : null}
-        </Container>
+
+                <form onSubmit={handleSubmit(formularioSubmetido)} autoComplete={"on"}>
+                    <fieldset
+                        style={{
+                            paddingTop: 16,
+                            paddingBottom: 16,
+                            paddingLeft: 56,
+                            paddingRight: 56,
+                            marginBottom: 32,
+                        }}
+                    >
+                        <Typography sx={{ mb: 2, color: "gray" }}>Dados do local</Typography>
+                        <Formulario_Local />
+                    </fieldset>
+
+                    <fieldset
+                        style={{
+                            paddingTop: 16,
+                            paddingBottom: 16,
+                            paddingLeft: 56,
+                            paddingRight: 56,
+                            marginBottom: 32,
+                        }}
+                    >
+                        <Typography sx={{ my: 2, color: "gray" }}>
+                            Dados do administrador do local
+                        </Typography>
+                        <Formulario_Usuario />
+                    </fieldset>
+
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Botao
+                            texto={"Cadastre-se"}
+                            modo={"contained"}
+                            tipo={"submit"}
+                            cor={"primary"}
+                            desabilitado={false}
+                        />
+                    </div>
+                </form>
+            </Container>
+
+            {mensagem && (
+                <Dialogo
+                    aberto={mensagem}
+                    aoFechar={() => alterarMensagem(false)}
+                    titulo={"Sucesso"}
+                    subtitulo={"Cadastro realizado com sucesso"}
+                    temBotaoFechar
+                />
+            )}
+        </FormProvider>
     );
 }

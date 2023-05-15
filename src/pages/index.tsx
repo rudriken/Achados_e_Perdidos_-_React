@@ -4,7 +4,7 @@ import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { CampoDeTexto } from "@/visual/componentes/entradas/CampoDeTexto/CampoDeTexto.style";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import { useForm } from "react-hook-form";
-import { Local_Interface } from "@/logica/interfaces/cadastro";
+import { Local_Interface } from "@/logica/interfaces/interfaces";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
 

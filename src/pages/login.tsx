@@ -1,4 +1,4 @@
-import { Usuario_Interface } from "@/logica/interfaces/cadastro";
+import { Usuario_Interface } from "@/logica/interfaces/interfaces";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import { CampoDeTexto } from "@/visual/componentes/entradas/CampoDeTexto/CampoDeTexto.style";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";

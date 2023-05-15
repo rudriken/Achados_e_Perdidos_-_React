@@ -1,4 +1,4 @@
-export interface Cadastro_Interface extends Local_Interface {
+export interface LocalUsuario_Interface extends Local_Interface {
     usuario: Usuario_Interface;
 }
 
