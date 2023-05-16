@@ -16,3 +16,8 @@ export interface Usuario_Interface {
     password: string;
     password_confirmation: string;
 }
+
+export interface Login_Interface {
+    access: string;
+    refresh: string;
+}

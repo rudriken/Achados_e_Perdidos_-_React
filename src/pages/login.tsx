@@ -1,69 +1,62 @@
-import { Usuario_Interface } from "@/logica/interfaces/interfaces";
+import { Usuario_Interface } from "@/logica/interfaces/interfaces_internas";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
-import { CampoDeTexto } from "@/visual/componentes/entradas/CampoDeTexto/CampoDeTexto.style";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { Container } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
+import { Servico_EstruturaFormulario } from "@/logica/servicos/Servico_EstruturaFormulario";
+import Formulario_Login from "@/visual/componentes/entradas/Formularios/Formularios/Formulario_Login";
+import { Servico_Login } from "@/logica/servicos/Servico_Login";
 
 export default function Login() {
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-    } = useForm<Usuario_Interface>({
-        resolver: yupResolver(ServicoEstruturaFormulario.login()),
-    });
+    const formularioMetodos = useForm<Usuario_Interface>({
+            resolver: yupResolver(Servico_EstruturaFormulario.login()),
+        }),
+        { handleSubmit } = formularioMetodos;
 
-    function formularioSubmetido(dados: Usuario_Interface) {
-        console.log(dados);
+    async function formularioSubmetido(dados: Usuario_Interface) {
+        await Servico_Login.entrar(dados);
     }
 
     return (
-        <Container
-            style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}
-        >
+        <FormProvider {...formularioMetodos}>
             <Cabecalho imagem={"img/logos/logo.svg"} />
-            <TituloPagina
-                titulo={"Realizar o login"}
-                subtitulo={"Realize o login para administrar os objetos cadastrados"}
-            />
-            <form onSubmit={handleSubmit(formularioSubmetido)}>
-                <fieldset style={{ borderColor: "gray", marginBottom: 0 }}>
+            <Container>
+                <TituloPagina
+                    titulo={"Realizar o login"}
+                    subtitulo={"Realize o login para administrar os objetos cadastrados"}
+                />
+
+                <form onSubmit={handleSubmit(formularioSubmetido)} autoComplete={"on"}>
                     <fieldset
-                        style={{ border: "none", margin: 32, padding: 20, fontSize: 20 }}
+                        style={{
+                            paddingTop: 16,
+                            paddingBottom: 16,
+                            paddingLeft: 56,
+                            paddingRight: 56,
+                            marginBottom: 32,
+                        }}
                     >
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                            <CampoDeTexto
-                                {...register("email")}
-                                label={"E-mail"}
-                                placeholder={"Digite o seu e-mail"}
-                                type={"email"}
-                                error={errors?.email !== undefined}
-                                helperText={errors?.email?.message}
-                            />
-                            <CampoDeTexto
-                                {...register("password")}
-                                label={"Senha"}
-                                placeholder={"Digite a sua senha"}
-                                type={"password"}
-                                error={errors?.password !== undefined}
-                                helperText={errors?.password?.message}
-                            />
-                        </div>
+                        <Formulario_Login />
                     </fieldset>
-                </fieldset>
-                <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
-                    <Botao
-                        texto={"Entrar"}
-                        modo={"contained"}
-                        tipo={"submit"}
-                        desabilitado={false}
-                    />
-                </div>
-            </form>
-        </Container>
+
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Botao
+                            texto={"Entrar"}
+                            modo={"contained"}
+                            tipo={"submit"}
+                            cor={"primary"}
+                            desabilitado={false}
+                        />
+                    </div>
+                </form>
+            </Container>
+        </FormProvider>
     );
 }

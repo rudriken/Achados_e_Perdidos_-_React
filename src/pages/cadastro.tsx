@@ -3,10 +3,10 @@ import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { useForm, FormProvider } from "react-hook-form";
-import { LocalUsuario_Interface } from "@/logica/interfaces/interfaces";
+import { LocalUsuario_Interface } from "@/logica/interfaces/interfaces_internas";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
-import { ServicoAPI } from "@/logica/servicos/ServicoAPI";
+import { Servico_EstruturaFormulario } from "@/logica/servicos/Servico_EstruturaFormulario";
+import { Servico_API } from "@/logica/servicos/Servico_API";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { useState } from "react";
 import Formulario_Local from "@/visual/componentes/entradas/Formularios/Formularios/Formulario_Local";
@@ -14,14 +14,14 @@ import Formulario_Usuario from "@/visual/componentes/entradas/Formularios/Formul
 
 export default function Cadastro() {
     const formularioMetodos = useForm<LocalUsuario_Interface>({
-            resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
+            resolver: yupResolver(Servico_EstruturaFormulario.cadastro()),
         }),
         { handleSubmit } = formularioMetodos;
     const [mensagem, alterarMensagem] = useState(false);
 
     async function formularioSubmetido(dados: LocalUsuario_Interface) {
         try {
-            await ServicoAPI.post<LocalUsuario_Interface>("api/locais", dados);
+            await Servico_API.post<LocalUsuario_Interface>("api/locais", dados);
             alterarMensagem(true);
         } catch (erro) {
             return false;

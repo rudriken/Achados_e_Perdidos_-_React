@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const ServicoEstruturaFormulario = {
+export const Servico_EstruturaFormulario = {
     cadastro: () => {
         return yup
             .object()

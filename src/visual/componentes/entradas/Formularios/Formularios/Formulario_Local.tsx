@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { CampoDeTexto } from "../../CampoDeTexto/CampoDeTexto.style";
-import { LocalUsuario_Interface } from "@/logica/interfaces/interfaces";
+import { LocalUsuario_Interface } from "@/logica/interfaces/interfaces_internas";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
 import { FormularioCampos } from "../Formularios.style";
 

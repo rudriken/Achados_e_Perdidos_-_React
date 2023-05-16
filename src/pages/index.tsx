@@ -4,9 +4,9 @@ import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { CampoDeTexto } from "@/visual/componentes/entradas/CampoDeTexto/CampoDeTexto.style";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import { useForm } from "react-hook-form";
-import { Local_Interface } from "@/logica/interfaces/interfaces";
+import { Local_Interface } from "@/logica/interfaces/interfaces_internas";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
+import { Servico_EstruturaFormulario } from "@/logica/servicos/Servico_EstruturaFormulario";
 
 export default function Inicial() {
     const {
@@ -14,7 +14,7 @@ export default function Inicial() {
         formState: { errors },
         handleSubmit,
     } = useForm<Local_Interface>({
-        resolver: yupResolver(ServicoEstruturaFormulario.buscaLocal()),
+        resolver: yupResolver(Servico_EstruturaFormulario.buscaLocal()),
     });
 
     function formularioSubmetido(dados: Local_Interface) {
