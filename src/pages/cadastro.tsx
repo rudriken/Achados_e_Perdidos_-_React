@@ -86,7 +86,9 @@ export default function Cadastro() {
             {mensagem && (
                 <Dialogo
                     aberto={mensagem}
-                    aoFechar={() => alterarMensagem(false)}
+                    aoFechar={() => {
+                        alterarMensagem(false);
+                    }}
                     titulo={"Sucesso"}
                     subtitulo={"Cadastro realizado com sucesso"}
                     temBotaoFechar
