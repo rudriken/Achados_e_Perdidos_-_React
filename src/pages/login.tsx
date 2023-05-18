@@ -1,26 +1,17 @@
-import { UsuarioInterface } from "@/logica/interfaces/FrontInterfaces";
+import { Container, Typography } from "@mui/material";
+import { FormProvider } from "react-hook-form";
+import useLogin from "@/logica/ganchos/pages/useLogin";
+import FormularioLogin from "@/visual/componentes/entradas/Formularios/Formularios/FormularioLogin";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
-import { Container } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
-import FormularioLogin from "@/visual/componentes/entradas/Formularios/Formularios/FormularioLogin";
-import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
 
 export default function Login() {
-    const formularioMetodos = useForm<UsuarioInterface>({
-            resolver: yupResolver(ServicoEstruturaFormulario.login()),
-        }),
-        { handleSubmit } = formularioMetodos;
-
-    async function formularioSubmetido(dados: UsuarioInterface) {
-        await ServicoLogin.entrar(dados);
-    }
+    const { formularioMetodosLogin, logar, erro } = useLogin(),
+        { handleSubmit } = formularioMetodosLogin;
 
     return (
-        <FormProvider {...formularioMetodos}>
+        <FormProvider {...formularioMetodosLogin}>
             <Cabecalho imagem={"img/logos/logo.svg"} />
             <Container>
                 <TituloPagina
@@ -28,7 +19,7 @@ export default function Login() {
                     subtitulo={"Realize o login para administrar os objetos cadastrados"}
                 />
 
-                <form onSubmit={handleSubmit(formularioSubmetido)} autoComplete={"on"}>
+                <form onSubmit={handleSubmit(logar)} autoComplete={"on"}>
                     <fieldset
                         style={{
                             paddingTop: 16,
@@ -40,6 +31,12 @@ export default function Login() {
                     >
                         <FormularioLogin />
                     </fieldset>
+
+                    {erro && (
+                        <Typography color={"error"} textAlign={"center"} marginBottom={1}>
+                            Usuário ou senha inválido
+                        </Typography>
+                    )}
 
                     <div
                         style={{

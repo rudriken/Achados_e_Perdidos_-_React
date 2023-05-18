@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 
-export const TituloPagina_Conteiner = styled("div")`
+export const TituloPaginaConteiner = styled("div")`
     justify-items: center;
     font-family: ${({ theme }) => theme.typography.fontFamily};
     text-align: center;
