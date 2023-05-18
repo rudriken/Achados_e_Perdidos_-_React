@@ -1,35 +1,19 @@
+import { FormProvider } from "react-hook-form";
 import { Container, Typography } from "@mui/material";
+import useCadastro from "@/logica/ganchos/pages/useCadastro";
+import FormularioLocal from "@/visual/componentes/entradas/Formularios/Formularios/FormularioLocal";
+import FormularioUsuario from "@/visual/componentes/entradas/Formularios/Formularios/FormularioUsuario";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
-import { useForm, FormProvider } from "react-hook-form";
-import { LocalUsuarioInterface } from "@/logica/interfaces/FrontInterfaces";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
-import { ServicoAPI } from "@/logica/servicos/ServicoApi";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
-import { useState } from "react";
-import FormularioLocal from "@/visual/componentes/entradas/Formularios/Formularios/FormularioLocal";
-import FormularioUsuario from "@/visual/componentes/entradas/Formularios/Formularios/FormularioUsuario";
 
 export default function Cadastro() {
-    const formularioMetodos = useForm<LocalUsuarioInterface>({
-            resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
-        }),
-        { handleSubmit } = formularioMetodos;
-    const [mensagem, alterarMensagem] = useState(false);
-
-    async function formularioSubmetido(dados: LocalUsuarioInterface) {
-        try {
-            await ServicoAPI.post<LocalUsuarioInterface>("api/locais", dados);
-            alterarMensagem(true);
-        } catch (erro) {
-            return false;
-        }
-    }
+    const { formularioMetodosCadastro, cadastrar, mensagem, alterarMensagem } = useCadastro(),
+        { handleSubmit } = formularioMetodosCadastro;
 
     return (
-        <FormProvider {...formularioMetodos}>
+        <FormProvider {...formularioMetodosCadastro}>
             <Cabecalho imagem={"img/logos/logo.svg"} />
             <Container>
                 <TituloPagina
@@ -37,7 +21,7 @@ export default function Cadastro() {
                     subtitulo={"Primeiro vamos precisar de alguns dados pessoais"}
                 />
 
-                <form onSubmit={handleSubmit(formularioSubmetido)} autoComplete={"on"}>
+                <form onSubmit={handleSubmit(cadastrar)} autoComplete={"on"}>
                     <fieldset
                         style={{
                             paddingTop: 16,

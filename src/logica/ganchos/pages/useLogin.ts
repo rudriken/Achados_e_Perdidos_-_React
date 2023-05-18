@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
 import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
-import { UsuarioInterface } from "../interfaces/FrontInterfaces";
+import { UsuarioInterface } from "../../interfaces/FrontInterfaces";
 
 export default function useLogin() {
     const formularioMetodosLogin = useForm<UsuarioInterface>({
