@@ -35,10 +35,10 @@ export const ServicoEstruturaFormulario = {
                         .min(5, "E-mail muito pequeno")
                         .max(255, "E-mail com muitos caracteres, inaceitável")
                         .required()
-                        .email(),
+                        .email("Tem que ser um e-mail válido!"),
                     password: yup
                         .string()
-                        .min(8, "A senha precisa ter pelo menos 8 caracteres")
+                        .min(3, "A senha precisa ter pelo menos 3 caracteres")
                         .required(),
                     password_confirmation: yup
                         .string()
@@ -64,10 +64,10 @@ export const ServicoEstruturaFormulario = {
                 .min(3, "E-mail curto e inválido")
                 .max(255, "Email muito grande, inaceitável")
                 .required()
-                .email(),
+                .email("Tem que ser um e-mail válido!"),
             password: yup
                 .string()
-                .min(8, "A senha precisa ter pelo menos 8 caracteres")
+                .min(3, "A senha precisa ter pelo menos 3 caracteres")
                 .required(),
         });
     },
