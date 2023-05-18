@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { CampoDeTexto } from "../../CampoDeTexto/CampoDeTexto.style";
-import { LocalUsuarioInterface } from "@/logica/interfaces/FrontInterfaces";
+import { FrontLocalInterface } from "@/logica/interfaces/FrontInterfaces";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
 import { FormularioCampos } from "../Formularios.style";
 
@@ -8,7 +8,7 @@ export default function FormularioLocal() {
     const {
         control,
         formState: { errors },
-    } = useFormContext<LocalUsuarioInterface>();
+    } = useFormContext<FrontLocalInterface>();
 
     return (
         <FormularioCampos>

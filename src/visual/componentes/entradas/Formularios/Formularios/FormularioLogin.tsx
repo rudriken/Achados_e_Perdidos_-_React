@@ -1,13 +1,13 @@
 import { useFormContext } from "react-hook-form";
 import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
 import { FormularioCampos } from "../Formularios.style";
-import { UsuarioInterface } from "@/logica/interfaces/FrontInterfaces";
+import { FrontLoginInterface } from "@/logica/interfaces/FrontInterfaces";
 
 export default function FormularioLogin() {
     const {
         register,
         formState: { errors },
-    } = useFormContext<UsuarioInterface>();
+    } = useFormContext<FrontLoginInterface>();
 
     return (
         <FormularioCampos>

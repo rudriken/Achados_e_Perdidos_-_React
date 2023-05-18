@@ -1,20 +1,27 @@
-export interface ApiRespostaInterface {
+export interface BackLocalUsuarioInterface {
     id: number;
     nome: string;
     endereco: string;
     contato: string;
     descricao: string | null;
     imagem: string;
-    usuario: {
-        id: number;
-        nome: string;
-        email: string;
-    };
-    links: ApiLinksInterface[];
+    usuario: BackUsuarioInterface;
+    links: BackLinksInterface[];
 }
 
-interface ApiLinksInterface {
+interface BackUsuarioInterface {
+    id: number;
+    nome: string;
+    email: string;
+}
+
+interface BackLinksInterface {
     type: string;
     rel: string;
     uri: string;
+}
+
+export interface BackLoginInterface {
+    access: string;
+    refresh: string;
 }

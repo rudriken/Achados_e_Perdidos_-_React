@@ -1,8 +1,8 @@
-export interface LocalUsuarioInterface extends LocalInterface {
-    usuario: UsuarioInterface;
+export interface FrontLocalUsuarioInterface extends FrontLocalInterface {
+    usuario: FrontUsuarioInterface;
 }
 
-export interface LocalInterface {
+export interface FrontLocalInterface {
     nome: string;
     endereco: string;
     contato: string;
@@ -10,14 +10,16 @@ export interface LocalInterface {
     imagem_local: string;
 }
 
-export interface UsuarioInterface {
+export interface FrontUsuarioInterface {
     nome: string;
     email: string;
     password: string;
     password_confirmation: string;
 }
 
-export interface LoginInterface {
-    access: string;
-    refresh: string;
+export interface FrontLoginInterface
+    extends Omit<Omit<FrontUsuarioInterface, "nome">, "password_confirmation"> {
+    /* esta interface tem essa estrutura: */
+    // email: string;
+    // password: string;
 }
