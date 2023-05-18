@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { LocalUsuario_Interface } from "../interfaces/interfaces_internas";
+import { LocalUsuarioInterface } from "../interfaces/FrontInterfaces";
 
 export default function useCadastro() {
-    const formularioCadastro = useForm<LocalUsuario_Interface>();
+    const formularioCadastro = useForm<LocalUsuarioInterface>();
 }

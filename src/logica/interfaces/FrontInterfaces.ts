@@ -1,8 +1,8 @@
-export interface LocalUsuario_Interface extends Local_Interface {
-    usuario: Usuario_Interface;
+export interface LocalUsuarioInterface extends LocalInterface {
+    usuario: UsuarioInterface;
 }
 
-export interface Local_Interface {
+export interface LocalInterface {
     nome: string;
     endereco: string;
     contato: string;
@@ -10,14 +10,14 @@ export interface Local_Interface {
     imagem_local: string;
 }
 
-export interface Usuario_Interface {
+export interface UsuarioInterface {
     nome: string;
     email: string;
     password: string;
     password_confirmation: string;
 }
 
-export interface Login_Interface {
+export interface LoginInterface {
     access: string;
     refresh: string;
 }

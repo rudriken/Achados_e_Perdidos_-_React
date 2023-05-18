@@ -1,4 +1,4 @@
-export interface Resposta_API {
+export interface ApiRespostaInterface {
     id: number;
     nome: string;
     endereco: string;
@@ -10,10 +10,10 @@ export interface Resposta_API {
         nome: string;
         email: string;
     };
-    links: Links_API[];
+    links: ApiLinksInterface[];
 }
 
-interface Links_API {
+interface ApiLinksInterface {
     type: string;
     rel: string;
     uri: string;

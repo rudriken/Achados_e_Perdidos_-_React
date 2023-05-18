@@ -3,25 +3,25 @@ import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { useForm, FormProvider } from "react-hook-form";
-import { LocalUsuario_Interface } from "@/logica/interfaces/interfaces_internas";
+import { LocalUsuarioInterface } from "@/logica/interfaces/FrontInterfaces";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Servico_EstruturaFormulario } from "@/logica/servicos/Servico_EstruturaFormulario";
-import { Servico_API } from "@/logica/servicos/Servico_API";
+import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
+import { ServicoAPI } from "@/logica/servicos/ServicoApi";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { useState } from "react";
-import Formulario_Local from "@/visual/componentes/entradas/Formularios/Formularios/Formulario_Local";
-import Formulario_Usuario from "@/visual/componentes/entradas/Formularios/Formularios/Formulario_Usuario";
+import FormularioLocal from "@/visual/componentes/entradas/Formularios/Formularios/FormularioLocal";
+import FormularioUsuario from "@/visual/componentes/entradas/Formularios/Formularios/FormularioUsuario";
 
 export default function Cadastro() {
-    const formularioMetodos = useForm<LocalUsuario_Interface>({
-            resolver: yupResolver(Servico_EstruturaFormulario.cadastro()),
+    const formularioMetodos = useForm<LocalUsuarioInterface>({
+            resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
         }),
         { handleSubmit } = formularioMetodos;
     const [mensagem, alterarMensagem] = useState(false);
 
-    async function formularioSubmetido(dados: LocalUsuario_Interface) {
+    async function formularioSubmetido(dados: LocalUsuarioInterface) {
         try {
-            await Servico_API.post<LocalUsuario_Interface>("api/locais", dados);
+            await ServicoAPI.post<LocalUsuarioInterface>("api/locais", dados);
             alterarMensagem(true);
         } catch (erro) {
             return false;
@@ -48,7 +48,7 @@ export default function Cadastro() {
                         }}
                     >
                         <Typography sx={{ mb: 2, color: "gray" }}>Dados do local</Typography>
-                        <Formulario_Local />
+                        <FormularioLocal />
                     </fieldset>
 
                     <fieldset
@@ -63,7 +63,7 @@ export default function Cadastro() {
                         <Typography sx={{ my: 2, color: "gray" }}>
                             Dados do administrador do local
                         </Typography>
-                        <Formulario_Usuario />
+                        <FormularioUsuario />
                     </fieldset>
 
                     <div

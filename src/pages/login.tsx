@@ -1,22 +1,22 @@
-import { Usuario_Interface } from "@/logica/interfaces/interfaces_internas";
+import { UsuarioInterface } from "@/logica/interfaces/FrontInterfaces";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { Container } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Servico_EstruturaFormulario } from "@/logica/servicos/Servico_EstruturaFormulario";
-import Formulario_Login from "@/visual/componentes/entradas/Formularios/Formularios/Formulario_Login";
-import { Servico_Login } from "@/logica/servicos/Servico_Login";
+import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
+import FormularioLogin from "@/visual/componentes/entradas/Formularios/Formularios/FormularioLogin";
+import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
 
 export default function Login() {
-    const formularioMetodos = useForm<Usuario_Interface>({
-            resolver: yupResolver(Servico_EstruturaFormulario.login()),
+    const formularioMetodos = useForm<UsuarioInterface>({
+            resolver: yupResolver(ServicoEstruturaFormulario.login()),
         }),
         { handleSubmit } = formularioMetodos;
 
-    async function formularioSubmetido(dados: Usuario_Interface) {
-        await Servico_Login.entrar(dados);
+    async function formularioSubmetido(dados: UsuarioInterface) {
+        await ServicoLogin.entrar(dados);
     }
 
     return (
@@ -38,7 +38,7 @@ export default function Login() {
                             marginBottom: 32,
                         }}
                     >
-                        <Formulario_Login />
+                        <FormularioLogin />
                     </fieldset>
 
                     <div
