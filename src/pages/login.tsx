@@ -19,14 +19,26 @@ export default function Login() {
                     subtitulo={"Realize o login para administrar os objetos cadastrados"}
                 />
 
-                <form onSubmit={handleSubmit(logar)} autoComplete={"on"}>
+                <form
+                    onSubmit={handleSubmit(logar)}
+                    autoComplete={"on"}
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
                     <fieldset
                         style={{
-                            paddingTop: 16,
+                            paddingTop: 24,
                             paddingBottom: 16,
                             paddingLeft: 56,
                             paddingRight: 56,
                             marginBottom: 32,
+                            border: "1px solid #abb6c3",
+                            maxWidth: 900,
+                            width: "80%",
                         }}
                     >
                         <FormularioLogin />
@@ -40,20 +52,13 @@ export default function Login() {
                         )}
                     </div>
 
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <Botao
-                            texto={"Entrar"}
-                            modo={"contained"}
-                            tipo={"submit"}
-                            cor={"primary"}
-                            desabilitado={false}
-                        />
-                    </div>
+                    <Botao
+                        texto={"Entrar"}
+                        modo={"contained"}
+                        tipo={"submit"}
+                        cor={"primary"}
+                        desabilitado={false}
+                    />
                 </form>
             </Container>
         </FormProvider>

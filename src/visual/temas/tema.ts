@@ -13,8 +13,8 @@ const tema = createTheme({
             dark: "#1DD6CB",
         },
         text: {
-            primary: "#abb6c3",
-            secondary: "#e5e5e5",
+            primary: "#000000",
+            secondary: "#aaaaaa",
         },
         error: {
             main: "#FC3C00",
@@ -54,7 +54,7 @@ const tema = createTheme({
                 InputLabelProps: {
                     required: false,
                 },
-                required: true,
+                required: false,
             },
         },
     },

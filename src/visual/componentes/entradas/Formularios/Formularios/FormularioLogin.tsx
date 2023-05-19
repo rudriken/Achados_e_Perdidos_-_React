@@ -18,7 +18,7 @@ export default function FormularioLogin() {
                 type={"email"}
                 error={errors?.email !== undefined}
                 helperText={errors?.email?.message}
-                style={{ marginBottom: errors?.email ? 15 : 38 }}
+                style={{ marginBottom: 24 }}
             />
             <CampoDeTexto
                 {...register("password")}
@@ -27,7 +27,6 @@ export default function FormularioLogin() {
                 type={"password"}
                 error={errors?.password !== undefined}
                 helperText={errors?.password?.message}
-                style={{ marginBottom: errors?.password ? 0 : 23 }}
             />
         </FormularioCampos>
     );
