@@ -4,7 +4,7 @@ const tema = createTheme({
     palette: {
         primary: {
             light: "#9661FF",
-            main: "#6B2AEE",
+            main: "#6c45f4",
             dark: "#581ECD",
         },
         secondary: {
@@ -13,8 +13,8 @@ const tema = createTheme({
             dark: "#1DD6CB",
         },
         text: {
-            primary: "#707070",
-            secondary: "#9B9B9B",
+            primary: "#abb6c3",
+            secondary: "#e5e5e5",
         },
         error: {
             main: "#FC3C00",

@@ -79,8 +79,8 @@ export default function FormularioUsuario() {
                         <CampoDeTexto
                             value={field.value}
                             onChange={(valor) => field.onChange(valor.target.value)}
-                            label={"Confirme a sua senha"}
-                            placeholder={"Confirme a sua senha"}
+                            label={"Confirme sua senha"}
+                            placeholder={"Confirme sua senha"}
                             required
                             type={"password"}
                             error={errors?.usuario?.password_confirmation !== undefined}

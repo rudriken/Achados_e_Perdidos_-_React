@@ -21,17 +21,32 @@ export default function Cadastro() {
                     subtitulo={"Primeiro vamos precisar de alguns dados pessoais"}
                 />
 
-                <form onSubmit={handleSubmit(cadastrar)} autoComplete={"on"}>
+                <form
+                    onSubmit={handleSubmit(cadastrar)}
+                    autoComplete={"on"}
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
                     <fieldset
+                        color="#abb6c3"
                         style={{
                             paddingTop: 16,
                             paddingBottom: 16,
                             paddingLeft: 56,
                             paddingRight: 56,
                             marginBottom: 32,
+                            border: "1px solid #abb6c3",
+                            maxWidth: 900,
+                            width: "80%",
                         }}
                     >
-                        <Typography sx={{ mb: 2, color: "gray" }}>Dados do local</Typography>
+                        <Typography sx={{ my: 2, color: "#abb6c3" }}>
+                            Dados do local
+                        </Typography>
                         <FormularioLocal />
                     </fieldset>
 
@@ -42,28 +57,26 @@ export default function Cadastro() {
                             paddingLeft: 56,
                             paddingRight: 56,
                             marginBottom: 32,
+                            border: "1px solid #abb6c3",
+                            maxWidth: 900,
+                            width: "80%",
                         }}
                     >
-                        <Typography sx={{ my: 2, color: "gray" }}>
+                        <Typography sx={{ my: 2, color: "#abb6c3" }}>
                             Dados do administrador do local
                         </Typography>
                         <FormularioUsuario />
                     </fieldset>
 
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <Botao
-                            texto={"Cadastre-se"}
-                            modo={"contained"}
-                            tipo={"submit"}
-                            cor={"primary"}
-                            desabilitado={false}
-                        />
-                    </div>
+                    <Botao
+                        texto={"Cadastre-se"}
+                        modo={"contained"}
+                        tipo={"submit"}
+                        cor={"primary"}
+                        largura={200}
+                        fonteTamanho={16}
+                        desabilitado={false}
+                    />
                 </form>
             </Container>
 
