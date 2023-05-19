@@ -1,14 +1,18 @@
+import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { CampoDeTexto } from "../../CampoDeTexto/CampoDeTexto.style";
+import { FormularioCampos } from "../Formularios.style";
+import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
 import { FrontLocalInterface } from "@/logica/interfaces/FrontInterfaces";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
-import { FormularioCampos } from "../Formularios.style";
+import { ServicoContagemCaracteres } from "@/logica/servicos/ServicoContagemCaracteres";
 
 export default function FormularioLocal() {
     const {
         control,
         formState: { errors },
     } = useFormContext<FrontLocalInterface>();
+    const [caracteresDescricao, alterarCaracteresDescricao] = useState(0);
+    const caracteresDescricaoMaximo = 255;
 
     return (
         <FormularioCampos>
@@ -79,11 +83,22 @@ export default function FormularioLocal() {
                     return (
                         <CampoDeTexto
                             value={field.value}
-                            onChange={(valor) => field.onChange(valor.target.value)}
+                            onChange={(valor) => {
+                                if (valor.target.value.length <= caracteresDescricaoMaximo) {
+                                    alterarCaracteresDescricao(
+                                        ServicoContagemCaracteres.contar(valor)
+                                    );
+                                    field.onChange(valor.target.value);
+                                }
+                            }}
                             label={"Descrição"}
                             placeholder={"Digite a descriçao do local"}
-                            error={errors?.descricao !== undefined}
-                            helperText={errors?.descricao?.message}
+                            error={caracteresDescricao === caracteresDescricaoMaximo}
+                            helperText={
+                                caracteresDescricao === 0
+                                    ? undefined
+                                    : caracteresDescricao + ` / ${caracteresDescricaoMaximo}`
+                            }
                             style={{ marginBottom: 16 }}
                         />
                     );
