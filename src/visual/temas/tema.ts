@@ -48,6 +48,16 @@ const tema = createTheme({
     shape: {
         borderRadius: 3,
     },
+    components: {
+        MuiTextField: {
+            defaultProps: {
+                InputLabelProps: {
+                    required: false,
+                },
+                required: true,
+            },
+        },
+    },
 });
 
 export default tema;
