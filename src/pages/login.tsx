@@ -41,7 +41,9 @@ export default function Login() {
                             width: "80%",
                         }}
                     >
+						
                         <FormularioLogin />
+
                     </fieldset>
 
                     <div style={{ marginBottom: 20, height: 16 }}>
