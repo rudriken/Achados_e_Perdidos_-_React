@@ -22,40 +22,47 @@ export default function Inicial() {
     }
 
     return (
-        <Container
-            style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}
-        >
+        <>
             <Cabecalho imagem={"img/logos/logo.svg"} botao={"Cadastrar um local"} />
-            <form onSubmit={handleSubmit(formularioSubmetido)}>
-                <TituloPagina
-                    titulo={"Perdeu um Objeto?"}
-                    subtitulo={
-                        "Veja se o local onde perdeu seu objeto já está cadastrado na nossa plataforma"
-                    }
-                />
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                    }}
-                >
-                    <CampoDeTexto
-                        {...register("nome")}
-                        placeholder={"Digite o nome do local"}
-                        style={{ maxWidth: "600px", width: "100%" }}
-                        error={errors?.nome !== undefined}
-                        helperText={errors?.nome?.message}
+            <Container
+                style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}
+            >
+                <form onSubmit={handleSubmit(formularioSubmetido)}>
+                    <TituloPagina
+                        titulo={"Perdeu um objeto?"}
+                        subtitulo={
+                            "Veja se o local onde perdeu seu objeto já está cadastrado na nossa plataforma"
+                        }
                     />
-                </div>
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                    }}
-                >
-                    <Botao texto={"Buscar"} modo={"contained"} tipo="submit" />
-                </div>
-            </form>
-        </Container>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <CampoDeTexto
+                            {...register("nome")}
+                            placeholder={"Digite o nome do local"}
+                            style={{ width: "550px" }}
+                            error={errors?.nome !== undefined}
+                            helperText={errors?.nome?.message}
+                        />
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Botao
+                            texto={"Buscar"}
+                            modo={"contained"}
+                            tipo="submit"
+                            margem={32}
+                        />
+                    </div>
+                </form>
+            </Container>
+        </>
     );
 }

@@ -19,7 +19,7 @@ export default function Cabecalho({ imagem, link, botao }: CabecalhoProps): JSX.
             <CabecalhoLink>{link ? <Botao texto={link} /> : <div></div>}</CabecalhoLink>
             <CabecalhoBotao>
                 {botao ? (
-                    <Botao modo={"contained"} cor={"primary"} texto={botao} largura={200} />
+                    <Botao modo={"contained"} cor={"primary"} texto={botao} largura={250} />
                 ) : (
                     <div></div>
                 )}
