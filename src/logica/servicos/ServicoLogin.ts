@@ -1,13 +1,16 @@
-import { BackLocalUsuarioInterface, BackLoginInterface } from "../interfaces/BackInterfaces";
-import { FrontLoginInterface } from "../interfaces/FrontInterfaces";
 import { ServicoAPI } from "./ServicoApi";
 import { LocalStorage } from "./ServicoArmazenamento";
+import { FrontEndLoginInterface } from "../interfaces/FrontEndInterfaces";
+import {
+    BackEndLocalUsuarioInterface,
+    BackEndLoginInterface,
+} from "../interfaces/BackEndInterfaces";
 
 export const ServicoLogin = {
-    entrar: async (credenciais: FrontLoginInterface): Promise<boolean> => {
+    entrar: async (credenciais: FrontEndLoginInterface): Promise<boolean> => {
         try {
             const login = (
-                await ServicoAPI.post<BackLoginInterface>("api/auth/login", credenciais)
+                await ServicoAPI.post<BackEndLoginInterface>("api/auth/login", credenciais)
             ).data;
             LocalStorage.gravar("token", login.access);
             LocalStorage.gravar("refresh", login.refresh);
@@ -22,11 +25,11 @@ export const ServicoLogin = {
         LocalStorage.apagar("token");
         LocalStorage.apagar("refresh");
     },
-    informacoes: async (): Promise<BackLocalUsuarioInterface | undefined> => {
+    informacoes: async (): Promise<BackEndLocalUsuarioInterface | undefined> => {
         const token = LocalStorage.pegar("token", "");
         if (token) {
             ServicoAPI.defaults.headers.common.Authorization = "Bearer " + token;
-            const informacoes: BackLocalUsuarioInterface = (
+            const informacoes: BackEndLocalUsuarioInterface = (
                 await ServicoAPI.get("api/locais")
             ).data;
             return informacoes;

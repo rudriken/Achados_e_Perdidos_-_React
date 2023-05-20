@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { ServicoContagemCaracteres } from "@/logica/servicos/ServicoContagemCaracteres";
 import { FormularioCampos } from "../Formularios.style";
 import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
-import { FrontLocalInterface } from "@/logica/interfaces/FrontInterfaces";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
-import { ServicoContagemCaracteres } from "@/logica/servicos/ServicoContagemCaracteres";
+import { FrontEndLocalInterface } from "@/logica/interfaces/FrontEndInterfaces";
 
 export default function FormularioLocal() {
     const {
         control,
         formState: { errors },
-    } = useFormContext<FrontLocalInterface>();
+    } = useFormContext<FrontEndLocalInterface>();
     const [caracteresDescricao, alterarCaracteresDescricao] = useState(0);
     const caracteresDescricaoMaximo = 255;
 

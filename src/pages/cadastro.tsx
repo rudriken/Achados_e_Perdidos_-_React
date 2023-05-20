@@ -1,6 +1,6 @@
-import useCadastro from "@/logica/ganchos/pages/useCadastro";
 import { FormProvider } from "react-hook-form";
 import { Container, Typography } from "@mui/material";
+import useCadastro from "@/logica/ganchos/pages/useCadastro";
 import FormularioLocal from "@/visual/componentes/entradas/Formularios/Formularios/FormularioLocal";
 import FormularioUsuario from "@/visual/componentes/entradas/Formularios/Formularios/FormularioUsuario";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
@@ -67,7 +67,6 @@ export default function Cadastro() {
                         </Typography>
 
                         <FormularioUsuario />
-
                     </fieldset>
 
                     <Botao

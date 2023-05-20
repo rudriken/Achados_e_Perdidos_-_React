@@ -1,20 +1,20 @@
-import { BackLocalUsuarioInterface } from "@/logica/interfaces/BackInterfaces";
-import { FrontLocalUsuarioInterface } from "@/logica/interfaces/FrontInterfaces";
-import { ServicoAPI } from "@/logica/servicos/ServicoApi";
-import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ServicoAPI } from "@/logica/servicos/ServicoApi";
+import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
+import { FrontEndLocalUsuarioInterface } from "@/logica/interfaces/FrontEndInterfaces";
+import { BackEndLocalUsuarioInterface } from "@/logica/interfaces/BackEndInterfaces";
 
 export default function useCadastro() {
-    const formularioMetodosCadastro = useForm<FrontLocalUsuarioInterface>({
+    const formularioMetodosCadastro = useForm<FrontEndLocalUsuarioInterface>({
             resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
         }),
         [mensagem, alterarMensagem] = useState(false);
 
-    async function cadastrar(dados: FrontLocalUsuarioInterface): Promise<void> {
+    async function cadastrar(dados: FrontEndLocalUsuarioInterface): Promise<void> {
         try {
-            await ServicoAPI.post<BackLocalUsuarioInterface>("/api/locais", dados);
+            await ServicoAPI.post<BackEndLocalUsuarioInterface>("/api/locais", dados);
             alterarMensagem(true);
         } catch (erro) {
             return;

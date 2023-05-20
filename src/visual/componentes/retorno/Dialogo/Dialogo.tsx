@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Botao from "../../entradas/Botao/Botao";
 import {
     DialogoConteiner,
     DialogoTitulo,
     DialogoSubtitulo,
     DialogoConteudo,
 } from "./Dialogo.style";
+import Botao from "../../entradas/Botao/Botao";
 
 interface DialogoProps {
     aberto: boolean;

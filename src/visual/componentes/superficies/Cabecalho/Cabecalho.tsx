@@ -1,10 +1,10 @@
-import Botao from "../../entradas/Botao/Botao";
 import {
     CabecalhoConteiner,
     CabecalhoLogo,
     CabecalhoLink,
     CabecalhoBotao,
 } from "./Cabecalho.style";
+import Botao from "../../entradas/Botao/Botao";
 
 interface CabecalhoProps {
     imagem: string;

@@ -1,27 +1,27 @@
-export interface BackLocalUsuarioInterface {
+export interface BackEndLocalUsuarioInterface {
     id: number;
     nome: string;
     endereco: string;
     contato: string;
     descricao: string | null;
     imagem: string;
-    usuario: BackUsuarioInterface;
-    links: BackLinksInterface[];
+    usuario: BackEndUsuarioInterface;
+    links: BackEndLinksInterface[];
 }
 
-interface BackUsuarioInterface {
+interface BackEndUsuarioInterface {
     id: number;
     nome: string;
     email: string;
 }
 
-interface BackLinksInterface {
+interface BackEndLinksInterface {
     type: string;
     rel: string;
     uri: string;
 }
 
-export interface BackLoginInterface {
+export interface BackEndLoginInterface {
     access: string;
     refresh: string;
 }

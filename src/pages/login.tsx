@@ -1,6 +1,6 @@
-import useLogin from "@/logica/ganchos/pages/useLogin";
 import { FormProvider } from "react-hook-form";
 import { Container, Typography } from "@mui/material";
+import useLogin from "@/logica/ganchos/pages/useLogin";
 import FormularioLogin from "@/visual/componentes/entradas/Formularios/Formularios/FormularioLogin";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
@@ -41,9 +41,7 @@ export default function Login() {
                             width: "80%",
                         }}
                     >
-						
                         <FormularioLogin />
-
                     </fieldset>
 
                     <div style={{ marginBottom: 20, height: 16 }}>

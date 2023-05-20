@@ -1,7 +1,7 @@
+import { ChangeEvent, useState } from "react";
 import { TextFieldProps } from "@mui/material";
 import { CampoDeArquivoConteiner, IconeDeCarregamento } from "./CampoDeArquivo.style";
 import CampoDeTexto from "../CampoDeTexto/CampoDeTexto";
-import { ChangeEvent, useState } from "react";
 
 export interface CampoDeArquivoProps extends Omit<TextFieldProps, "onChange"> {
     onChange: (arquivos: FileList) => void;
