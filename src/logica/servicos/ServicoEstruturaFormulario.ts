@@ -23,7 +23,7 @@ export const ServicoEstruturaFormulario = {
                 descricao: yup
                     .string()
                     .max(255, "Sua descrição ultrapassou 255 caracteres permitidos"),
-                imagem_local: yup.string().min(3, "Nome para imagem inválido").required(),
+                imagem_local: yup.string().required(),
                 usuario: yup.object().shape({
                     nome: yup
                         .string()
