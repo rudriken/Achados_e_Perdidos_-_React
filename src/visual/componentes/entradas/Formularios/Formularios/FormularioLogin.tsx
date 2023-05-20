@@ -16,6 +16,7 @@ export default function FormularioLogin() {
                 label={"E-mail"}
                 placeholder={"Digite o seu e-mail"}
                 type={"email"}
+                required
                 error={errors?.email !== undefined}
                 helperText={errors?.email?.message}
                 style={{ marginBottom: 24 }}
@@ -25,6 +26,7 @@ export default function FormularioLogin() {
                 label={"Senha"}
                 placeholder={"Digite a sua senha"}
                 type={"password"}
+                required
                 error={errors?.password !== undefined}
                 helperText={errors?.password?.message}
             />

@@ -15,6 +15,7 @@ export default function FormularioIndex() {
                 {...register("nome")}
                 placeholder={"Digite o nome do local"}
                 style={{ width: "550px" }}
+                required
                 error={errors?.nome !== undefined}
                 helperText={errors?.nome?.message}
             />
