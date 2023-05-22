@@ -14,7 +14,7 @@ const tema = createTheme({
         },
         text: {
             primary: "#000000",
-            secondary: "#aaaaaa",
+            secondary: "#abb6c3",
         },
         error: {
             main: "#FC3C00",

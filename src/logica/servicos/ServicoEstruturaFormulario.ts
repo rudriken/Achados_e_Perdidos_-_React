@@ -36,14 +36,10 @@ export const ServicoEstruturaFormulario = {
                         .min(3, "E-mail muito pequeno")
                         .max(255, "E-mail com muitos caracteres, inaceitável")
                         .email("Tem que ser um e-mail válido!"),
-                    password: yup
-                        .string()
-                        .required("É obrigatório preencher este campo!")
-                        .min(3, "A senha precisa ter pelo menos 3 caracteres"),
+                    password: yup.string().required("É obrigatório preencher este campo!"),
                     password_confirmation: yup
                         .string()
                         .required("É obrigatório preencher este campo!")
-                        .min(3, "A senha precisa ter pelo menos 3 caracteres")
                         .oneOf([yup.ref("password"), ""], "As senhas não conferem"),
                 }),
             })

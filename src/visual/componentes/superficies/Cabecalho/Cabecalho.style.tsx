@@ -4,8 +4,9 @@ export const CabecalhoConteiner = styled("div")`
     display: grid;
     grid-template-columns: 200px 200px 1fr;
     grid-template-areas: "imagem link botao";
-    padding: ${({ theme }) => theme.spacing(4)};
-    box-shadow: 0px 1px 0px black;
+    padding: ${({ theme }) => theme.spacing(4) + " " + theme.spacing(16)};
+    transform: scale(1.044, 1.044);
+    box-shadow: 0px 1px 0px ${({ theme }) => theme.palette.text.secondary};
 `;
 
 export const CabecalhoLogo = styled("img")`
