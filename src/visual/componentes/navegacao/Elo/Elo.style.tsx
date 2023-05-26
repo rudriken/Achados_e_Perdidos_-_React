@@ -9,6 +9,9 @@ export const Elo = styled(Link)`
     justify-content: center;
     text-align: center;
     width: 100%;
-    height: 50px;
+    height: 40px;
     font-size: 18px;
+    :hover {
+        background-color: ${({ theme }) => theme.palette.background.default};
+    }
 `;
