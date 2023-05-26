@@ -85,9 +85,7 @@ export default function FormularioLocal() {
                             value={field.value}
                             onChange={(valor) => {
                                 if (valor.target.value.length <= caracteresDescricaoMaximo) {
-                                    alterarCaracteresDescricao(
-                                        ServicoContagemCaracteres.contar(valor)
-                                    );
+                                    alterarCaracteresDescricao(valor.target.value.length);
                                     field.onChange(valor.target.value);
                                 }
                             }}
