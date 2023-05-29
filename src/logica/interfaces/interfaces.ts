@@ -36,3 +36,22 @@ export interface LoginInterface {
     access: string;
     refresh: string;
 }
+
+export interface ObjetoInterface {
+    id: number;
+    nome: string;
+    descricao: string;
+    entregue: boolean;
+    imagem_objeto: string;
+    local_id: number;
+    dono_nome?: string;
+    dono_cpf?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ObjetoDadosInterface {
+    nome: string;
+    descricao: string;
+    acoes: JSX.Element;
+}

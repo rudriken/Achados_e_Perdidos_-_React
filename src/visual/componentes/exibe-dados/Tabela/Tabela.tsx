@@ -15,7 +15,7 @@ interface TabelaProps<T> {
     renderizarLinha: (item: T, indice: number) => React.ReactNode;
 }
 
-function Tabela<T>({ cabecalho, dados, renderizarLinha }: TabelaProps<T>) {
+function Tabela<T>({ cabecalho, dados, renderizarLinha }: TabelaProps<T>): JSX.Element {
     return (
         <TConteiner>
             <TTabela width={"100%"}>
