@@ -4,13 +4,13 @@ import { ServicoContagemCaracteres } from "@/logica/servicos/ServicoContagemCara
 import { FormularioCampos } from "../Formularios.style";
 import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
-import { FrontEndLocalInterface } from "@/logica/interfaces/FrontEndInterfaces";
+import { LocalInterface } from "@/logica/interfaces/interfaces";
 
 export default function FormularioLocal() {
     const {
         control,
         formState: { errors },
-    } = useFormContext<FrontEndLocalInterface>();
+    } = useFormContext<LocalInterface>();
     const [caracteresDescricao, alterarCaracteresDescricao] = useState(0);
     const caracteresDescricaoMaximo = 255;
 
@@ -85,7 +85,9 @@ export default function FormularioLocal() {
                             value={field.value}
                             onChange={(valor) => {
                                 if (valor.target.value.length <= caracteresDescricaoMaximo) {
-                                    alterarCaracteresDescricao(valor.target.value.length);
+                                    alterarCaracteresDescricao(
+                                        ServicoContagemCaracteres.contar(valor)
+                                    );
                                     field.onChange(valor.target.value);
                                 }
                             }}

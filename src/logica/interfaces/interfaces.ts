@@ -4,7 +4,7 @@ export interface LocalUsuarioInterface {
     endereco: string;
     contato: string;
     descricao: string | null;
-    imagem: string;
+    imagem_local: string;
     usuario: UsuarioInterface;
     links: LinksInterface[];
 }
