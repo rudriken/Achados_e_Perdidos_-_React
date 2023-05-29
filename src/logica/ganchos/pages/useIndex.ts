@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
-import { FrontEndLocalInterface } from "@/logica/interfaces/FrontEndInterfaces";
+import { LocalInterface } from "@/logica/interfaces/interfaces";
 
 export default function useIndex() {
-    const formularioMetodosIndex = useForm<FrontEndLocalInterface>({
+    const formularioMetodosIndex = useForm<LocalInterface>({
         resolver: yupResolver(ServicoEstruturaFormulario.buscaLocal()),
     });
 
-    function consultar(dados: FrontEndLocalInterface) {
+    function consultar(dados: LocalInterface) {
         console.log(dados);
         // ainda será desenvolvido
     }
