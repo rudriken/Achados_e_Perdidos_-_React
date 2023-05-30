@@ -4,7 +4,7 @@ export interface LocalUsuarioInterface {
     endereco: string;
     contato: string;
     descricao: string | null;
-    imagem_local: string;
+    imagem: string;
     usuario: UsuarioInterface;
     links: LinksInterface[];
 }
@@ -20,13 +20,13 @@ export interface LocalInterface extends Omit<LocalUsuarioInterface, "usuario"> {
     // links: LinksInterface[];
 }
 
-interface UsuarioInterface {
+export interface UsuarioInterface {
     id: number;
     nome: string;
     email: string;
 }
 
-interface LinksInterface {
+export interface LinksInterface {
     type: string;
     rel: string;
     uri: string;
@@ -42,12 +42,9 @@ export interface ObjetoInterface {
     nome: string;
     descricao: string;
     entregue: boolean;
-    imagem_objeto: string;
-    local_id: number;
-    dono_nome?: string;
-    dono_cpf?: string;
-    created_at: string;
-    updated_at: string;
+    data_cadastro: string;
+    imagem: string;
+    links: LinksInterface[];
 }
 
 export interface ObjetoDadosInterface {
