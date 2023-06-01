@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ServicoAPI } from "@/logica/servicos/ServicoApi";
+import { ServicoApi } from "@/logica/servicos/ServicoApi";
 import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
 import { FrontEndLocalUsuarioInterface } from "@/logica/interfaces/FrontEndInterfaces";
 import { LocalUsuarioInterface } from "@/logica/interfaces/interfaces";

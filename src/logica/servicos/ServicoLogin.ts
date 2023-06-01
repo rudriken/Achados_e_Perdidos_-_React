@@ -1,33 +1,47 @@
-import { ServicoAPI } from "./ServicoApi";
+import { ServicoApi } from "./ServicoApi";
 import { LocalStorage } from "./ServicoArmazenamento";
-import { LocalUsuarioInterface, LoginInterface } from "../interfaces/interfaces";
+import {
+    LocalUsuarioInterface,
+    LoginInterface,
+    ObjetoInterface,
+} from "../interfaces/interfaces";
 
 export const ServicoLogin = {
     entrar: async (credenciais: LoginInterface): Promise<boolean> => {
         try {
             const login = (
-                await ServicoAPI.post<LoginInterface>("api/auth/login", credenciais)
+                await ServicoApi.post<LoginInterface>("api/auth/login", credenciais)
             ).data;
             LocalStorage.gravar("token", login.access);
             LocalStorage.gravar("refresh", login.refresh);
-            ServicoAPI.defaults.headers.common.Authorization = "Bearer " + login.access;
+            ServicoApi.defaults.headers.common.Authorization = "Bearer " + login.access;
             return true;
         } catch (erro) {
             return false;
         }
     },
     sair: (): void => {
-        ServicoAPI.post("api/auth/logout", { refresh: LocalStorage.pegar("refresh", "") });
+        ServicoApi.post("api/auth/logout", { refresh: LocalStorage.pegar("refresh", "") });
         LocalStorage.apagar("token");
         LocalStorage.apagar("refresh");
     },
-    informacoes: async (): Promise<LocalUsuarioInterface | undefined> => {
+    informacoesLocalUsuario: async (): Promise<LocalUsuarioInterface | undefined> => {
         const token = LocalStorage.pegar("token", "");
         if (token) {
-            ServicoAPI.defaults.headers.common.Authorization = "Bearer " + token;
-            const informacoes: LocalUsuarioInterface = (await ServicoAPI.get("api/locais"))
-                .data;
-            return informacoes;
+            ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;
+            const localUsuario: LocalUsuarioInterface | undefined = (
+                await ServicoApi.get<LocalUsuarioInterface>("api/locais")
+            ).data;
+            // ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;
+            return localUsuario;
+        }
+    },
+    informacoesObjetos: async () => {
+        const token = LocalStorage.pegar("token", "");
+        if (token) {
+            ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;
+            const objetos = (await ServicoApi.get<ObjetoInterface[]>("api/objetos")).data;
+            return objetos;
         }
     },
 };

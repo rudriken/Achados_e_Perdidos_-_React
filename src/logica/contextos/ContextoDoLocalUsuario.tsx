@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, createContext } from "react";
+import { PropsWithChildren, createContext } from "react";
 import {
     RedutorDoLocalUsuarioInterface,
     estadoInicial,

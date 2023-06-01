@@ -1,10 +1,7 @@
 import { PropsWithChildren } from "react";
-import { ProvedorDoLocalUsuario } from "./ContextoLocalUsuario";
+import { ProvedorDoLocalUsuario } from "./ContextoDoLocalUsuario";
+import { ProvedorDosObjetos } from "./ContextoDosObjetos";
 
 export function ProvedorPrincipal({ children }: PropsWithChildren) {
-    return (
-        <>
-            <ProvedorDoLocalUsuario>{children}</ProvedorDoLocalUsuario>
-        </>
-    );
+    return <ProvedorDoLocalUsuario>{children}</ProvedorDoLocalUsuario>;
 }
