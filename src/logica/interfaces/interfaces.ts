@@ -24,6 +24,8 @@ export interface UsuarioInterface {
     id: number;
     nome: string;
     email: string;
+    password?: string;
+    password_confirmation?: string;
 }
 
 export interface LinksInterface {
@@ -32,7 +34,12 @@ export interface LinksInterface {
     uri: string;
 }
 
-export interface LoginInterface {
+export interface LoginRequisicaoInterface {
+    email: string;
+    password: string;
+}
+
+export interface LoginRespostaInterface {
     access: string;
     refresh: string;
 }

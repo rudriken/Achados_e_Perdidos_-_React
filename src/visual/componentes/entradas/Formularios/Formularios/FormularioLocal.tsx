@@ -86,8 +86,7 @@ export default function FormularioLocal() {
                             onChange={(valor) => {
                                 if (valor.target.value.length <= caracteresDescricaoMaximo) {
                                     alterarCaracteresDescricao(
-                                        // ServicoContagemCaracteres.contar(valor)
-                                        valor.target.value.length
+                                        ServicoContagemCaracteres.contar(valor)
                                     );
                                     field.onChange(valor.target.value);
                                 }
@@ -107,7 +106,7 @@ export default function FormularioLocal() {
             />
             <Controller
                 control={control}
-                name={"imagem_local"}
+                name={"imagem"}
                 defaultValue={""}
                 render={({ field }) => {
                     return (
@@ -117,8 +116,8 @@ export default function FormularioLocal() {
                             label={"Imagem do local"}
                             placeholder={"Selecione a imagem do local"}
                             required
-                            error={errors?.imagem_local !== undefined}
-                            helperText={errors?.imagem_local?.message}
+                            error={errors?.imagem !== undefined}
+                            helperText={errors?.imagem?.message}
                         />
                     );
                 }}

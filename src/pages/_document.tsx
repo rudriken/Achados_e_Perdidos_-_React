@@ -2,6 +2,7 @@ import React from "react";
 import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import createEmotionCache from "../logica/servicos/EmotionCache";
+import Botao from "@/visual/componentes/entradas/Botao/Botao";
 
 export default class QualquerNome extends Document {
     static async getInitialProps(contexto: DocumentContext) {
@@ -34,7 +35,11 @@ export default class QualquerNome extends Document {
     render(): JSX.Element {
         return (
             <Html lang="pt-BR">
-                <Head>{(this.props as any).emotionStyleTags}</Head>
+                <Head>
+                    {(this.props as any).emotionStyleTags}
+                    {/* eslint-disable-next-line @next/next/no-css-tags */}
+                    <link href="/fontes/tw-icons/css/treinaweb-icons.css" rel="stylesheet" />
+                </Head>
                 <body>
                     <Main />
                     <NextScript />

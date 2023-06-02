@@ -14,6 +14,10 @@ const Modelo: StoryFn<typeof Componente> = (argumentos) => {
 
 export const MeuCardapio = Modelo.bind({});
 MeuCardapio.args = {
+    usuario: "Isabelly Mendonça",
     abrir: true,
     opcoes: ["Alterar Dados", "Sair", "Contato"],
+    quandoClicar: () => {},
+    quandoFecharMenu: () => {},
+    quandoMenuAberto: () => {},
 };

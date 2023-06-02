@@ -2,15 +2,15 @@ import { ServicoApi } from "./ServicoApi";
 import { LocalStorage } from "./ServicoArmazenamento";
 import {
     LocalUsuarioInterface,
-    LoginInterface,
+    LoginRespostaInterface,
     ObjetoInterface,
 } from "../interfaces/interfaces";
 
 export const ServicoLogin = {
-    entrar: async (credenciais: LoginInterface): Promise<boolean> => {
+    entrar: async (credenciais: LoginRespostaInterface): Promise<boolean> => {
         try {
             const login = (
-                await ServicoApi.post<LoginInterface>("api/auth/login", credenciais)
+                await ServicoApi.post<LoginRespostaInterface>("api/auth/login", credenciais)
             ).data;
             LocalStorage.gravar("token", login.access);
             LocalStorage.gravar("refresh", login.refresh);
@@ -25,18 +25,23 @@ export const ServicoLogin = {
         LocalStorage.apagar("token");
         LocalStorage.apagar("refresh");
     },
-    informacoesLocalUsuario: async (): Promise<LocalUsuarioInterface | undefined> => {
+    informacoesDoLocalUsuario: async (): Promise<LocalUsuarioInterface | false> => {
         const token = LocalStorage.pegar("token", "");
         if (token) {
             ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;
             const localUsuario: LocalUsuarioInterface | undefined = (
                 await ServicoApi.get<LocalUsuarioInterface>("api/locais")
             ).data;
-            // ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;
-            return localUsuario;
+            if (localUsuario) {
+                return localUsuario;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     },
-    informacoesObjetos: async () => {
+    informacoesDosObjetos: async (): Promise<ObjetoInterface[] | undefined> => {
         const token = LocalStorage.pegar("token", "");
         if (token) {
             ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;

@@ -1,9 +1,6 @@
 import { produce } from "immer";
-import { LocalUsuarioInterface, ObjetoInterface } from "../interfaces/interfaces";
-import { useContext, useEffect, useReducer } from "react";
-import { ContextoDoLocalUsuario } from "../contextos/ContextoDoLocalUsuario";
-import { ServicoApi } from "../servicos/ServicoApi";
-import { LocalStorage } from "../servicos/ServicoArmazenamento";
+import { ObjetoInterface } from "../interfaces/interfaces";
+import { useEffect, useReducer } from "react";
 import { ServicoLogin } from "../servicos/ServicoLogin";
 
 export const estadoInicial = {
@@ -47,11 +44,12 @@ export function useRedutorDosObjetos(): RedutorDosObjetos {
     useEffect(() => {
         console.log("executando o useEffect");
         pegarObjetos();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [estado.objetos]);
 
     async function pegarObjetos() {
         console.log("entrei na função 'pegarObjetos'");
-        const objetos = await ServicoLogin.informacoesObjetos();
+        const objetos = await ServicoLogin.informacoesDosObjetos();
         console.log(objetos);
         console.log(estado.objetos);
 
@@ -78,42 +76,11 @@ export function useRedutorDosObjetos(): RedutorDosObjetos {
                 diferente = false;
             }
 
-            // objetos.map((objeto, indice) => {
-            //     if (objetos.length === estado.objetos.length) {
-            //         if (JSON.stringify(objeto) !== JSON.stringify(estado.objetos[indice])) {
-            //             console.log("quantidades iguais mas um item diferente");
-            //             diferente == true;
-            //         }
-            //     }
-            //     if (objetos.length !== estado.objetos.length) {
-            //         console.log("arrays com quantidades diferentes");
-            //         diferente = true;
-            //     }
-            //     if (JSON.stringify(objetos[0]) !== JSON.stringify(estado.objetos[0])) {
-            //         console.log("primeiro item já é dierente");
-            //         diferente = true;
-            //     }
-            //     console.log("oi");
-            // });
-
             console.log("diferente:", diferente);
 
             if (diferente) {
                 despachar();
             }
-
-            // objetos.map((objeto, indice) => {
-            //     if (estado.objetos && objetos.length === estado.objetos.length) {
-            //         if (JSON.stringify(objeto) !== JSON.stringify(estado.objetos[indice])) {
-            //             diferente = true;
-            //         }
-            //     } else {
-            //         despacho({ tipo: "ATUALIZAR_OBJETOS", carregarObjeto: objetos });
-            //     }
-            //     if (diferente) {
-            //         despacho({ tipo: "ATUALIZAR_OBJETOS", carregarObjeto: objetos });
-            //     }
-            // });
         } else {
             despacho({ tipo: "BUSCANDO_OBJETOS", carregarObjeto: true });
             console.log("buscando objetos");

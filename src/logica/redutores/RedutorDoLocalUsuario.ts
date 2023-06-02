@@ -1,15 +1,11 @@
-import { useContext, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { produce } from "immer";
 import { ServicoLogin } from "../servicos/ServicoLogin";
 import {
     LinksInterface,
     LocalUsuarioInterface,
-    ObjetoInterface,
     UsuarioInterface,
 } from "../interfaces/interfaces";
-import { ContextoDosObjetos } from "../contextos/ContextoDosObjetos";
-import { LocalStorage } from "../servicos/ServicoArmazenamento";
-import { ServicoApi } from "../servicos/ServicoApi";
 
 export const estadoInicial = {
     local: {
@@ -63,18 +59,14 @@ export function useRedutorDoLocalUsuario(): RedutorDoLocalUsuarioInterface {
 
     useEffect(() => {
         pegarLocalUsuarioLogado();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [estado.local.usuario.id]);
-
-    // useEffect(() => {
-    //     atualizarObjetos();
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [estadoDosObjetos.objetos]);
 
     async function pegarLocalUsuarioLogado() {
         console.log("entrei na função 'pegarLocalUsuarioLogado'");
         try {
             despacho({ tipo: "LOGANDO", carregarObjeto: true });
-            const localUsuario = await ServicoLogin.informacoesLocalUsuario();
+            const localUsuario = await ServicoLogin.informacoesDoLocalUsuario();
             if (localUsuario) {
                 despacho({ tipo: "ATUALIZAR_DADOS", carregarObjeto: localUsuario });
             } else {
@@ -83,21 +75,6 @@ export function useRedutorDoLocalUsuario(): RedutorDoLocalUsuarioInterface {
             console.log(estado.local.usuario);
         } catch (erro) {}
     }
-
-    // async function atualizarObjetos() {
-    //     const chave = LocalStorage.pegar("token", "");
-    //     try {
-    //         const objetos = (
-    //             await ServicoApi.get<ObjetoInterface[]>("api/objetos", {
-    //                 headers: { Authorization: `Bearer ${chave}` },
-    //             })
-    //         ).data;
-    //         despachoDosObjetos({ tipo: "ATUALIZAR_OBJETOS", carregarObjeto: objetos });
-    //         console.log(estadoDosObjetos);
-    //     } catch (erro) {
-    //         despachoDosObjetos({ tipo: "BUSCANDO_OBJETOS", carregarObjeto: true });
-    //     }
-    // }
 
     return {
         estadoDoLocalUsuario: estado,

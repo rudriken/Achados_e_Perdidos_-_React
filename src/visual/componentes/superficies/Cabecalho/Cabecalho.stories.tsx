@@ -14,7 +14,8 @@ const Modelo: StoryFn<typeof Componente> = (argumentos) => {
 
 export const MeuCabecalho = Modelo.bind({});
 MeuCabecalho.args = {
+    usuario: "Altair Nakamura",
     imagem: "img/logos/logo.svg",
     link: "Objetos",
-    botao: "Cadastrar um Local",
+    cardapio: ["Alterar Dados", "Contato", "Sair"],
 };

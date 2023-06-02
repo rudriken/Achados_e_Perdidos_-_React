@@ -12,7 +12,8 @@ interface BotaoProps {
     margem?: number;
     preenchimento?: number;
     fonteTamanho?: number;
-    aoClicar?: () => void;
+    aoClicar?: (() => void) | ((evento: React.MouseEvent) => void);
+    temImagem?: string;
 }
 
 export default function Botao({
@@ -27,6 +28,7 @@ export default function Botao({
     preenchimento = 0,
     fonteTamanho = 18,
     aoClicar,
+    temImagem,
 }: BotaoProps) {
     return (
         <BotaoEstilizado
