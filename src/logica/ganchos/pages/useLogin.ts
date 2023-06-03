@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
 import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
-import { LoginRespostaInterface } from "@/logica/interfaces/interfaces";
+import { LoginInterface } from "@/logica/interfaces/interfaces";
 
 export default function useLogin() {
-    const formularioMetodosLogin = useForm<LoginRespostaInterface>({
+    const formularioMetodosLogin = useForm<LoginInterface>({
             resolver: yupResolver(ServicoEstruturaFormulario.login()),
         }),
         [erro, alterarErro] = useState(false);

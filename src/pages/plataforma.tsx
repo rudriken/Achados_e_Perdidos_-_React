@@ -20,11 +20,15 @@ export default function Plataforma() {
             />
             {parcial === parciais[0] && (
                 <ProvedorDosObjetos>
-                    <Listar_objetos />
+                    <Listar_objetos
+                        adicionar_novo_objeto={() => alterarParcial(parciais[1])}
+                    />
                 </ProvedorDosObjetos>
             )}
 
-            {parcial === parciais[1] && <Adicionar_novo_objeto />}
+            {parcial === parciais[1] && (
+                <Adicionar_novo_objeto listar_objetos={() => alterarParcial(parciais[0])} />
+            )}
         </>
     );
 }

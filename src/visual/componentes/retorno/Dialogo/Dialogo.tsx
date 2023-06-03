@@ -29,6 +29,8 @@ export default function Dialogo({
     rotuloConfirmar = "Confirmar",
     temBotaoFechar,
     temBotaoConfirmar,
+    aoFechar,
+    aoConfirmar,
 }: DialogoProps): JSX.Element {
     const larguraBotao = 120;
     const margemBotao = 8;
@@ -56,7 +58,10 @@ export default function Dialogo({
                                 modo={"text"}
                                 largura={larguraBotao}
                                 margem={margemBotao}
-                                aoClicar={() => alterarAbrir(false)}
+                                aoClicar={() => {
+                                    alterarAbrir(false);
+                                    aoFechar?.();
+                                }}
                             />
                         ) : null}
                     </div>
@@ -68,6 +73,10 @@ export default function Dialogo({
                                 modo={"contained"}
                                 largura={larguraBotao}
                                 margem={margemBotao}
+                                aoClicar={() => {
+                                    alterarAbrir(false);
+                                    aoConfirmar?.();
+                                }}
                             />
                         ) : null}
                     </div>

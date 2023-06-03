@@ -34,12 +34,9 @@ export interface LinksInterface {
     uri: string;
 }
 
-export interface LoginRequisicaoInterface {
+export interface LoginInterface {
     email: string;
     password: string;
-}
-
-export interface LoginRespostaInterface {
     access: string;
     refresh: string;
 }
@@ -52,10 +49,5 @@ export interface ObjetoInterface {
     data_cadastro: string;
     imagem: string;
     links: LinksInterface[];
-}
-
-export interface ObjetoDadosInterface {
-    nome: string;
-    descricao: string;
     acoes: JSX.Element;
 }

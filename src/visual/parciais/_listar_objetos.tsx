@@ -2,12 +2,15 @@ import { Container, Skeleton, Typography } from "@mui/material";
 import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Tabela, { T_Celula, T_Linha } from "../componentes/exibe-dados/Tabela/Tabela";
 import Botao from "../componentes/entradas/Botao/Botao";
-import { ObjetoDadosInterface } from "@/logica/interfaces/interfaces";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import React, { useContext } from "react";
 import { ContextoDosObjetos } from "@/logica/contextos/ContextoDosObjetos";
+import usePlataforma from "@/logica/ganchos/pages/usePlataforma";
+import { parciais } from "@/logica/tipos/globais";
 
-export default function Listar_objetos() {
+export default function Listar_objetos({ adicionar_novo_objeto = () => {} }) {
     const { objetos, buscando } = useContext(ContextoDosObjetos).estadoDosObjetos;
+    const { parcial, alterarParcial } = usePlataforma();
     return (
         <Container
             style={{
@@ -61,7 +64,7 @@ export default function Listar_objetos() {
                         };
                     })}
                     renderizarLinha={(_item, indice) => {
-                        const item = _item as ObjetoDadosInterface;
+                        const item = _item as ObjetoInterface;
                         return (
                             <T_Linha key={indice}>
                                 <T_Celula>{item.nome}</T_Celula>
@@ -80,6 +83,8 @@ export default function Listar_objetos() {
                 modo={"contained"}
                 margem={32}
                 desabilitado={buscando}
+                aoClicar={adicionar_novo_objeto}
+                tipo={"button"}
             />
         </Container>
     );

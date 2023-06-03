@@ -67,4 +67,19 @@ export const ServicoEstruturaFormulario = {
             password: yup.string().required("É obrigatório preencher este campo!"),
         });
     },
+    cadastroObjeto: () => {
+        return yup.object().shape({
+            nome: yup
+                .string()
+                .required("É obrigatório preencher este campo!")
+                .min(3, "Nome muito curto!")
+                .max(255, "Nome muito grande, inaceitável"),
+            descricao: yup
+                .string()
+                .required()
+                .min(3, "Descrição muito curta!")
+                .max(255, "Descrição muito longa, inaceitável!"),
+            imagem: yup.string().required(),
+        });
+    },
 };

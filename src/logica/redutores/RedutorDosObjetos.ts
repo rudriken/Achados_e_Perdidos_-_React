@@ -45,8 +45,8 @@ export function useRedutorDosObjetos(): RedutorDosObjetosInterface {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [estado.objetos]);
 
-    async function pegarObjetos() {
-        let objetos = await ServicoLogin.informacoesDosObjetos();
+    async function pegarObjetos(): Promise<void> {
+        const objetos = await ServicoLogin.informacoesDosObjetos();
 
         if (Array.isArray(objetos) && objetos.length > 0) {
             let diferente = false;
@@ -73,15 +73,11 @@ export function useRedutorDosObjetos(): RedutorDosObjetosInterface {
             }
         } else if (objetos === "objetos_vazio") {
             despacho({ tipo: "BUSCANDO_OBJETOS", carregarObjeto: false });
-            despachar();
         } else {
             despacho({ tipo: "BUSCANDO_OBJETOS", carregarObjeto: true });
         }
 
         function despachar() {
-            if (objetos === "objetos_vazio") {
-                objetos = [] as ObjetoInterface[];
-            }
             despacho({ tipo: "ATUALIZAR_OBJETOS", carregarObjeto: objetos });
         }
     }
