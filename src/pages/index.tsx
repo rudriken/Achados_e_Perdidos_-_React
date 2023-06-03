@@ -1,10 +1,10 @@
 import { FormProvider } from "react-hook-form";
 import { Container } from "@mui/material";
 import useIndex from "@/logica/ganchos/pages/useIndex";
-import FormularioIndex from "@/visual/componentes/entradas/Formularios/Formularios/FormularioIndex";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
+import { FormularioIndex } from "@/visual/componentes/entradas/Formularios/Formularios";
 
 export default function Inicial() {
     const { formularioMetodosIndex, consultar } = useIndex(),

@@ -63,7 +63,6 @@ export function useRedutorDoLocalUsuario(): RedutorDoLocalUsuarioInterface {
     }, [estado.local.usuario.id]);
 
     async function pegarLocalUsuarioLogado() {
-        console.log("entrei na função 'pegarLocalUsuarioLogado'");
         try {
             despacho({ tipo: "LOGANDO", carregarObjeto: true });
             const localUsuario = await ServicoLogin.informacoesDoLocalUsuario();
@@ -72,7 +71,6 @@ export function useRedutorDoLocalUsuario(): RedutorDoLocalUsuarioInterface {
             } else {
                 despacho({ tipo: "LOGANDO", carregarObjeto: false });
             }
-            console.log(estado.local.usuario);
         } catch (erro) {}
     }
 

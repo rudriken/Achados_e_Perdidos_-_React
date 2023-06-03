@@ -41,11 +41,16 @@ export const ServicoLogin = {
             return false;
         }
     },
-    informacoesDosObjetos: async (): Promise<ObjetoInterface[] | undefined> => {
+    informacoesDosObjetos: async (): Promise<
+        "objetos_vazio" | ObjetoInterface[] | undefined
+    > => {
         const token = LocalStorage.pegar("token", "");
         if (token) {
             ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;
             const objetos = (await ServicoApi.get<ObjetoInterface[]>("api/objetos")).data;
+            if (objetos.length === 0) {
+                return "objetos_vazio";
+            }
             return objetos;
         }
     },

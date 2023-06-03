@@ -1,11 +1,11 @@
 import { createContext, PropsWithChildren } from "react";
 import {
-    RedutorDosObjetos,
+    RedutorDosObjetosInterface,
     estadoInicial,
     useRedutorDosObjetos,
-} from "../redutores/RedutorObjetos";
+} from "../redutores/RedutorDosObjetos";
 
-const valorInicial: RedutorDosObjetos = {
+const valorInicial: RedutorDosObjetosInterface = {
     estadoDosObjetos: estadoInicial,
     despachoDosObjetos: () => {},
 };
@@ -14,7 +14,6 @@ export const ContextoDosObjetos = createContext(valorInicial);
 
 export function ProvedorDosObjetos({ children }: PropsWithChildren) {
     const redutor = useRedutorDosObjetos();
-    console.log(redutor);
     return (
         <ContextoDosObjetos.Provider value={redutor}>{children}</ContextoDosObjetos.Provider>
     );

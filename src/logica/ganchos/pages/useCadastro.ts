@@ -13,7 +13,6 @@ export default function useCadastro() {
 
     async function cadastrar(dados: LocalUsuarioInterface): Promise<void> {
         try {
-            console.log(dados);
             await ServicoApi.post<LocalUsuarioInterface>("/api/locais", dados);
             alterarMensagem(true);
         } catch (erro) {

@@ -3,7 +3,7 @@ import { FormularioCampos } from "../Formularios.style";
 import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
 import { LocalInterface } from "@/logica/interfaces/interfaces";
 
-export default function FormularioIndex() {
+export function FormularioIndex() {
     const {
         register,
         formState: { errors },

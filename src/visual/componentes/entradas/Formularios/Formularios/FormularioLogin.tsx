@@ -3,7 +3,7 @@ import { FormularioCampos } from "../Formularios.style";
 import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
 import { LoginRequisicaoInterface } from "@/logica/interfaces/interfaces";
 
-export default function FormularioLogin() {
+export function FormularioLogin() {
     const {
         register,
         formState: { errors },

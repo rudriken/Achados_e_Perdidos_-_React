@@ -3,7 +3,7 @@ import { FormularioCampos } from "../Formularios.style";
 import { CampoDeTexto } from "../../CampoDeTexto/CampoDeTexto.style";
 import { LocalUsuarioInterface } from "@/logica/interfaces/interfaces";
 
-export default function FormularioUsuario() {
+export function FormularioUsuario() {
     const {
         control,
         formState: { errors },

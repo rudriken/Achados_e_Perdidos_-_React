@@ -17,7 +17,7 @@ type TipoDaAcaoDosObjetos = {
     carregarObjeto?: unknown;
 };
 
-export interface RedutorDosObjetos {
+export interface RedutorDosObjetosInterface {
     estadoDosObjetos: TipoDoEstadoInicial;
     despachoDosObjetos: React.Dispatch<TipoDaAcaoDosObjetos>;
 }
@@ -37,24 +37,18 @@ const redutor = (estadoAtual: TipoDoEstadoInicial, acao: TipoDaAcaoDosObjetos) =
     return proximoEstado;
 };
 
-export function useRedutorDosObjetos(): RedutorDosObjetos {
+export function useRedutorDosObjetos(): RedutorDosObjetosInterface {
     const [estado, despacho] = useReducer(redutor, estadoInicial);
-    pegarObjetos();
 
     useEffect(() => {
-        console.log("executando o useEffect");
         pegarObjetos();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [estado.objetos]);
 
     async function pegarObjetos() {
-        console.log("entrei na função 'pegarObjetos'");
-        const objetos = await ServicoLogin.informacoesDosObjetos();
-        console.log(objetos);
-        console.log(estado.objetos);
+        let objetos = await ServicoLogin.informacoesDosObjetos();
 
-        if (objetos) {
-            console.log("tem objetos");
+        if (Array.isArray(objetos) && objetos.length > 0) {
             let diferente = false;
 
             for (let indice = 0; indice < objetos.length; indice++) {
@@ -63,32 +57,32 @@ export function useRedutorDosObjetos(): RedutorDosObjetos {
                         JSON.stringify(objetos[indice]) !==
                         JSON.stringify(estado.objetos[indice])
                     ) {
-                        console.log("objeto diferente encontrado");
                         diferente = true;
                         break;
                     }
                 }
                 if (objetos.length !== estado.objetos.length) {
-                    console.log("quantidade de itens diferentes");
                     diferente = true;
                     break;
                 }
                 diferente = false;
             }
 
-            console.log("diferente:", diferente);
-
             if (diferente) {
                 despachar();
             }
+        } else if (objetos === "objetos_vazio") {
+            despacho({ tipo: "BUSCANDO_OBJETOS", carregarObjeto: false });
+            despachar();
         } else {
             despacho({ tipo: "BUSCANDO_OBJETOS", carregarObjeto: true });
-            console.log("buscando objetos");
         }
 
         function despachar() {
+            if (objetos === "objetos_vazio") {
+                objetos = [] as ObjetoInterface[];
+            }
             despacho({ tipo: "ATUALIZAR_OBJETOS", carregarObjeto: objetos });
-            console.log("despachado");
         }
     }
 

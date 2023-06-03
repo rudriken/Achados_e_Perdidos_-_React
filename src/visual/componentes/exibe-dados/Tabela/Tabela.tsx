@@ -21,13 +21,14 @@ function Tabela<T>({ cabecalho, dados, renderizarLinha }: TabelaProps<T>): JSX.E
             <TTabela width={"100%"}>
                 <TCabecalho>
                     <TLinha>
-                        {cabecalho.map((item) => {
-                            return (
-                                <TCelula key={item} height={40}>
-                                    {item}
-                                </TCelula>
-                            );
-                        })}
+                        {dados.length > 0 &&
+                            cabecalho.map((item) => {
+                                return (
+                                    <TCelula key={item} height={40}>
+                                        {item}
+                                    </TCelula>
+                                );
+                            })}
                     </TLinha>
                 </TCabecalho>
                 <TCorpo>{dados.map(renderizarLinha)}</TCorpo>

@@ -6,7 +6,7 @@ import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
 import { LocalInterface } from "@/logica/interfaces/interfaces";
 
-export default function FormularioLocal() {
+export function FormularioLocal() {
     const {
         control,
         formState: { errors },

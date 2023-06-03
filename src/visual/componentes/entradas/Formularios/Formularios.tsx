@@ -1,12 +1,12 @@
-import { FormularioConteiner } from "./Formularios.style";
-import FormularioLocal from "./Formularios/FormularioLocal";
+// import { FormularioConteiner } from "./Formularios.style";
 
 interface FormulariosProps {}
 
 export default function Formularios({}: FormulariosProps) {
-    return (
-        <FormularioConteiner>
-            <FormularioLocal />
-        </FormularioConteiner>
-    );
+    return <></>;
 }
+
+export * from "./Formularios/FormularioIndex";
+export * from "./Formularios/FormularioLocal";
+export * from "./Formularios/FormularioUsuario";
+export * from "./Formularios/FormularioLogin";

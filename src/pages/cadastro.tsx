@@ -1,8 +1,10 @@
 import { FormProvider } from "react-hook-form";
 import { Container, Typography } from "@mui/material";
 import useCadastro from "@/logica/ganchos/pages/useCadastro";
-import FormularioLocal from "@/visual/componentes/entradas/Formularios/Formularios/FormularioLocal";
-import FormularioUsuario from "@/visual/componentes/entradas/Formularios/Formularios/FormularioUsuario";
+import {
+    FormularioLocal,
+    FormularioUsuario,
+} from "@/visual/componentes/entradas/Formularios/Formularios";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
