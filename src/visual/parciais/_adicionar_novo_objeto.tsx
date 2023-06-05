@@ -1,15 +1,18 @@
-import { Container } from "@mui/material";
-import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
-import { FormularioObjeto } from "../componentes/entradas/Formularios/Formularios";
-import useCadastroDeObjeto from "@/logica/ganchos/useCadastroDeObjeto";
-import Botao from "../componentes/entradas/Botao/Botao";
+import { useState } from "react";
 import { FormProvider } from "react-hook-form";
+import { Container } from "@mui/material";
+import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
+import { FormularioObjeto } from "../componentes/entradas/Formularios/Formularios";
+import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
+import Botao from "../componentes/entradas/Botao/Botao";
 import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
 
-export function Adicionar_novo_objeto({ listar_objetos = () => {} }) {
+export default function Adicionar_novo_objeto({ listar_objetos = () => {} }) {
     const { formularioMetodosCadastroObjeto, cadastrar, mensagem, alterarMensagem } =
             useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
+    const [imagemFile, alterarImagemFile] = useState({} as File);
+
     return (
         <FormProvider {...formularioMetodosCadastroObjeto}>
             <Container>
@@ -18,7 +21,9 @@ export function Adicionar_novo_objeto({ listar_objetos = () => {} }) {
                     subtitulo={"Preencha os dados do objeto que deseja adicionar"}
                 />
                 <form
-                    onSubmit={handleSubmit(cadastrar)}
+                    onSubmit={handleSubmit(() =>
+                        cadastrar(formularioMetodosCadastroObjeto.getValues(), imagemFile)
+                    )}
                     autoComplete={"on"}
                     style={{
                         display: "flex",
@@ -40,7 +45,9 @@ export function Adicionar_novo_objeto({ listar_objetos = () => {} }) {
                             width: "80%",
                         }}
                     >
-                        <FormularioObjeto />
+                        <FormularioObjeto
+                            imagemFileObjeto={(imagemFile) => alterarImagemFile(imagemFile)}
+                        />
                     </fieldset>
 
                     <Botao

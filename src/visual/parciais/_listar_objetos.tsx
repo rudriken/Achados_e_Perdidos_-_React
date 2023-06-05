@@ -1,16 +1,13 @@
+import React, { useContext } from "react";
 import { Container, Skeleton, Typography } from "@mui/material";
+import { ContextoDosObjetos } from "@/logica/contextos/ContextoDosObjetos";
 import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Tabela, { T_Celula, T_Linha } from "../componentes/exibe-dados/Tabela/Tabela";
 import Botao from "../componentes/entradas/Botao/Botao";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
-import React, { useContext } from "react";
-import { ContextoDosObjetos } from "@/logica/contextos/ContextoDosObjetos";
-import usePlataforma from "@/logica/ganchos/pages/usePlataforma";
-import { parciais } from "@/logica/tipos/globais";
 
 export default function Listar_objetos({ adicionar_novo_objeto = () => {} }) {
     const { objetos, buscando } = useContext(ContextoDosObjetos).estadoDosObjetos;
-    const { parcial, alterarParcial } = usePlataforma();
     return (
         <Container
             style={{

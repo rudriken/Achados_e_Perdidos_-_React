@@ -6,19 +6,19 @@ import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
 import { LocalInterface } from "@/logica/interfaces/interfaces";
 
-export function FormularioLocal({ imagemFile = (imagem: File) => {} }) {
+export function FormularioLocal({ imagemFileLocal = (imagem: File) => {} }) {
     const {
         control,
         formState: { errors },
     } = useFormContext<LocalInterface>();
     const [caracteresDescricao, alterarCaracteresDescricao] = useState(0);
     const caracteresDescricaoMaximo = 255;
-    const [imagem, alterarImagem] = useState({} as File);
+    const [imagemFile, alterarImagemFile] = useState({} as File);
 
     useEffect(() => {
-        imagemFile(imagem);
+        imagemFileLocal(imagemFile);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [imagem]);
+    }, [imagemFile]);
 
     return (
         <FormularioCampos>
@@ -119,7 +119,7 @@ export function FormularioLocal({ imagemFile = (imagem: File) => {} }) {
                         <CampoDeArquivo
                             value={field.value}
                             onChange={(valor) => {
-                                alterarImagem(valor[0]);
+                                alterarImagemFile(valor[0]);
                                 field.onChange(valor.item(0)?.name);
                             }}
                             label={"Imagem do local"}

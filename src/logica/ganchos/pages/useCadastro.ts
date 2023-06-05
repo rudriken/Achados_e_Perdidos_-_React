@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ServicoApi } from "@/logica/servicos/ServicoApi";
-import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
-import { LocalUsuarioInterface, LoginInterface } from "@/logica/interfaces/interfaces";
-import { LocalStorage } from "@/logica/servicos/ServicoArmazenamento";
 import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
+import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
+import { LocalStorage } from "@/logica/servicos/ServicoArmazenamento";
+import { LocalUsuarioInterface, LoginInterface } from "@/logica/interfaces/interfaces";
 
 export default function useCadastro() {
     const formularioMetodosCadastro = useForm<LocalUsuarioInterface>({
@@ -15,18 +15,18 @@ export default function useCadastro() {
 
     async function cadastrar(
         dados: LocalUsuarioInterface,
-        imagemObjeto: File
+        imagemFileLocal: File
     ): Promise<void> {
         try {
-            dados = { ...dados, imagem: "" };
             await ServicoApi.post<LocalUsuarioInterface>("/api/locais", dados);
-            const chave = await logar({
+            await logar({
                 email: dados.usuario.email,
                 password: dados.usuario.password as string,
             });
+            const chave = LocalStorage.pegar("token", "");
             await ServicoApi.post(
                 "api/locais/imagem",
-                { imagem_local: imagemObjeto },
+                { imagem_local: imagemFileLocal },
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -40,16 +40,10 @@ export default function useCadastro() {
         }
     }
 
-    async function logar(credenciais: LoginInterface): Promise<string> {
-        const logado = await ServicoLogin.entrar(credenciais);
-        if (logado) {
-            const token = LocalStorage.pegar("token", "");
-            console.log(token);
-            if (token) {
-                return token;
-            }
-        }
-        return "";
+    async function logar(credenciais: LoginInterface): Promise<void> {
+        try {
+            await ServicoLogin.entrar(credenciais);
+        } catch (erro) {}
     }
 
     return {

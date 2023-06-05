@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { Container, Typography } from "@mui/material";
 import useCadastro from "@/logica/ganchos/pages/useCadastro";
@@ -9,7 +10,6 @@ import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
-import { useState } from "react";
 
 export default function Cadastro() {
     const { formularioMetodosCadastro, cadastrar, mensagem, alterarMensagem } = useCadastro(),
@@ -54,8 +54,8 @@ export default function Cadastro() {
                             Dados do local
                         </Typography>
                         <FormularioLocal
-                            imagemFile={(imagemObjeto) => {
-                                alterarImagemFile(imagemObjeto);
+                            imagemFileLocal={(imagemFile) => {
+                                alterarImagemFile(imagemFile);
                             }}
                         />
                     </fieldset>

@@ -1,14 +1,22 @@
-import { ObjetoInterface } from "@/logica/interfaces/interfaces";
-import { FormularioCampos } from "../Formularios.style";
+import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { CampoDeTexto } from "../../CampoDeTexto/CampoDeTexto.style";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
+import { FormularioCampos } from "../Formularios.style";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
-export function FormularioObjeto() {
+export function FormularioObjeto({ imagemFileObjeto = (imagem: File) => {} }) {
     const {
         control,
         formState: { errors },
     } = useFormContext<ObjetoInterface>();
+    const [imagemFile, alterarImagemFile] = useState({} as File);
+
+    useEffect(() => {
+        imagemFileObjeto(imagemFile);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [imagemFile]);
+
     return (
         <FormularioCampos>
             <Controller
@@ -57,7 +65,10 @@ export function FormularioObjeto() {
                     return (
                         <CampoDeArquivo
                             value={field.value}
-                            onChange={(valor) => field.onChange(valor.item(0)?.name)}
+                            onChange={(valor) => {
+                                alterarImagemFile(valor[0]);
+                                field.onChange(valor.item(0)?.name);
+                            }}
                             label={"Imagem do objeto"}
                             placeholder={"Selecione a imagem do objeto"}
                             required
