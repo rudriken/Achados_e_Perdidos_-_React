@@ -2,15 +2,15 @@ import { ServicoApi } from "./ServicoApi";
 import { LocalStorage } from "./ServicoArmazenamento";
 import {
     LocalUsuarioInterface,
-    LoginRespostaInterface,
+    LoginInterface,
     ObjetoInterface,
 } from "../interfaces/interfaces";
 
 export const ServicoLogin = {
-    entrar: async (credenciais: LoginRespostaInterface): Promise<boolean> => {
+    entrar: async (credenciais: LoginInterface): Promise<boolean> => {
         try {
             const login = (
-                await ServicoApi.post<LoginRespostaInterface>("api/auth/login", credenciais)
+                await ServicoApi.post<LoginInterface>("api/auth/login", credenciais)
             ).data;
             LocalStorage.gravar("token", login.access);
             LocalStorage.gravar("refresh", login.refresh);

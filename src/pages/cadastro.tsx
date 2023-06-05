@@ -9,10 +9,12 @@ import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
+import { useState } from "react";
 
 export default function Cadastro() {
     const { formularioMetodosCadastro, cadastrar, mensagem, alterarMensagem } = useCadastro(),
         { handleSubmit } = formularioMetodosCadastro;
+    const [imagemFile, alterarImagemFile] = useState({} as File);
 
     return (
         <FormProvider {...formularioMetodosCadastro}>
@@ -24,7 +26,9 @@ export default function Cadastro() {
                 />
 
                 <form
-                    onSubmit={handleSubmit(cadastrar)}
+                    onSubmit={handleSubmit(() =>
+                        cadastrar(formularioMetodosCadastro.getValues(), imagemFile)
+                    )}
                     autoComplete={"on"}
                     style={{
                         display: "flex",
@@ -49,7 +53,11 @@ export default function Cadastro() {
                         <Typography sx={{ my: 2, color: "#abb6c3" }}>
                             Dados do local
                         </Typography>
-                        <FormularioLocal />
+                        <FormularioLocal
+                            imagemFile={(imagemObjeto) => {
+                                alterarImagemFile(imagemObjeto);
+                            }}
+                        />
                     </fieldset>
 
                     <fieldset

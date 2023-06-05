@@ -37,8 +37,8 @@ export interface LinksInterface {
 export interface LoginInterface {
     email: string;
     password: string;
-    access: string;
-    refresh: string;
+    access?: string;
+    refresh?: string;
 }
 
 export interface ObjetoInterface {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { ServicoContagemCaracteres } from "@/logica/servicos/ServicoContagemCaracteres";
 import { FormularioCampos } from "../Formularios.style";
@@ -6,13 +6,19 @@ import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
 import { LocalInterface } from "@/logica/interfaces/interfaces";
 
-export function FormularioLocal() {
+export function FormularioLocal({ imagemFile = (imagem: File) => {} }) {
     const {
         control,
         formState: { errors },
     } = useFormContext<LocalInterface>();
     const [caracteresDescricao, alterarCaracteresDescricao] = useState(0);
     const caracteresDescricaoMaximo = 255;
+    const [imagem, alterarImagem] = useState({} as File);
+
+    useEffect(() => {
+        imagemFile(imagem);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [imagem]);
 
     return (
         <FormularioCampos>
@@ -112,7 +118,10 @@ export function FormularioLocal() {
                     return (
                         <CampoDeArquivo
                             value={field.value}
-                            onChange={(valor) => field.onChange(valor.item(0)?.name)}
+                            onChange={(valor) => {
+                                alterarImagem(valor[0]);
+                                field.onChange(valor.item(0)?.name);
+                            }}
                             label={"Imagem do local"}
                             placeholder={"Selecione a imagem do local"}
                             required
