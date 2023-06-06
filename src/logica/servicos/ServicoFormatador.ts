@@ -1,3 +1,5 @@
+import { imagemPublicObjeto } from "../tipos/globais";
+
 const ServicoFormatador = {
     transformarString: (cadeia: string) => {
         var comDiacritico = [
@@ -95,6 +97,10 @@ const ServicoFormatador = {
             }
         }
         return stringTransformada.toLowerCase();
+    },
+    retirarPublic: (caminhoImagemBanco: string): string => {
+        caminhoImagemBanco = caminhoImagemBanco.replace(imagemPublicObjeto, "");
+        return caminhoImagemBanco;
     },
 };
 

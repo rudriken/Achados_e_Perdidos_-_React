@@ -6,7 +6,11 @@ import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
 import { LocalInterface } from "@/logica/interfaces/interfaces";
 
-export function FormularioLocal({ imagemFileLocal = (imagem: File) => {} }) {
+export function FormularioLocal({
+    imagemFileLocal = (imagem: File) => {
+        imagem;
+    },
+}) {
     const {
         control,
         formState: { errors },

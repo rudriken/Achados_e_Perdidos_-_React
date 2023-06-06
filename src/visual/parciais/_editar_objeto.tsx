@@ -1,28 +1,37 @@
-import { useState } from "react";
-import { FormProvider } from "react-hook-form";
 import { Container } from "@mui/material";
-import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
-import { FormularioObjeto } from "../componentes/entradas/Formularios/Formularios";
 import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
+import { FormularioObjeto } from "../componentes/entradas/Formularios/Formularios";
+import { FormProvider } from "react-hook-form";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import Botao from "../componentes/entradas/Botao/Botao";
+import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
+import { useState } from "react";
 import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
 
-export default function Adicionar_novo_objeto({ listar_objetos = () => {} }) {
-    const { formularioMetodosCadastroObjeto, cadastrarObjeto, mensagem, alterarMensagem } =
+export default function Editar_objeto({
+    objeto,
+    listar_objetos,
+}: {
+    objeto: ObjetoInterface;
+    listar_objetos: () => void;
+}) {
+    const { formularioMetodosCadastroObjeto, alterarObjeto, mensagem, alterarMensagem } =
             useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
     const [imagemFile, alterarImagemFile] = useState({} as File);
+    const [campoAlterado, alterarCampoAlterado] = useState(false);
 
     return (
         <FormProvider {...formularioMetodosCadastroObjeto}>
             <Container>
                 <TituloPagina
-                    titulo={"Adicionar novo objeto"}
-                    subtitulo={"Preencha os dados do objeto que deseja adicionar"}
+                    titulo={`Alterar objeto '${objeto.nome}'`}
+                    subtitulo={"Altere qualquer dado deste objeto"}
                 />
                 <form
                     onSubmit={handleSubmit(() =>
-                        cadastrarObjeto(
+                        alterarObjeto(
+                            objeto,
                             formularioMetodosCadastroObjeto.getValues(),
                             imagemFile
                         )
@@ -49,22 +58,27 @@ export default function Adicionar_novo_objeto({ listar_objetos = () => {} }) {
                         }}
                     >
                         <FormularioObjeto
-                            imagemFileObjeto={(imagemFile) => alterarImagemFile(imagemFile)}
-                            novoCadastro
+                            imagemFileObjeto={(imagem) => alterarImagemFile(imagem)}
+                            alteracao
+                            objeto={objeto}
+                            qualquerCampoAlterado={(campoAlterado) => {
+                                alterarCampoAlterado(campoAlterado);
+                            }}
                         />
                     </fieldset>
 
                     <Botao
-                        texto={"Cadastrar"}
+                        texto={"Salvar Alteração"}
                         modo={"contained"}
                         tipo={"submit"}
                         cor={"primary"}
                         largura={200}
                         fonteTamanho={16}
-                        desabilitado={false}
+                        desabilitado={!campoAlterado}
                     />
                 </form>
             </Container>
+
             {mensagem && (
                 <Dialogo
                     aberto={mensagem}
@@ -73,7 +87,7 @@ export default function Adicionar_novo_objeto({ listar_objetos = () => {} }) {
                         listar_objetos();
                     }}
                     titulo={"Sucesso"}
-                    subtitulo={"Cadastro do objeto realizado com sucesso"}
+                    subtitulo={"Objeto alterado com sucesso!"}
                     temBotaoFechar
                 />
             )}

@@ -4,6 +4,7 @@ import { ServicoEstruturaFormulario } from "../../servicos/ServicoEstruturaFormu
 import { ObjetoInterface } from "../../interfaces/interfaces";
 import { ServicoApi } from "../../servicos/ServicoApi";
 import { useState } from "react";
+import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 
 export default function useCadastroDeObjeto() {
     const formularioMetodosCadastroObjeto = useForm<ObjetoInterface>({
@@ -11,7 +12,7 @@ export default function useCadastroDeObjeto() {
     });
     const [mensagem, alterarMensagem] = useState(false);
 
-    async function cadastrar(dados: ObjetoInterface, imagemFileObjeto: File) {
+    async function cadastrarObjeto(dados: ObjetoInterface, imagemFileObjeto: File) {
         try {
             const objeto = (await ServicoApi.post<ObjetoInterface>("api/objetos", dados))
                 .data;
@@ -26,5 +27,39 @@ export default function useCadastroDeObjeto() {
         }
     }
 
-    return { formularioMetodosCadastroObjeto, cadastrar, mensagem, alterarMensagem };
+    async function alterarObjeto(
+        objetoDoBanco: ObjetoInterface,
+        objetoAlterado: ObjetoInterface,
+        imagemFileObjeto: File
+    ) {
+        const objetoASerGravado = { ...objetoDoBanco, ...objetoAlterado };
+        try {
+            (
+                await ServicoApi.put<ObjetoInterface>(`api/objetos/${objetoASerGravado.id}`, {
+                    ...objetoASerGravado,
+                })
+            ).data;
+            if (
+                ServicoFormatador.retirarPublic(objetoDoBanco.imagem) !==
+                objetoASerGravado.imagem
+            ) {
+                await ServicoApi.post(
+                    `api/objetos/${objetoASerGravado.id}/imagem`,
+                    { imagem_objeto: imagemFileObjeto },
+                    { headers: { "Content-Type": "multipart/form-data" } }
+                );
+            }
+            alterarMensagem(true);
+        } catch (erro) {
+            return false;
+        }
+    }
+
+    return {
+        formularioMetodosCadastroObjeto,
+        cadastrarObjeto,
+        alterarObjeto,
+        mensagem,
+        alterarMensagem,
+    };
 }

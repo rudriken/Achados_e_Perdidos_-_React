@@ -6,7 +6,12 @@ import Tabela, { T_Celula, T_Linha } from "../componentes/exibe-dados/Tabela/Tab
 import Botao from "../componentes/entradas/Botao/Botao";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
-export default function Listar_objetos({ adicionar_novo_objeto = () => {} }) {
+export default function Listar_objetos({
+    adicionar_novo_objeto = () => {},
+    editar_objeto = (objeto: ObjetoInterface) => {
+        objeto;
+    },
+}) {
     const { objetos, buscando } = useContext(ContextoDosObjetos).estadoDosObjetos;
     return (
         <Container
@@ -39,7 +44,12 @@ export default function Listar_objetos({ adicionar_novo_objeto = () => {} }) {
                                 <>
                                     {objeto.links.filter((link) => link.rel === "self")
                                         .length === 1 && (
-                                        <Botao texto={"Editar"} altura={40} cor={"success"} />
+                                        <Botao
+                                            texto={"Editar"}
+                                            altura={40}
+                                            cor={"success"}
+                                            aoClicar={() => editar_objeto(objeto)}
+                                        />
                                     )}
                                     {objeto.links.filter(
                                         (link) => link.rel === "apagar_objeto"

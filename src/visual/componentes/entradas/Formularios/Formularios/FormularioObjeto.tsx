@@ -4,25 +4,53 @@ import { CampoDeTexto } from "../../CampoDeTexto/CampoDeTexto.style";
 import CampoDeArquivo from "../../CampoDeArquivo/CampoDeArquivo";
 import { FormularioCampos } from "../Formularios.style";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
+import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 
-export function FormularioObjeto({ imagemFileObjeto = (imagem: File) => {} }) {
+export function FormularioObjeto({
+    imagemFileObjeto = (imagem: File) => {
+        imagem;
+    },
+    novoCadastro = false,
+    alteracao = false,
+    objeto = {
+        nome: "",
+        descricao: "",
+        imagem: "",
+    } as ObjetoInterface,
+    qualquerCampoAlterado = (valorAlterado: boolean) => {
+        valorAlterado;
+    },
+}) {
     const {
         control,
         formState: { errors },
+        watch,
     } = useFormContext<ObjetoInterface>();
     const [imagemFile, alterarImagemFile] = useState({} as File);
+    const nomealterado = watch("nome") !== objeto.nome;
+    const descricaoAlterada = watch("descricao") !== objeto.descricao;
+    const imagemLAterada = watch("imagem") !== ServicoFormatador.retirarPublic(objeto.imagem);
 
     useEffect(() => {
         imagemFileObjeto(imagemFile);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [imagemFile]);
 
+    useEffect(() => {
+        if (nomealterado || descricaoAlterada || imagemLAterada) {
+            qualquerCampoAlterado(true);
+        } else {
+            qualquerCampoAlterado(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [nomealterado, descricaoAlterada, imagemLAterada]);
+
     return (
         <FormularioCampos>
             <Controller
                 control={control}
                 name={"nome"}
-                defaultValue={""}
+                defaultValue={alteracao ? objeto.nome : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeTexto
@@ -34,6 +62,7 @@ export function FormularioObjeto({ imagemFileObjeto = (imagem: File) => {} }) {
                             error={errors?.nome !== undefined}
                             helperText={errors?.nome?.message}
                             style={{ marginBottom: 16 }}
+                            disabled={!novoCadastro && !alteracao}
                         />
                     );
                 }}
@@ -41,7 +70,7 @@ export function FormularioObjeto({ imagemFileObjeto = (imagem: File) => {} }) {
             <Controller
                 control={control}
                 name={"descricao"}
-                defaultValue={""}
+                defaultValue={alteracao ? objeto.descricao : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeTexto
@@ -53,6 +82,7 @@ export function FormularioObjeto({ imagemFileObjeto = (imagem: File) => {} }) {
                             error={errors?.descricao !== undefined}
                             helperText={errors?.descricao?.message}
                             style={{ marginBottom: 16 }}
+                            disabled={!novoCadastro && !alteracao}
                         />
                     );
                 }}
@@ -60,7 +90,7 @@ export function FormularioObjeto({ imagemFileObjeto = (imagem: File) => {} }) {
             <Controller
                 control={control}
                 name={"imagem"}
-                defaultValue={""}
+                defaultValue={alteracao ? ServicoFormatador.retirarPublic(objeto.imagem) : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeArquivo
@@ -74,6 +104,7 @@ export function FormularioObjeto({ imagemFileObjeto = (imagem: File) => {} }) {
                             required
                             error={errors?.imagem !== undefined}
                             helperText={errors?.imagem?.message}
+                            disabled={!novoCadastro && !alteracao}
                         />
                     );
                 }}
