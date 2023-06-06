@@ -1,14 +1,14 @@
-import { Container } from "@mui/material";
-import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
-import { FormularioObjeto } from "../componentes/entradas/Formularios/Formularios";
-import { FormProvider } from "react-hook-form";
-import { ObjetoInterface } from "@/logica/interfaces/interfaces";
-import Botao from "../componentes/entradas/Botao/Botao";
-import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
 import { useState } from "react";
+import { FormProvider } from "react-hook-form";
+import { Container } from "@mui/material";
+import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
+import { FormularioObjeto } from "../componentes/entradas/Formularios/Formularios";
+import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
+import Botao from "../componentes/entradas/Botao/Botao";
 import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
-export default function Editar_objeto({
+export default function EditarObjeto({
     objeto,
     listar_objetos,
 }: {
@@ -89,6 +89,7 @@ export default function Editar_objeto({
                     titulo={"Sucesso"}
                     subtitulo={"Objeto alterado com sucesso!"}
                     temBotaoFechar
+                    rotuloFechar={"Voltar"}
                 />
             )}
         </FormProvider>

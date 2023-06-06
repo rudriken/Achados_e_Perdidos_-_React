@@ -6,11 +6,14 @@ import Tabela, { T_Celula, T_Linha } from "../componentes/exibe-dados/Tabela/Tab
 import Botao from "../componentes/entradas/Botao/Botao";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
-export default function Listar_objetos({
-    adicionar_novo_objeto = () => {},
-    editar_objeto = (objeto: ObjetoInterface) => {
-        objeto;
-    },
+export default function ListarObjetos({
+    adicionar_novo_objeto,
+    editar_objeto,
+    apagar_objeto,
+}: {
+    adicionar_novo_objeto: () => void;
+    editar_objeto: (objeto: ObjetoInterface) => void;
+    apagar_objeto: (objeto: ObjetoInterface) => void;
 }) {
     const { objetos, buscando } = useContext(ContextoDosObjetos).estadoDosObjetos;
     return (
@@ -54,7 +57,12 @@ export default function Listar_objetos({
                                     {objeto.links.filter(
                                         (link) => link.rel === "apagar_objeto"
                                     ).length === 1 && (
-                                        <Botao texto={"Apagar"} altura={40} cor={"error"} />
+                                        <Botao
+                                            texto={"Apagar"}
+                                            altura={40}
+                                            cor={"error"}
+                                            aoClicar={() => apagar_objeto(objeto)}
+                                        />
                                     )}
                                     {objeto.links.filter(
                                         (link) => link.rel === "definir_dono_objeto"

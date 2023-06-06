@@ -1,10 +1,10 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { ServicoEstruturaFormulario } from "../../servicos/ServicoEstruturaFormulario";
-import { ObjetoInterface } from "../../interfaces/interfaces";
-import { ServicoApi } from "../../servicos/ServicoApi";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ServicoApi } from "../../servicos/ServicoApi";
+import { ServicoEstruturaFormulario } from "../../servicos/ServicoEstruturaFormulario";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
+import { ObjetoInterface } from "../../interfaces/interfaces";
 
 export default function useCadastroDeObjeto() {
     const formularioMetodosCadastroObjeto = useForm<ObjetoInterface>({
@@ -55,10 +55,21 @@ export default function useCadastroDeObjeto() {
         }
     }
 
+    async function excluirObjeto(objeto: ObjetoInterface) {
+        try {
+            await ServicoApi.delete(`api/objetos/${objeto.id}`);
+            alterarMensagem(true);
+            return true;
+        } catch (erro) {
+            return false;
+        }
+    }
+
     return {
         formularioMetodosCadastroObjeto,
         cadastrarObjeto,
         alterarObjeto,
+        excluirObjeto,
         mensagem,
         alterarMensagem,
     };

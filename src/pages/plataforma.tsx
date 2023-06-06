@@ -3,10 +3,11 @@ import { ContextoDoLocalUsuario } from "@/logica/contextos/ContextoDoLocalUsuari
 import { ProvedorDosObjetos } from "@/logica/contextos/ContextoDosObjetos";
 import usePlataforma from "@/logica/ganchos/pages/usePlataforma";
 import { parciais } from "@/logica/tipos/globais";
-import Listar_objetos from "@/visual/parciais/_listar_objetos";
-import Adicionar_novo_objeto from "@/visual/parciais/_adicionar_novo_objeto";
+import ListarObjetos from "@/visual/parciais/_listar_objetos";
+import AdicionarNovoObjeto from "@/visual/parciais/_adicionar_novo_objeto";
+import EditarObjeto from "@/visual/parciais/_editar_objeto";
+import ExcluirObjeto from "@/visual/parciais/_excluir_objeto";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
-import Editar_objeto from "@/visual/parciais/_editar_objeto";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 export default function Plataforma() {
@@ -23,24 +24,45 @@ export default function Plataforma() {
             />
             {parcial === parciais[0] && (
                 <ProvedorDosObjetos>
-                    <Listar_objetos
-                        adicionar_novo_objeto={() => alterarParcial(parciais[1])}
+                    <ListarObjetos
+                        adicionar_novo_objeto={() => {
+                            alterarParcial(parciais[1]);
+                        }}
                         editar_objeto={(objeto) => {
                             alterarObjeto(objeto);
                             alterarParcial(parciais[2]);
+                        }}
+                        apagar_objeto={(objeto) => {
+                            alterarObjeto(objeto);
+                            alterarParcial(parciais[3]);
                         }}
                     />
                 </ProvedorDosObjetos>
             )}
 
             {parcial === parciais[1] && (
-                <Adicionar_novo_objeto listar_objetos={() => alterarParcial(parciais[0])} />
+                <AdicionarNovoObjeto
+                    listar_objetos={() => {
+                        alterarParcial(parciais[0]);
+                    }}
+                />
             )}
 
             {parcial === parciais[2] && (
-                <Editar_objeto
-                    listar_objetos={() => alterarParcial(parciais[0])}
+                <EditarObjeto
+                    listar_objetos={() => {
+                        alterarParcial(parciais[0]);
+                    }}
                     objeto={objeto}
+                />
+            )}
+
+            {parcial === parciais[3] && (
+                <ExcluirObjeto
+                    objeto={objeto}
+                    listar_objetos={() => {
+                        alterarParcial(parciais[0]);
+                    }}
                 />
             )}
         </>

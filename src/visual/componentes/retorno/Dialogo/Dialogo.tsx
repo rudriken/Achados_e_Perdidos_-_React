@@ -17,7 +17,7 @@ interface DialogoProps {
     temBotaoFechar?: boolean;
     temBotaoConfirmar?: boolean;
     aoFechar?: () => void;
-    aoConfirmar?: () => {};
+    aoConfirmar?: () => void;
 }
 
 export default function Dialogo({

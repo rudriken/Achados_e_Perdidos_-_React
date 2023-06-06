@@ -7,7 +7,11 @@ import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Botao from "../componentes/entradas/Botao/Botao";
 import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
 
-export default function Adicionar_novo_objeto({ listar_objetos = () => {} }) {
+export default function AdicionarNovoObjeto({
+    listar_objetos,
+}: {
+    listar_objetos: () => void;
+}) {
     const { formularioMetodosCadastroObjeto, cadastrarObjeto, mensagem, alterarMensagem } =
             useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
@@ -75,6 +79,7 @@ export default function Adicionar_novo_objeto({ listar_objetos = () => {} }) {
                     titulo={"Sucesso"}
                     subtitulo={"Cadastro do objeto realizado com sucesso"}
                     temBotaoFechar
+                    rotuloFechar={"Voltar"}
                 />
             )}
         </FormProvider>

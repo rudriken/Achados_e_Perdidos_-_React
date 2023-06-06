@@ -98,7 +98,7 @@ export default function Cadastro() {
                         alterarMensagem(false);
                     }}
                     titulo={"Sucesso"}
-                    subtitulo={"Cadastro realizado com sucesso"}
+                    subtitulo={"Cadastro do usuário e local realizado com sucesso"}
                     temBotaoFechar
                 />
             )}
