@@ -100,7 +100,6 @@ const ServicoFormatador = {
     },
     caminhoRelativoDaImagemDoObjeto: (caminhoImagemBanco: string): string => {
         caminhoImagemBanco = caminhoImagemBanco.replace(caminhoAbsolutoDaImagemDoObjeto, "");
-        console.log(caminhoImagemBanco);
         return caminhoImagemBanco;
     },
     formatarData: (data: string): string => {
