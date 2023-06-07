@@ -5,13 +5,16 @@ import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Tabela, { T_Celula, T_Linha } from "../componentes/exibe-dados/Tabela/Tabela";
 import Botao from "../componentes/entradas/Botao/Botao";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
+import Elo from "../componentes/navegacao/Elo/Elo";
 
 export default function ListarObjetos({
     adicionar_novo_objeto,
+    exibir_objeto,
     editar_objeto,
     apagar_objeto,
 }: {
     adicionar_novo_objeto: () => void;
+    exibir_objeto: (objeto: ObjetoInterface) => void;
     editar_objeto: (objeto: ObjetoInterface) => void;
     apagar_objeto: (objeto: ObjetoInterface) => void;
 }) {
@@ -41,8 +44,7 @@ export default function ListarObjetos({
                     cabecalho={["Nome", "Descrição", "Ações"]}
                     dados={objetos.map((objeto) => {
                         return {
-                            nome: objeto.nome,
-                            descricao: objeto.descricao,
+                            ...objeto,
                             acoes: (
                                 <>
                                     {objeto.links.filter((link) => link.rel === "self")
@@ -82,8 +84,32 @@ export default function ListarObjetos({
                         const item = _item as ObjetoInterface;
                         return (
                             <T_Linha key={indice}>
-                                <T_Celula>{item.nome}</T_Celula>
-                                <T_Celula>{item.descricao}</T_Celula>
+                                <T_Celula>
+                                    <Elo
+                                        rotulo={item.nome}
+                                        fonteTamanho={14}
+                                        fonteAlinhamento={"left"}
+                                        acao={() => {
+                                            const object = objetos.filter(
+                                                (obj) => obj.id === item.id
+                                            )[0];
+                                            exibir_objeto(object);
+                                        }}
+                                    />
+                                </T_Celula>
+                                <T_Celula>
+                                    <Elo
+                                        rotulo={item.descricao}
+                                        fonteTamanho={14}
+                                        fonteAlinhamento={"left"}
+                                        acao={() => {
+                                            const object = objetos.filter(
+                                                (obj) => obj.id === item.id
+                                            )[0];
+                                            exibir_objeto(object);
+                                        }}
+                                    />
+                                </T_Celula>
                                 <T_Celula>{item.acoes}</T_Celula>
                             </T_Linha>
                         );

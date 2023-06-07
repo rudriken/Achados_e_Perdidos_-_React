@@ -40,6 +40,7 @@ export default function Cardapio({
                             <Elo
                                 rotulo={opcao}
                                 url={`/${ServicoFormatador.transformarString(opcao)}`}
+                                fonteCor={"#000000"}
                             />
                         </li>
                     );

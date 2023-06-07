@@ -40,7 +40,7 @@ export default function useCadastroDeObjeto() {
                 })
             ).data;
             if (
-                ServicoFormatador.retirarPublic(objetoDoBanco.imagem) !==
+                ServicoFormatador.caminhoRelativoDaImagemDoObjeto(objetoDoBanco.imagem) !==
                 objetoASerGravado.imagem
             ) {
                 await ServicoApi.post(

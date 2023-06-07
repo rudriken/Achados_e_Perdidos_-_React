@@ -1,4 +1,4 @@
-import { coresTipo, modosTipo, tiposTipo } from "@/logica/tipos/componentes";
+import { coresTipo, modosTipo, tiposTipo } from "@/logica/tipos/tipagem";
 import { BotaoEstilizado } from "./Botao.style";
 
 interface BotaoProps {

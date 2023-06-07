@@ -1,4 +1,4 @@
-import { imagemPublicObjeto } from "../tipos/globais";
+import { caminhoAbsolutoDaImagemDoObjeto } from "../tipos/globais";
 
 const ServicoFormatador = {
     transformarString: (cadeia: string) => {
@@ -98,9 +98,14 @@ const ServicoFormatador = {
         }
         return stringTransformada.toLowerCase();
     },
-    retirarPublic: (caminhoImagemBanco: string): string => {
-        caminhoImagemBanco = caminhoImagemBanco.replace(imagemPublicObjeto, "");
+    caminhoRelativoDaImagemDoObjeto: (caminhoImagemBanco: string): string => {
+        caminhoImagemBanco = caminhoImagemBanco.replace(caminhoAbsolutoDaImagemDoObjeto, "");
+        console.log(caminhoImagemBanco);
         return caminhoImagemBanco;
+    },
+    formatarData: (data: string): string => {
+        const [ano, mes, dia] = data.split("-");
+        return `${dia}/${mes}/${ano}`;
     },
 };
 

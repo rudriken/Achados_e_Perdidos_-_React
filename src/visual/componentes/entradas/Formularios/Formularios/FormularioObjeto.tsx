@@ -29,7 +29,8 @@ export function FormularioObjeto({
     const [imagemFile, alterarImagemFile] = useState({} as File);
     const nomealterado = watch("nome") !== objeto.nome;
     const descricaoAlterada = watch("descricao") !== objeto.descricao;
-    const imagemLAterada = watch("imagem") !== ServicoFormatador.retirarPublic(objeto.imagem);
+    const imagemLAterada =
+        watch("imagem") !== ServicoFormatador.caminhoRelativoDaImagemDoObjeto(objeto.imagem);
 
     useEffect(() => {
         imagemFileObjeto(imagemFile);
@@ -90,7 +91,11 @@ export function FormularioObjeto({
             <Controller
                 control={control}
                 name={"imagem"}
-                defaultValue={alteracao ? ServicoFormatador.retirarPublic(objeto.imagem) : ""}
+                defaultValue={
+                    alteracao
+                        ? ServicoFormatador.caminhoRelativoDaImagemDoObjeto(objeto.imagem)
+                        : ""
+                }
                 render={({ field }) => {
                     return (
                         <CampoDeArquivo

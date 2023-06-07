@@ -2,7 +2,7 @@ import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
 import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
-export default function ExcluirObjeto({
+export default function ApagarObjeto({
     objeto,
     listar_objetos,
 }: {
