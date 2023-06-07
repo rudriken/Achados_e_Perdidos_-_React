@@ -8,12 +8,12 @@ import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import Elo from "../componentes/navegacao/Elo/Elo";
 
 export default function ListarObjetos({
-    adicionar_novo_objeto,
+    adicionar_objeto,
     exibir_objeto,
     editar_objeto,
     apagar_objeto,
 }: {
-    adicionar_novo_objeto: () => void;
+    adicionar_objeto: () => void;
     exibir_objeto: (objeto: ObjetoInterface) => void;
     editar_objeto: (objeto: ObjetoInterface) => void;
     apagar_objeto: (objeto: ObjetoInterface) => void;
@@ -124,7 +124,7 @@ export default function ListarObjetos({
                 modo={"contained"}
                 margem={32}
                 desabilitado={buscando}
-                aoClicar={adicionar_novo_objeto}
+                aoClicar={adicionar_objeto}
                 tipo={"button"}
             />
         </Container>

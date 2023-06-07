@@ -5,6 +5,7 @@ import { FormularioLogin } from "@/visual/componentes/entradas/Formularios/Formu
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
+import { conjuntoDeCampo } from "@/logica/tipos/globais";
 
 export default function Login() {
     const { formularioMetodosLogin, logar, erro } = useLogin(),
@@ -29,18 +30,7 @@ export default function Login() {
                         alignItems: "center",
                     }}
                 >
-                    <fieldset
-                        style={{
-                            paddingTop: 24,
-                            paddingBottom: 16,
-                            paddingLeft: 56,
-                            paddingRight: 56,
-                            marginBottom: 32,
-                            border: "1px solid #abb6c3",
-                            maxWidth: 900,
-                            width: "80%",
-                        }}
-                    >
+                    <fieldset {...conjuntoDeCampo}>
                         <FormularioLogin />
                     </fieldset>
 

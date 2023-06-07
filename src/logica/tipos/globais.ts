@@ -1,6 +1,6 @@
 export const parciais = [
     "_listar_objetos",
-    "_adicionar_novo_objeto",
+    "_adicionar_objeto",
     "_exibir_objeto",
     "_editar_objeto",
     "_apagar_objeto",

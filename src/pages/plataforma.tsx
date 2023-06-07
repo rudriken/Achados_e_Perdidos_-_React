@@ -4,7 +4,7 @@ import { ProvedorDosObjetos } from "@/logica/contextos/ContextoDosObjetos";
 import usePlataforma from "@/logica/ganchos/pages/usePlataforma";
 import { parciais } from "@/logica/tipos/globais";
 import ListarObjetos from "@/visual/parciais/_listar_objetos";
-import AdicionarNovoObjeto from "@/visual/parciais/_adicionar_novo_objeto";
+import AdicionarObjeto from "@/visual/parciais/_adicionar_objeto";
 import ExibirObjeto from "@/visual/parciais/_exibir_objeto";
 import EditarObjeto from "@/visual/parciais/_editar_objeto";
 import ApagarObjeto from "@/visual/parciais/_apagar_objeto";
@@ -26,7 +26,7 @@ export default function Plataforma() {
             {parcial === parciais[0] && (
                 <ProvedorDosObjetos>
                     <ListarObjetos
-                        adicionar_novo_objeto={() => {
+                        adicionar_objeto={() => {
                             alterarParcial(parciais[1]);
                         }}
                         exibir_objeto={(objeto) => {
@@ -46,7 +46,7 @@ export default function Plataforma() {
             )}
 
             {parcial === parciais[1] && (
-                <AdicionarNovoObjeto
+                <AdicionarObjeto
                     listar_objetos={() => {
                         alterarParcial(parciais[0]);
                     }}

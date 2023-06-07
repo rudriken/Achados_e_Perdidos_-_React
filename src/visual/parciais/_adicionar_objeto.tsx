@@ -6,12 +6,9 @@ import { FormularioObjeto } from "../componentes/entradas/Formularios/Formulario
 import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Botao from "../componentes/entradas/Botao/Botao";
 import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
+import { conjuntoDeCampo } from "@/logica/tipos/globais";
 
-export default function AdicionarNovoObjeto({
-    listar_objetos,
-}: {
-    listar_objetos: () => void;
-}) {
+export default function AdicionarObjeto({ listar_objetos }: { listar_objetos: () => void }) {
     const { formularioMetodosCadastroObjeto, cadastrarObjeto, mensagem, alterarMensagem } =
             useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
@@ -39,19 +36,7 @@ export default function AdicionarNovoObjeto({
                         alignItems: "center",
                     }}
                 >
-                    <fieldset
-                        color="#abb6c3"
-                        style={{
-                            paddingTop: 16,
-                            paddingBottom: 16,
-                            paddingLeft: 56,
-                            paddingRight: 56,
-                            marginBottom: 32,
-                            border: "1px solid #abb6c3",
-                            maxWidth: 900,
-                            width: "80%",
-                        }}
-                    >
+                    <fieldset {...conjuntoDeCampo}>
                         <FormularioObjeto
                             imagemFileObjeto={(imagemFile) => alterarImagemFile(imagemFile)}
                             novoCadastro

@@ -10,6 +10,7 @@ import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
+import { conjuntoDeCampo } from "@/logica/tipos/globais";
 
 export default function Cadastro() {
     const { formularioMetodosCadastro, cadastrar, mensagem, alterarMensagem } = useCadastro(),
@@ -37,19 +38,7 @@ export default function Cadastro() {
                         alignItems: "center",
                     }}
                 >
-                    <fieldset
-                        color="#abb6c3"
-                        style={{
-                            paddingTop: 16,
-                            paddingBottom: 16,
-                            paddingLeft: 56,
-                            paddingRight: 56,
-                            marginBottom: 32,
-                            border: "1px solid #abb6c3",
-                            maxWidth: 900,
-                            width: "80%",
-                        }}
-                    >
+                    <fieldset {...conjuntoDeCampo}>
                         <Typography sx={{ my: 2, color: "#abb6c3" }}>
                             Dados do local
                         </Typography>
@@ -60,18 +49,7 @@ export default function Cadastro() {
                         />
                     </fieldset>
 
-                    <fieldset
-                        style={{
-                            paddingTop: 16,
-                            paddingBottom: 16,
-                            paddingLeft: 56,
-                            paddingRight: 56,
-                            marginBottom: 32,
-                            border: "1px solid #abb6c3",
-                            maxWidth: 900,
-                            width: "80%",
-                        }}
-                    >
+                    <fieldset {...conjuntoDeCampo}>
                         <Typography sx={{ my: 2, color: "#abb6c3" }}>
                             Dados do administrador do local
                         </Typography>
