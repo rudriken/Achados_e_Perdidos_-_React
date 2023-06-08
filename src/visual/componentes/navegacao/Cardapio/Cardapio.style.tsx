@@ -8,7 +8,7 @@ export const CardapioMenu = styled(Menu)`
     }
 
     .MuiPaper-root {
-        width: 310px;
+        width: 300px;
     }
-    transform: translateY(-13px);
+    transform: translate(-1px, -13px);
 `;
