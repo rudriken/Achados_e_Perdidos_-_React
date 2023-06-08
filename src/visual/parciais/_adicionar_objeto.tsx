@@ -7,12 +7,18 @@ import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Botao from "../componentes/entradas/Botao/Botao";
 import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
-export default function AdicionarObjeto({ listar_objetos }: { listar_objetos: () => void }) {
+export default function AdicionarObjeto({
+    listar_objetos,
+}: {
+    listar_objetos: (objeto: ObjetoInterface) => void;
+}) {
     const { formularioMetodosCadastroObjeto, cadastrarObjeto, mensagem, alterarMensagem } =
             useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
     const [imagemFile, alterarImagemFile] = useState({} as File);
+    const [objetoCriado, alterarObjetoCriado] = useState({} as ObjetoInterface);
 
     return (
         <FormProvider {...formularioMetodosCadastroObjeto}>
@@ -22,12 +28,14 @@ export default function AdicionarObjeto({ listar_objetos }: { listar_objetos: ()
                     subtitulo={"Preencha os dados do objeto que deseja adicionar"}
                 />
                 <form
-                    onSubmit={handleSubmit(() =>
-                        cadastrarObjeto(
-                            formularioMetodosCadastroObjeto.getValues(),
-                            imagemFile
-                        )
-                    )}
+                    onSubmit={handleSubmit(async () => {
+                        alterarObjetoCriado(
+                            (await cadastrarObjeto(
+                                formularioMetodosCadastroObjeto.getValues(),
+                                imagemFile
+                            )) as ObjetoInterface
+                        );
+                    })}
                     autoComplete={"on"}
                     style={{
                         display: "flex",
@@ -59,7 +67,7 @@ export default function AdicionarObjeto({ listar_objetos }: { listar_objetos: ()
                     aberto={mensagem}
                     aoFechar={() => {
                         alterarMensagem(false);
-                        listar_objetos();
+                        listar_objetos(objetoCriado);
                     }}
                     titulo={"Sucesso"}
                     subtitulo={"Cadastro do objeto realizado com sucesso"}

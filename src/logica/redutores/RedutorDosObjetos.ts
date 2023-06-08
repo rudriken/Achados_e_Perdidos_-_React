@@ -14,7 +14,7 @@ type AcaoDosObjetos = "ATUALIZAR_OBJETOS" | "BUSCANDO_OBJETOS";
 
 type TipoDaAcaoDosObjetos = {
     tipo: AcaoDosObjetos;
-    carregarObjeto?: unknown;
+    carregarAcao?: unknown;
 };
 
 export interface RedutorDosObjetosInterface {
@@ -26,11 +26,11 @@ const redutor = (estadoAtual: TipoDoEstadoInicial, acao: TipoDaAcaoDosObjetos) =
     const proximoEstado = produce(estadoAtual, (estadoRascunho) => {
         switch (acao.tipo) {
             case "ATUALIZAR_OBJETOS":
-                estadoRascunho.objetos = acao.carregarObjeto as ObjetoInterface[];
+                estadoRascunho.objetos = acao.carregarAcao as ObjetoInterface[];
                 estadoRascunho.buscando = false;
                 break;
             case "BUSCANDO_OBJETOS":
-                estadoRascunho.buscando = acao.carregarObjeto as boolean;
+                estadoRascunho.buscando = acao.carregarAcao as boolean;
                 break;
         }
     });
@@ -72,13 +72,13 @@ export function useRedutorDosObjetos(): RedutorDosObjetosInterface {
                 despachar();
             }
         } else if (objetos === "objetos_vazio") {
-            despacho({ tipo: "BUSCANDO_OBJETOS", carregarObjeto: false });
+            despacho({ tipo: "BUSCANDO_OBJETOS", carregarAcao: false });
         } else {
-            despacho({ tipo: "BUSCANDO_OBJETOS", carregarObjeto: true });
+            despacho({ tipo: "BUSCANDO_OBJETOS", carregarAcao: true });
         }
 
         function despachar() {
-            despacho({ tipo: "ATUALIZAR_OBJETOS", carregarObjeto: objetos });
+            despacho({ tipo: "ATUALIZAR_OBJETOS", carregarAcao: objetos });
         }
     }
 

@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Container, Skeleton, Typography } from "@mui/material";
-import { ContextoDosObjetos } from "@/logica/contextos/ContextoDosObjetos";
 import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Tabela, { T_Celula, T_Linha } from "../componentes/exibe-dados/Tabela/Tabela";
 import Botao from "../componentes/entradas/Botao/Botao";
@@ -8,17 +7,20 @@ import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import Elo from "../componentes/navegacao/Elo/Elo";
 
 export default function ListarObjetos({
+    objetos,
+    buscando = false,
     adicionar_objeto,
     exibir_objeto,
     editar_objeto,
     apagar_objeto,
 }: {
+    objetos: ObjetoInterface[];
+    buscando: boolean;
     adicionar_objeto: () => void;
     exibir_objeto: (objeto: ObjetoInterface) => void;
     editar_objeto: (objeto: ObjetoInterface) => void;
     apagar_objeto: (objeto: ObjetoInterface) => void;
 }) {
-    const { objetos, buscando } = useContext(ContextoDosObjetos).estadoDosObjetos;
     return (
         <Container
             style={{

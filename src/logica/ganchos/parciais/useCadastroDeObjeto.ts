@@ -22,8 +22,9 @@ export default function useCadastroDeObjeto() {
                 { headers: { "Content-Type": "multipart/form-data" } }
             );
             alterarMensagem(true);
+            return objeto;
         } catch (erro) {
-            return;
+            return false;
         }
     }
 
@@ -34,7 +35,7 @@ export default function useCadastroDeObjeto() {
     ) {
         const objetoASerGravado = { ...objetoDoBanco, ...objetoAlterado };
         try {
-            (
+            const objeto = (
                 await ServicoApi.put<ObjetoInterface>(`api/objetos/${objetoASerGravado.id}`, {
                     ...objetoASerGravado,
                 })
@@ -50,6 +51,7 @@ export default function useCadastroDeObjeto() {
                 );
             }
             alterarMensagem(true);
+            return objeto;
         } catch (erro) {
             return false;
         }
@@ -59,7 +61,7 @@ export default function useCadastroDeObjeto() {
         try {
             await ServicoApi.delete(`api/objetos/${objeto.id}`);
             alterarMensagem(true);
-            return true;
+            return objeto;
         } catch (erro) {
             return false;
         }

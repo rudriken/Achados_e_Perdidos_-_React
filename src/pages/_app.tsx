@@ -1,3 +1,4 @@
+import { ProvedorDosObjetos } from "@/logica/contextos/ContextoDosObjetos";
 import { ProvedorPrincipal } from "@/logica/contextos/ContextoPrincipal";
 import tema from "@/visual/temas/tema";
 import { ThemeProvider } from "@mui/material";
@@ -7,7 +8,9 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <ThemeProvider theme={tema}>
             <ProvedorPrincipal>
-                <Component {...pageProps} />
+                <ProvedorDosObjetos>
+                    <Component {...pageProps} />
+                </ProvedorDosObjetos>
             </ProvedorPrincipal>
         </ThemeProvider>
     );

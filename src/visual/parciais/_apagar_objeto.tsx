@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
 import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
@@ -7,9 +8,10 @@ export default function ApagarObjeto({
     listar_objetos,
 }: {
     objeto: ObjetoInterface;
-    listar_objetos: () => void;
+    listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
     const { excluirObjeto, mensagem } = useCadastroDeObjeto();
+    const [objetoExcluido, alterarObjetoExcluido] = useState({} as ObjetoInterface);
 
     return (
         <>
@@ -22,10 +24,10 @@ export default function ApagarObjeto({
                 temBotaoConfirmar
                 rotuloConfirmar={"SIM"}
                 aoFechar={() => {
-                    listar_objetos();
+                    listar_objetos(objetoExcluido);
                 }}
                 aoConfirmar={async () => {
-                    await excluirObjeto(objeto);
+                    alterarObjetoExcluido((await excluirObjeto(objeto)) as ObjetoInterface);
                 }}
             />
             {mensagem && (
@@ -36,7 +38,7 @@ export default function ApagarObjeto({
                     temBotaoFechar
                     rotuloFechar={"Voltar"}
                     aoFechar={() => {
-                        listar_objetos();
+                        listar_objetos(objetoExcluido);
                     }}
                 />
             )}

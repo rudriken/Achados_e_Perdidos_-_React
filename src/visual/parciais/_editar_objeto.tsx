@@ -6,21 +6,22 @@ import { FormularioObjeto } from "../componentes/entradas/Formularios/Formulario
 import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Botao from "../componentes/entradas/Botao/Botao";
 import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
-import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 export default function EditarObjeto({
     objeto,
     listar_objetos,
 }: {
     objeto: ObjetoInterface;
-    listar_objetos: () => void;
+    listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
     const { formularioMetodosCadastroObjeto, alterarObjeto, mensagem, alterarMensagem } =
             useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
     const [imagemFile, alterarImagemFile] = useState({} as File);
     const [campoAlterado, alterarCampoAlterado] = useState(false);
+    const [objetoEditado, alterarObjetoEditado] = useState({} as ObjetoInterface);
 
     return (
         <FormProvider {...formularioMetodosCadastroObjeto}>
@@ -30,13 +31,15 @@ export default function EditarObjeto({
                     subtitulo={"Altere qualquer dado deste objeto"}
                 />
                 <form
-                    onSubmit={handleSubmit(() =>
-                        alterarObjeto(
-                            objeto,
-                            formularioMetodosCadastroObjeto.getValues(),
-                            imagemFile
-                        )
-                    )}
+                    onSubmit={handleSubmit(async () => {
+                        alterarObjetoEditado(
+                            (await alterarObjeto(
+                                objeto,
+                                formularioMetodosCadastroObjeto.getValues(),
+                                imagemFile
+                            )) as ObjetoInterface
+                        );
+                    })}
                     autoComplete={"on"}
                     style={{
                         display: "flex",
@@ -73,7 +76,7 @@ export default function EditarObjeto({
                     aberto={mensagem}
                     aoFechar={() => {
                         alterarMensagem(false);
-                        listar_objetos();
+                        listar_objetos(objetoEditado);
                     }}
                     titulo={"Sucesso"}
                     subtitulo={"Objeto alterado com sucesso!"}
