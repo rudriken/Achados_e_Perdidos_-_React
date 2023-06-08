@@ -8,18 +8,18 @@ import Elo from "../componentes/navegacao/Elo/Elo";
 
 export default function ListarObjetos({
     objetos,
-    buscando = false,
-    adicionar_objeto,
-    exibir_objeto,
-    editar_objeto,
-    apagar_objeto,
+    buscando,
+    irPara_adicionar_objeto,
+    irPara_exibir_objeto,
+    irPara_editar_objeto,
+    irPara_apagar_objeto,
 }: {
     objetos: ObjetoInterface[];
     buscando: boolean;
-    adicionar_objeto: () => void;
-    exibir_objeto: (objeto: ObjetoInterface) => void;
-    editar_objeto: (objeto: ObjetoInterface) => void;
-    apagar_objeto: (objeto: ObjetoInterface) => void;
+    irPara_adicionar_objeto: () => void;
+    irPara_exibir_objeto: (objeto: ObjetoInterface) => void;
+    irPara_editar_objeto: (objeto: ObjetoInterface) => void;
+    irPara_apagar_objeto: (objeto: ObjetoInterface) => void;
 }) {
     return (
         <Container
@@ -55,7 +55,7 @@ export default function ListarObjetos({
                                             texto={"Editar"}
                                             altura={40}
                                             cor={"success"}
-                                            aoClicar={() => editar_objeto(objeto)}
+                                            aoClicar={() => irPara_editar_objeto(objeto)}
                                         />
                                     )}
                                     {objeto.links.filter(
@@ -65,7 +65,7 @@ export default function ListarObjetos({
                                             texto={"Apagar"}
                                             altura={40}
                                             cor={"error"}
-                                            aoClicar={() => apagar_objeto(objeto)}
+                                            aoClicar={() => irPara_apagar_objeto(objeto)}
                                         />
                                     )}
                                     {objeto.links.filter(
@@ -95,7 +95,7 @@ export default function ListarObjetos({
                                             const object = objetos.filter(
                                                 (obj) => obj.id === item.id
                                             )[0];
-                                            exibir_objeto(object);
+                                            irPara_exibir_objeto(object);
                                         }}
                                     />
                                 </T_Celula>
@@ -108,7 +108,7 @@ export default function ListarObjetos({
                                             const object = objetos.filter(
                                                 (obj) => obj.id === item.id
                                             )[0];
-                                            exibir_objeto(object);
+                                            irPara_exibir_objeto(object);
                                         }}
                                     />
                                 </T_Celula>
@@ -126,7 +126,7 @@ export default function ListarObjetos({
                 modo={"contained"}
                 margem={32}
                 desabilitado={buscando}
-                aoClicar={adicionar_objeto}
+                aoClicar={irPara_adicionar_objeto}
                 tipo={"button"}
             />
         </Container>

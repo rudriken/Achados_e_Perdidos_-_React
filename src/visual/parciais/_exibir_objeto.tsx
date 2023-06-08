@@ -6,10 +6,10 @@ import Botao from "../componentes/entradas/Botao/Botao";
 
 export default function ExibirObjeto({
     objeto,
-    listar_objetos,
+    irPara_listar_objetos,
 }: {
     objeto: ObjetoInterface;
-    listar_objetos: () => void;
+    irPara_listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
     return (
         <Container>
@@ -57,7 +57,7 @@ export default function ExibirObjeto({
                 texto={"Voltar"}
                 modo={"outlined"}
                 margem={32}
-                aoClicar={listar_objetos}
+                aoClicar={() => irPara_listar_objetos(objeto)}
                 tipo={"button"}
             />
         </Container>

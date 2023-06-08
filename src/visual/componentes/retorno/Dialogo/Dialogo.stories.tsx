@@ -20,6 +20,6 @@ MeuDialogo.args = {
     subtitulo: "Veja bem sdf asdf asdf asdf asdf as df asdf asdf asdf asfd",
     temBotaoConfirmar: true,
     rotuloConfirmar: "Confirmar",
-    temBotaoFechar: true,
-    rotuloFechar: "Cancelar",
+    temBotaoCancelar: true,
+    rotuloCancelar: "Cancelar",
 };

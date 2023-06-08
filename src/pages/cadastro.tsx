@@ -72,12 +72,13 @@ export default function Cadastro() {
             {mensagem && (
                 <Dialogo
                     aberto={mensagem}
-                    aoFechar={() => {
+                    aoCancelar={() => {
                         alterarMensagem(false);
                     }}
-                    titulo={"Sucesso"}
-                    subtitulo={"Cadastro do usuário e local realizado com sucesso"}
-                    temBotaoFechar
+                    titulo={"Sucesso!"}
+                    subtitulo={"Cadastro do usuário e local realizado com sucesso!"}
+                    temBotaoCancelar
+                    rotuloCancelar={"Fechar"}
                 />
             )}
         </FormProvider>

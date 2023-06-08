@@ -12,11 +12,11 @@ interface DialogoProps {
     titulo: string;
     subtitulo?: string;
     conteudo?: string | JSX.Element;
-    rotuloFechar?: string;
+    rotuloCancelar?: string;
     rotuloConfirmar?: string;
-    temBotaoFechar?: boolean;
+    temBotaoCancelar?: boolean;
     temBotaoConfirmar?: boolean;
-    aoFechar?: () => void;
+    aoCancelar?: () => void;
     aoConfirmar?: () => void;
 }
 
@@ -25,11 +25,11 @@ export default function Dialogo({
     titulo,
     subtitulo,
     conteudo,
-    rotuloFechar = "Fechar",
+    rotuloCancelar = "Cancelar",
     rotuloConfirmar = "Confirmar",
-    temBotaoFechar,
+    temBotaoCancelar,
     temBotaoConfirmar,
-    aoFechar,
+    aoCancelar,
     aoConfirmar,
 }: DialogoProps): JSX.Element {
     const larguraBotao = 120;
@@ -51,16 +51,16 @@ export default function Dialogo({
                     }}
                 >
                     <div style={{ width: larguraBotao + 2 * margemBotao }}>
-                        {temBotaoFechar ? (
+                        {temBotaoCancelar ? (
                             <Botao
-                                texto={rotuloFechar}
+                                texto={rotuloCancelar}
                                 cor={"info"}
                                 modo={"text"}
                                 largura={larguraBotao}
                                 margem={margemBotao}
                                 aoClicar={() => {
                                     alterarAbrir(false);
-                                    aoFechar?.();
+                                    aoCancelar?.();
                                 }}
                             />
                         ) : null}

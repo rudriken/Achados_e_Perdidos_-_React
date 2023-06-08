@@ -1,6 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { ContextoDoLocalUsuario } from "@/logica/contextos/ContextoDoLocalUsuario";
-import { ContextoDosObjetos } from "@/logica/contextos/ContextoDosObjetos";
+import { useEffect, useState } from "react";
 import usePlataforma from "@/logica/ganchos/pages/usePlataforma";
 import { parciais } from "@/logica/tipos/globais";
 import ListarObjetos from "@/visual/parciais/_listar_objetos";
@@ -12,16 +10,31 @@ import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 export default function Plataforma() {
-    const { parcial, alterarParcial } = usePlataforma();
-    const { usuario } = useContext(ContextoDoLocalUsuario).estadoDoLocalUsuario.local;
-    const { estadoDosObjetos, despachoDosObjetos } = useContext(ContextoDosObjetos);
-    let { objetos, buscando } = estadoDosObjetos;
+    const {
+        parcial,
+        alterarParcial,
+        estadoDosObjetos,
+        despachoDosObjetos,
+        estadoDoLocalUsuario,
+        pegarObjetos,
+    } = usePlataforma();
+    const { usuario } = estadoDoLocalUsuario.local;
+    const { objetos, buscando } = estadoDosObjetos;
     const [objeto, alterarObjeto] = useState({} as ObjetoInterface);
+    let [novosObjetos, alterarNovosObjetos] = useState([] as ObjetoInterface[]);
 
-    // useEffect(() => {
-    //     despachoDosObjetos({ tipo: "ATUALIZAR_OBJETOS", carregarAcao: objetos });
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [parcial]);
+    useEffect(() => {
+        (async () => {
+            await pegarObjetos();
+            alterarParcial(parciais[0]);
+        })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        despachoDosObjetos({ tipo: "ATUALIZAR_OBJETOS", carga: novosObjetos });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [novosObjetos]);
 
     return (
         <>
@@ -35,18 +48,18 @@ export default function Plataforma() {
                 <ListarObjetos
                     objetos={objetos}
                     buscando={buscando}
-                    adicionar_objeto={() => {
+                    irPara_adicionar_objeto={() => {
                         alterarParcial(parciais[1]);
                     }}
-                    exibir_objeto={(objeto) => {
+                    irPara_exibir_objeto={(objeto) => {
                         alterarObjeto(objeto);
                         alterarParcial(parciais[2]);
                     }}
-                    editar_objeto={(objeto) => {
+                    irPara_editar_objeto={(objeto) => {
                         alterarObjeto(objeto);
                         alterarParcial(parciais[3]);
                     }}
-                    apagar_objeto={(objeto) => {
+                    irPara_apagar_objeto={(objeto) => {
                         alterarObjeto(objeto);
                         alterarParcial(parciais[4]);
                     }}
@@ -55,12 +68,8 @@ export default function Plataforma() {
 
             {parcial === parciais[1] && (
                 <AdicionarObjeto
-                    listar_objetos={(objetoCriado) => {
-                        objetos = [...objetos, objetoCriado];
-                        despachoDosObjetos({
-                            tipo: "ATUALIZAR_OBJETOS",
-                            carregarAcao: objetos,
-                        });
+                    irPara_listar_objetos={(objetoCriado) => {
+                        alterarNovosObjetos([...objetos, objetoCriado]);
                         alterarParcial(parciais[0]);
                     }}
                 />
@@ -69,7 +78,7 @@ export default function Plataforma() {
             {parcial === parciais[2] && (
                 <ExibirObjeto
                     objeto={objeto}
-                    listar_objetos={() => {
+                    irPara_listar_objetos={(_objetoExibido) => {
                         alterarParcial(parciais[0]);
                     }}
                 />
@@ -78,17 +87,15 @@ export default function Plataforma() {
             {parcial === parciais[3] && (
                 <EditarObjeto
                     objeto={objeto}
-                    listar_objetos={(objetoEditado) => {
-                        objetos = objetos.map((objeto) => {
-                            if (objeto.id === objetoEditado.id) {
-                                return objetoEditado;
-                            }
-                            return objeto;
-                        });
-                        despachoDosObjetos({
-                            tipo: "ATUALIZAR_OBJETOS",
-                            carregarAcao: objetos,
-                        });
+                    irPara_listar_objetos={(objetoEditado) => {
+                        alterarNovosObjetos(
+                            objetos.map((objeto) => {
+                                if (objeto.id === objetoEditado.id) {
+                                    return objetoEditado;
+                                }
+                                return objeto;
+                            })
+                        );
                         alterarParcial(parciais[0]);
                     }}
                 />
@@ -97,13 +104,11 @@ export default function Plataforma() {
             {parcial === parciais[4] && (
                 <ApagarObjeto
                     objeto={objeto}
-                    listar_objetos={(objetoExcluido) => {
+                    irPara_listar_objetos={(objetoExcluido) => {
                         // console.log(objetoExcluido, objetos);
-                        objetos = objetos.filter((objeto) => objeto.id !== objetoExcluido.id);
-                        despachoDosObjetos({
-                            tipo: "ATUALIZAR_OBJETOS",
-                            carregarAcao: objetos,
-                        });
+                        alterarNovosObjetos(
+                            objetos.filter((objeto) => objeto.id !== objetoExcluido.id)
+                        );
                         alterarParcial(parciais[0]);
                     }}
                 />

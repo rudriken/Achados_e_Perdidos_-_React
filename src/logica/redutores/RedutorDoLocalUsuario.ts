@@ -31,7 +31,7 @@ type AcaoDoLocalUsuario = "ATUALIZAR_DADOS" | "LOGANDO";
 
 type TipoDaAcaoDoLocalUsuario = {
     tipo: AcaoDoLocalUsuario;
-    carregarAcao?: unknown;
+    carga?: unknown;
 };
 
 export interface RedutorDoLocalUsuarioInterface {
@@ -43,11 +43,11 @@ const redutor = (estadoAtual: TipoDoEstadoInicial, acao: TipoDaAcaoDoLocalUsuari
     const proximoEstado = produce(estadoAtual, (estadoRascunho) => {
         switch (acao.tipo) {
             case "ATUALIZAR_DADOS":
-                estadoRascunho.local = acao.carregarAcao as LocalUsuarioInterface;
+                estadoRascunho.local = acao.carga as LocalUsuarioInterface;
                 estadoRascunho.logando = false;
                 break;
             case "LOGANDO":
-                estadoRascunho.logando = acao.carregarAcao as boolean;
+                estadoRascunho.logando = acao.carga as boolean;
                 break;
         }
     });
@@ -64,12 +64,12 @@ export function useRedutorDoLocalUsuario(): RedutorDoLocalUsuarioInterface {
 
     async function pegarLocalUsuarioLogado() {
         try {
-            despacho({ tipo: "LOGANDO", carregarAcao: true });
+            despacho({ tipo: "LOGANDO", carga: true });
             const localUsuario = await ServicoLogin.informacoesDoLocalUsuario();
             if (localUsuario) {
-                despacho({ tipo: "ATUALIZAR_DADOS", carregarAcao: localUsuario });
+                despacho({ tipo: "ATUALIZAR_DADOS", carga: localUsuario });
             } else {
-                despacho({ tipo: "LOGANDO", carregarAcao: false });
+                despacho({ tipo: "LOGANDO", carga: false });
             }
         } catch (erro) {}
     }

@@ -5,10 +5,10 @@ import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 export default function ApagarObjeto({
     objeto,
-    listar_objetos,
+    irPara_listar_objetos,
 }: {
     objeto: ObjetoInterface;
-    listar_objetos: (objeto: ObjetoInterface) => void;
+    irPara_listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
     const { excluirObjeto, mensagem } = useCadastroDeObjeto();
     const [objetoExcluido, alterarObjetoExcluido] = useState({} as ObjetoInterface);
@@ -19,12 +19,12 @@ export default function ApagarObjeto({
                 aberto
                 titulo={`Excluir o objeto '${objeto.nome}'`}
                 subtitulo={"Deseja realmente excluí-lo?"}
-                temBotaoFechar
-                rotuloFechar={"NÃO"}
+                temBotaoCancelar
+                rotuloCancelar={"NÃO"}
                 temBotaoConfirmar
                 rotuloConfirmar={"SIM"}
-                aoFechar={() => {
-                    listar_objetos(objetoExcluido);
+                aoCancelar={() => {
+                    irPara_listar_objetos(objetoExcluido);
                 }}
                 aoConfirmar={async () => {
                     alterarObjetoExcluido((await excluirObjeto(objeto)) as ObjetoInterface);
@@ -34,11 +34,11 @@ export default function ApagarObjeto({
                 <Dialogo
                     aberto
                     titulo={"Sucesso!"}
-                    subtitulo={"Objeto excluído com sucesso!"}
-                    temBotaoFechar
-                    rotuloFechar={"Voltar"}
-                    aoFechar={() => {
-                        listar_objetos(objetoExcluido);
+                    subtitulo={`Objeto '${objeto.nome}' excluído com sucesso!`}
+                    temBotaoCancelar
+                    rotuloCancelar={"Voltar"}
+                    aoCancelar={() => {
+                        irPara_listar_objetos(objetoExcluido);
                     }}
                 />
             )}

@@ -11,10 +11,10 @@ import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 export default function EditarObjeto({
     objeto,
-    listar_objetos,
+    irPara_listar_objetos,
 }: {
     objeto: ObjetoInterface;
-    listar_objetos: (objeto: ObjetoInterface) => void;
+    irPara_listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
     const { formularioMetodosCadastroObjeto, alterarObjeto, mensagem, alterarMensagem } =
             useCadastroDeObjeto(),
@@ -74,14 +74,14 @@ export default function EditarObjeto({
             {mensagem && (
                 <Dialogo
                     aberto={mensagem}
-                    aoFechar={() => {
+                    aoCancelar={() => {
                         alterarMensagem(false);
-                        listar_objetos(objetoEditado);
+                        irPara_listar_objetos(objetoEditado);
                     }}
-                    titulo={"Sucesso"}
+                    titulo={"Sucesso!"}
                     subtitulo={"Objeto alterado com sucesso!"}
-                    temBotaoFechar
-                    rotuloFechar={"Voltar"}
+                    temBotaoCancelar
+                    rotuloCancelar={"Voltar"}
                 />
             )}
         </FormProvider>

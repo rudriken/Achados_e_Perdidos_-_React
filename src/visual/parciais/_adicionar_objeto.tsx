@@ -10,9 +10,9 @@ import { conjuntoDeCampo } from "@/logica/tipos/globais";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 export default function AdicionarObjeto({
-    listar_objetos,
+    irPara_listar_objetos,
 }: {
-    listar_objetos: (objeto: ObjetoInterface) => void;
+    irPara_listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
     const { formularioMetodosCadastroObjeto, cadastrarObjeto, mensagem, alterarMensagem } =
             useCadastroDeObjeto(),
@@ -65,14 +65,14 @@ export default function AdicionarObjeto({
             {mensagem && (
                 <Dialogo
                     aberto={mensagem}
-                    aoFechar={() => {
+                    aoCancelar={() => {
                         alterarMensagem(false);
-                        listar_objetos(objetoCriado);
+                        irPara_listar_objetos(objetoCriado);
                     }}
-                    titulo={"Sucesso"}
-                    subtitulo={"Cadastro do objeto realizado com sucesso"}
-                    temBotaoFechar
-                    rotuloFechar={"Voltar"}
+                    titulo={"Sucesso!"}
+                    subtitulo={"Cadastro do objeto realizado com sucesso!"}
+                    temBotaoCancelar
+                    rotuloCancelar={"Voltar"}
                 />
             )}
         </FormProvider>
