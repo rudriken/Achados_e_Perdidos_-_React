@@ -13,8 +13,22 @@ export default function Inicial() {
     return (
         <FormProvider {...formularioMetodosIndex}>
             <Cabecalho imagem={"img/logos/logo.svg"} botao={"Cadastrar um local"} />
+            {/* <Container>
+                <Grade
+                    imagem={"/img/fotos/Martins Distribuidora.jpg"}
+                    titulo={"Nome do local"}
+                    linha1={"Rua Nome da Rua, 898"}
+                    linha2={"Nome Bairro - Cidade - Estado"}
+                    rotuloDoBotao={"Ver objetos"}
+                    aoClicar={() => {}}
+                />
+            </Container> */}
             <Container
-                style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                }}
             >
                 <form
                     onSubmit={handleSubmit(consultar)}
