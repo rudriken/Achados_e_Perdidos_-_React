@@ -1,8 +1,8 @@
 import { LocalInterface } from "@/logica/interfaces/interfaces";
 import { Container } from "@mui/material";
-import Grade from "../componentes/exibe-dados/Grade/Grade";
+import Grade from "../../componentes/exibe-dados/Grade/Grade";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
-import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
+import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
 
 export default function ListarLocais({ locais }: { locais: LocalInterface[] }) {
     return (

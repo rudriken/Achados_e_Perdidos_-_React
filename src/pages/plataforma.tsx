@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import usePlataforma from "@/logica/ganchos/pages/usePlataforma";
 import { parciais } from "@/logica/tipos/globais";
-import ListarObjetos from "@/visual/parciais/_listar_objetos";
-import AdicionarObjeto from "@/visual/parciais/_adicionar_objeto";
-import ExibirObjeto from "@/visual/parciais/_exibir_objeto";
-import EditarObjeto from "@/visual/parciais/_editar_objeto";
-import ApagarObjeto from "@/visual/parciais/_apagar_objeto";
+import ListarObjetos from "@/visual/parciais/privadas/_listar_objetos";
+import AdicionarObjeto from "@/visual/parciais/privadas/_adicionar_objeto";
+import ExibirObjeto from "@/visual/parciais/privadas/_exibir_objeto";
+import EditarObjeto from "@/visual/parciais/privadas/_editar_objeto";
+import ApagarObjeto from "@/visual/parciais/privadas/_apagar_objeto";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 

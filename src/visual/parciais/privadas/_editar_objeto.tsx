@@ -2,35 +2,39 @@ import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { Container } from "@mui/material";
 import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
-import { FormularioObjeto } from "../componentes/entradas/Formularios/Formularios";
-import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
-import Botao from "../componentes/entradas/Botao/Botao";
-import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
+import { FormularioObjeto } from "../../componentes/entradas/Formularios/Formularios";
+import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
+import Botao from "../../componentes/entradas/Botao/Botao";
+import Dialogo from "../../componentes/retorno/Dialogo/Dialogo";
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
-export default function AdicionarObjeto({
+export default function EditarObjeto({
+    objeto,
     irPara_listar_objetos,
 }: {
+    objeto: ObjetoInterface;
     irPara_listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
-    const { formularioMetodosCadastroObjeto, cadastrarObjeto, mensagem, alterarMensagem } =
+    const { formularioMetodosCadastroObjeto, alterarObjeto, mensagem, alterarMensagem } =
             useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
     const [imagemFile, alterarImagemFile] = useState({} as File);
-    const [objetoCriado, alterarObjetoCriado] = useState({} as ObjetoInterface);
+    const [campoAlterado, alterarCampoAlterado] = useState(false);
+    const [objetoEditado, alterarObjetoEditado] = useState({} as ObjetoInterface);
 
     return (
         <FormProvider {...formularioMetodosCadastroObjeto}>
             <Container>
                 <TituloPagina
-                    titulo={"Adicionar novo objeto"}
-                    subtitulo={"Preencha os dados do objeto que deseja adicionar"}
+                    titulo={`Alterar objeto '${objeto.nome}'`}
+                    subtitulo={"Altere qualquer dado deste objeto"}
                 />
                 <form
                     onSubmit={handleSubmit(async () => {
-                        alterarObjetoCriado(
-                            (await cadastrarObjeto(
+                        alterarObjetoEditado(
+                            (await alterarObjeto(
+                                objeto,
                                 formularioMetodosCadastroObjeto.getValues(),
                                 imagemFile
                             )) as ObjetoInterface
@@ -46,31 +50,36 @@ export default function AdicionarObjeto({
                 >
                     <fieldset {...conjuntoDeCampo}>
                         <FormularioObjeto
-                            imagemFileObjeto={(imagemFile) => alterarImagemFile(imagemFile)}
-                            novoCadastro
+                            imagemFileObjeto={(imagem) => alterarImagemFile(imagem)}
+                            alteracao
+                            objeto={objeto}
+                            qualquerCampoAlterado={(campoAlterado) => {
+                                alterarCampoAlterado(campoAlterado);
+                            }}
                         />
                     </fieldset>
 
                     <Botao
-                        texto={"Cadastrar"}
+                        texto={"Salvar Alteração"}
                         modo={"contained"}
                         tipo={"submit"}
                         cor={"primary"}
                         largura={200}
                         fonteTamanho={16}
-                        desabilitado={false}
+                        desabilitado={!campoAlterado}
                     />
                 </form>
             </Container>
+
             {mensagem && (
                 <Dialogo
                     aberto={mensagem}
                     aoCancelar={() => {
                         alterarMensagem(false);
-                        irPara_listar_objetos(objetoCriado);
+                        irPara_listar_objetos(objetoEditado);
                     }}
                     titulo={"Sucesso!"}
-                    subtitulo={"Cadastro do objeto realizado com sucesso!"}
+                    subtitulo={"Objeto alterado com sucesso!"}
                     temBotaoCancelar
                     rotuloCancelar={"Voltar"}
                 />

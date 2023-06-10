@@ -6,7 +6,7 @@ import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPa
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import { parciais } from "@/logica/tipos/globais";
-import ListarLocais from "@/visual/parciais/_listar_locais";
+import ListarLocais from "@/visual/parciais/publicas/_listar_locais";
 
 export default function Inicial() {
     const { formularioMetodosIndex, consultar, parcial, locais } = useIndex(),

@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Skeleton, Typography } from "@mui/material";
-import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
-import Tabela, { T_Celula, T_Linha } from "../componentes/exibe-dados/Tabela/Tabela";
-import Botao from "../componentes/entradas/Botao/Botao";
+import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
+import Tabela, { T_Celula, T_Linha } from "../../componentes/exibe-dados/Tabela/Tabela";
+import Botao from "../../componentes/entradas/Botao/Botao";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
-import Elo from "../componentes/navegacao/Elo/Elo";
+import Elo from "../../componentes/navegacao/Elo/Elo";
 
 export default function ListarObjetos({
     objetos,

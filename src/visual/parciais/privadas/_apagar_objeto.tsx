@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
-import Dialogo from "../componentes/retorno/Dialogo/Dialogo";
+import Dialogo from "../../componentes/retorno/Dialogo/Dialogo";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 export default function ApagarObjeto({

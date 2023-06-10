@@ -1,8 +1,8 @@
 import { Container, Typography } from "@mui/material";
-import TituloPagina from "../componentes/exibe-dados/TituloPagina/TituloPagina";
+import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
-import Botao from "../componentes/entradas/Botao/Botao";
+import Botao from "../../componentes/entradas/Botao/Botao";
 
 export default function ExibirObjeto({
     objeto,
