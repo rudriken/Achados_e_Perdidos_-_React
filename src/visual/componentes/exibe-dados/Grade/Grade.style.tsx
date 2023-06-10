@@ -12,6 +12,7 @@ export const GradeConteiner = styled("div")`
     column-gap: ${({ theme }) => theme.spacing(8)};
     font-family: ${({ theme }) => theme.typography.fontFamily};
     max-width: 796px;
+    margin-bottom: ${({ theme }) => theme.spacing(6)};
 `;
 
 export const GradeImagem = styled("div")`

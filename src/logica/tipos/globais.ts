@@ -1,10 +1,13 @@
-export const parciais = [
-    "_listar_objetos",
-    "_adicionar_objeto",
-    "_exibir_objeto",
-    "_editar_objeto",
-    "_apagar_objeto",
-];
+export const parciais = {
+    privadas: [
+        "_listar_objetos",
+        "_adicionar_objeto",
+        "_exibir_objeto",
+        "_editar_objeto",
+        "_apagar_objeto",
+    ],
+    publicas: ["_listar_locais", "_listar_objetos"],
+};
 
 export const caminhoAbsolutoDaImagemDoObjeto =
     process.env.NEXT_PUBLIC_API + "public/objetos/";

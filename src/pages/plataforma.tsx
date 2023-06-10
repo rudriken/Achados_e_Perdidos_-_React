@@ -26,7 +26,7 @@ export default function Plataforma() {
     useEffect(() => {
         (async () => {
             await pegarObjetos();
-            alterarParcial(parciais[0]);
+            alterarParcial(parciais.privadas[0]);
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -44,47 +44,47 @@ export default function Plataforma() {
                 link={"Objetos"}
                 cardapio={["Alterar Dados", "Sair"]}
             />
-            {parcial === parciais[0] && (
+            {parcial === parciais.privadas[0] && (
                 <ListarObjetos
                     objetos={objetos}
                     buscando={buscando}
                     irPara_adicionar_objeto={() => {
-                        alterarParcial(parciais[1]);
+                        alterarParcial(parciais.privadas[1]);
                     }}
                     irPara_exibir_objeto={(objeto) => {
                         alterarObjeto(objeto);
-                        alterarParcial(parciais[2]);
+                        alterarParcial(parciais.privadas[2]);
                     }}
                     irPara_editar_objeto={(objeto) => {
                         alterarObjeto(objeto);
-                        alterarParcial(parciais[3]);
+                        alterarParcial(parciais.privadas[3]);
                     }}
                     irPara_apagar_objeto={(objeto) => {
                         alterarObjeto(objeto);
-                        alterarParcial(parciais[4]);
+                        alterarParcial(parciais.privadas[4]);
                     }}
                 />
             )}
 
-            {parcial === parciais[1] && (
+            {parcial === parciais.privadas[1] && (
                 <AdicionarObjeto
                     irPara_listar_objetos={(objetoCriado) => {
                         alterarNovosObjetos([...objetos, objetoCriado]);
-                        alterarParcial(parciais[0]);
+                        alterarParcial(parciais.privadas[0]);
                     }}
                 />
             )}
 
-            {parcial === parciais[2] && (
+            {parcial === parciais.privadas[2] && (
                 <ExibirObjeto
                     objeto={objeto}
                     irPara_listar_objetos={(_objetoExibido) => {
-                        alterarParcial(parciais[0]);
+                        alterarParcial(parciais.privadas[0]);
                     }}
                 />
             )}
 
-            {parcial === parciais[3] && (
+            {parcial === parciais.privadas[3] && (
                 <EditarObjeto
                     objeto={objeto}
                     irPara_listar_objetos={(objetoEditado) => {
@@ -96,12 +96,12 @@ export default function Plataforma() {
                                 return objeto;
                             })
                         );
-                        alterarParcial(parciais[0]);
+                        alterarParcial(parciais.privadas[0]);
                     }}
                 />
             )}
 
-            {parcial === parciais[4] && (
+            {parcial === parciais.privadas[4] && (
                 <ApagarObjeto
                     objeto={objeto}
                     irPara_listar_objetos={(objetoExcluido) => {
@@ -109,7 +109,7 @@ export default function Plataforma() {
                         alterarNovosObjetos(
                             objetos.filter((objeto) => objeto.id !== objetoExcluido.id)
                         );
-                        alterarParcial(parciais[0]);
+                        alterarParcial(parciais.privadas[0]);
                     }}
                 />
             )}
