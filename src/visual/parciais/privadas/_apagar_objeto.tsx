@@ -13,7 +13,6 @@ export default function ApagarObjeto({
     irPara_listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
     const { excluirObjeto, mensagem } = useCadastroDeObjeto();
-    const [objetoExcluido, alterarObjetoExcluido] = useState({} as ObjetoInterface);
 
     return (
         <>
@@ -23,14 +22,13 @@ export default function ApagarObjeto({
                 subtitulo={"Deseja realmente excluí-lo?"}
                 temBotaoCancelar
                 rotuloCancelar={"NÃO"}
+                aoCancelar={() => {
+                    irPara_listar_objetos({} as ObjetoInterface);
+                }}
                 temBotaoConfirmar
                 rotuloConfirmar={"SIM"}
-                aoCancelar={() => {
-                    irPara_listar_objetos(objetoExcluido);
-                }}
                 aoConfirmar={async () => {
-                    alterarObjetoExcluido((await excluirObjeto(objeto)) as ObjetoInterface);
-                    atualizar_lista_objetos(objetoExcluido);
+                    atualizar_lista_objetos((await excluirObjeto(objeto)) as ObjetoInterface);
                 }}
             />
             {mensagem && (
@@ -41,7 +39,7 @@ export default function ApagarObjeto({
                     temBotaoCancelar
                     rotuloCancelar={"Voltar"}
                     aoCancelar={() => {
-                        irPara_listar_objetos(objetoExcluido);
+                        irPara_listar_objetos({} as ObjetoInterface);
                     }}
                 />
             )}
