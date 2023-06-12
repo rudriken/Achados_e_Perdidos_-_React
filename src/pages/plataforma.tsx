@@ -44,7 +44,7 @@ export default function Plataforma() {
                 link={"Objetos"}
                 cardapio={["Alterar Dados", "Sair"]}
             />
-            {parcial === parciais.privadas[0] && (
+            {(parcial === parciais.privadas[0] || parcial === parciais.privadas[4]) && (
                 <ListarObjetos
                     objetos={objetos}
                     buscando={buscando}
@@ -104,10 +104,12 @@ export default function Plataforma() {
             {parcial === parciais.privadas[4] && (
                 <ApagarObjeto
                     objeto={objeto}
-                    irPara_listar_objetos={(objetoExcluido) => {
+                    atualizar_lista_objetos={(objetoExcluido) => {
                         alterarNovosObjetos(
                             objetos.filter((objeto) => objeto.id !== objetoExcluido.id)
                         );
+                    }}
+                    irPara_listar_objetos={(_objetoExcluido) => {
                         alterarParcial(parciais.privadas[0]);
                     }}
                 />

@@ -5,9 +5,11 @@ import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 export default function ApagarObjeto({
     objeto,
+    atualizar_lista_objetos,
     irPara_listar_objetos,
 }: {
     objeto: ObjetoInterface;
+    atualizar_lista_objetos: (objeto: ObjetoInterface) => void;
     irPara_listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
     const { excluirObjeto, mensagem } = useCadastroDeObjeto();
@@ -28,6 +30,7 @@ export default function ApagarObjeto({
                 }}
                 aoConfirmar={async () => {
                     alterarObjetoExcluido((await excluirObjeto(objeto)) as ObjetoInterface);
+                    atualizar_lista_objetos(objetoExcluido);
                 }}
             />
             {mensagem && (
