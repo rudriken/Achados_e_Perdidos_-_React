@@ -14,6 +14,7 @@ interface CabecalhoProps {
     imagem: string;
     link?: string;
     botao?: string;
+    botaoIrPara?: string;
     cardapio?: string[];
 }
 
@@ -22,6 +23,7 @@ export default function Cabecalho({
     imagem,
     link,
     botao,
+    botaoIrPara,
     cardapio,
 }: CabecalhoProps): JSX.Element {
     const [abrirMenu, alterarAbrirMenu] = useState(false);
@@ -31,7 +33,13 @@ export default function Cabecalho({
             <CabecalhoLink>{link ? <Botao texto={link} /> : <div></div>}</CabecalhoLink>
             <CabecalhoBotao>
                 {botao ? (
-                    <Botao modo={"contained"} cor={"primary"} texto={botao} largura={250} />
+                    <Botao
+                        modo={"contained"}
+                        cor={"primary"}
+                        texto={botao}
+                        largura={250}
+                        irPara={botaoIrPara}
+                    />
                 ) : cardapio ? null : (
                     <div></div>
                 )}

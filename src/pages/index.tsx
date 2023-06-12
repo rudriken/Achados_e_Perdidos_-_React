@@ -1,30 +1,34 @@
 import { FormProvider } from "react-hook-form";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import useIndex from "@/logica/ganchos/pages/useIndex";
+import ListarLocais from "@/visual/parciais/publicas/_listar_locais";
+import ListarObjetos from "@/visual/parciais/publicas/_listar_objetos";
 import { FormularioIndex } from "@/visual/componentes/entradas/Formularios/Formularios";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import { parciais } from "@/logica/tipos/globais";
-import ListarLocais from "@/visual/parciais/publicas/_listar_locais";
 
 export default function Inicial() {
-    const { formularioMetodosIndex, consultar, parcial, locais } = useIndex(),
+    const {
+            formularioMetodosIndex,
+            consultar,
+            parcial,
+            alterarParcial,
+            locais,
+            local,
+            pegarObjetos,
+            objetos,
+            nomeBuscado,
+        } = useIndex(),
         { handleSubmit } = formularioMetodosIndex;
-
     return (
         <FormProvider {...formularioMetodosIndex}>
-            <Cabecalho imagem={"img/logos/logo.svg"} botao={"Cadastrar um local"} />
-            {/* <Container>
-                <Grade
-                    imagem={"/img/fotos/Martins Distribuidora.jpg"}
-                    titulo={"Nome do local"}
-                    linha1={"Rua Nome da Rua, 898"}
-                    linha2={"Nome Bairro - Cidade - Estado"}
-                    rotuloDoBotao={"Ver objetos"}
-                    aoClicar={() => {}}
-                />
-            </Container> */}
+            <Cabecalho
+                imagem={"img/logos/logo.svg"}
+                botao={"Cadastrar um local"}
+                botaoIrPara={"/cadastro"}
+            />
             {parcial === "index" && (
                 <Container
                     style={{
@@ -61,7 +65,20 @@ export default function Inicial() {
                 </Container>
             )}
 
-            {parcial === parciais.publicas[0] && <ListarLocais locais={locais} />}
+            {parcial === parciais.publicas[0] && (
+                <ListarLocais
+                    nome={nomeBuscado}
+                    locais={locais}
+                    irPara_listar_objetos={async (local) => {
+                        await pegarObjetos(local);
+                        alterarParcial(parciais.publicas[1]);
+                    }}
+                />
+            )}
+
+            {parcial === parciais.publicas[1] && (
+                <ListarObjetos local={local} objetos={objetos} />
+            )}
         </FormProvider>
     );
 }

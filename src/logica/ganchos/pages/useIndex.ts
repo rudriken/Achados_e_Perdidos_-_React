@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
-import { LocalInterface } from "@/logica/interfaces/interfaces";
-import { useState } from "react";
 import { ServicoApi } from "@/logica/servicos/ServicoApi";
+import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
 import { parciais } from "@/logica/tipos/globais";
+import { LocalInterface, ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 export default function useIndex() {
     const formularioMetodosIndex = useForm<LocalInterface>({
@@ -12,19 +12,36 @@ export default function useIndex() {
     });
     const [parcial, alterarParcial] = useState("index");
     const [locais, alterarLocais] = useState([] as LocalInterface[]);
+    const [local, alterarLocal] = useState({} as LocalInterface);
+    const [objetos, alterarObjetos] = useState([] as ObjetoInterface[]);
+    const [nomeBuscado, alterarNomeBuscado] = useState("");
 
-    async function consultar(dados: LocalInterface) {
-        const locais = (
-            await ServicoApi.get<LocalInterface[]>(`/api/locais/busca?nome=${dados.nome}`)
+    async function consultar(busca: LocalInterface) {
+        alterarNomeBuscado(busca.nome);
+        const locaisEncontrados = (
+            await ServicoApi.get<LocalInterface[]>(`/api/locais/busca?nome=${busca.nome}`)
         ).data;
-        alterarLocais(locais);
+        alterarLocais(locaisEncontrados);
         alterarParcial(parciais.publicas[0]);
+    }
+
+    async function pegarObjetos(local: LocalInterface) {
+        alterarLocal(local);
+        const objetosEncontrados = (
+            await ServicoApi.get<ObjetoInterface[]>(`/api/locais/${local.id}/objetos`)
+        ).data;
+        alterarObjetos(objetosEncontrados);
     }
 
     return {
         formularioMetodosIndex,
         consultar,
         parcial,
+        alterarParcial,
         locais,
+        local,
+        pegarObjetos,
+        objetos,
+        nomeBuscado,
     };
 }

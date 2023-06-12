@@ -1,10 +1,18 @@
 import { LocalInterface } from "@/logica/interfaces/interfaces";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import Grade from "../../componentes/exibe-dados/Grade/Grade";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
 
-export default function ListarLocais({ locais }: { locais: LocalInterface[] }) {
+export default function ListarLocais({
+    nome,
+    locais,
+    irPara_listar_objetos,
+}: {
+    nome: string;
+    locais: LocalInterface[];
+    irPara_listar_objetos: (local: LocalInterface) => void;
+}) {
     return (
         <Container
             style={{
@@ -28,10 +36,15 @@ export default function ListarLocais({ locais }: { locais: LocalInterface[] }) {
                         linha1={ServicoFormatador.linhas1E2DaGrade(local.endereco).linha1}
                         linha2={ServicoFormatador.linhas1E2DaGrade(local.endereco).linha2}
                         rotuloDoBotao={"Ver objetos"}
-                        aoClicar={() => {}}
+                        aoClicar={() => irPara_listar_objetos(local)}
                     />
                 );
             })}
+            {locais.length === 0 && (
+                <Typography color={"red"}>
+                    Nenhum local cadastrado que tenha em seu nome &quot;{nome}&quot;
+                </Typography>
+            )}
         </Container>
     );
 }

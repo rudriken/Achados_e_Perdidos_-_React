@@ -106,9 +106,9 @@ const ServicoFormatador = {
         const [ano, mes, dia] = data.split("-");
         return `${dia}/${mes}/${ano}`;
     },
-    linhas1E2DaGrade: (endereco: string) => {
-        const palavras = endereco.split(" ");
-        const maximo = 30;
+    linhas1E2DaGrade: (cadeia: string) => {
+        const palavras = cadeia.split(" ");
+        const maximo = 45;
         let palavrasJuntadasLinha1 = "";
         let palavrasJuntadasLinha2 = "";
         palavras.forEach((palavra) => {

@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 
 export const GradeConteiner = styled("div")`
     display: grid;
-    grid-template-columns: 432px 300px;
+    grid-template-columns: 432px 400px;
     grid-template-rows: 120px 30px 30px 120px;
     grid-template-areas:
         "imagem titulo"
@@ -11,7 +11,7 @@ export const GradeConteiner = styled("div")`
         "imagem botao";
     column-gap: ${({ theme }) => theme.spacing(8)};
     font-family: ${({ theme }) => theme.typography.fontFamily};
-    max-width: 796px;
+    max-width: 896px;
     margin-bottom: ${({ theme }) => theme.spacing(6)};
 `;
 

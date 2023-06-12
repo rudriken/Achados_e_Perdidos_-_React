@@ -1,4 +1,3 @@
-import { Button, Grid } from "@mui/material";
 import {
     BotaoDoUsuarioMenu,
     GridDoUsuarioConteiner,
@@ -13,8 +12,6 @@ interface ExibeUsuarioProps {
 }
 
 export default function BotaoDoUsuario({ nome, onClick }: ExibeUsuarioProps) {
-    // const item = document.getElementsByTagName("next-route-announcer");
-    // console.log(item);
     return (
         <BotaoDoUsuarioMenu
             variant={"contained"}
