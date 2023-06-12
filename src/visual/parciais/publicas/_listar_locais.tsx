@@ -36,6 +36,7 @@ export default function ListarLocais({
                         linha1={ServicoFormatador.linhas1E2DaGrade(local.endereco).linha1}
                         linha2={ServicoFormatador.linhas1E2DaGrade(local.endereco).linha2}
                         rotuloDoBotao={"Ver objetos"}
+                        modoDoBotao={"contained"}
                         aoClicar={() => irPara_listar_objetos(local)}
                     />
                 );

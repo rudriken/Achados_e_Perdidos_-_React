@@ -37,6 +37,7 @@ export default function ListarObjetos({
                             ServicoFormatador.formatarData(objeto.data_cadastro)
                         }
                         rotuloDoBotao={"Entrar em contato"}
+                        modoDoBotao={"contained"}
                         aoClicar={() => {}}
                     />
                 );

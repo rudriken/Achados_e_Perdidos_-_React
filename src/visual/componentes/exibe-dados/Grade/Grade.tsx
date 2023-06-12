@@ -1,3 +1,4 @@
+import { modosTipo } from "@/logica/tipos/tipagem";
 import Botao from "../../entradas/Botao/Botao";
 import {
     GradeBotao,
@@ -14,6 +15,7 @@ interface GradeProps {
     linha1: string;
     linha2: string;
     rotuloDoBotao: string;
+    modoDoBotao?: modosTipo;
     aoClicar: () => void;
 }
 
@@ -23,6 +25,7 @@ export default function Grade({
     linha1,
     linha2,
     rotuloDoBotao,
+    modoDoBotao = "text",
     aoClicar,
 }: GradeProps) {
     return (
@@ -37,7 +40,7 @@ export default function Grade({
             <GradeBotao>
                 <Botao
                     texto={rotuloDoBotao}
-                    modo={"contained"}
+                    modo={modoDoBotao}
                     largura={200}
                     altura={40}
                     aoClicar={aoClicar}
