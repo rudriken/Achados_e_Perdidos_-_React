@@ -58,7 +58,7 @@ export default function Inicial() {
                         <Botao
                             texto={"Buscar"}
                             modo={"contained"}
-                            tipo="submit"
+                            tipo={"submit"}
                             margem={32}
                         />
                     </form>

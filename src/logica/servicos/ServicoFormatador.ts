@@ -111,10 +111,15 @@ const ServicoFormatador = {
         const maximo = 45;
         let palavrasJuntadasLinha1 = "";
         let palavrasJuntadasLinha2 = "";
+        let linha1Terminada = false;
         palavras.forEach((palavra) => {
-            if (palavrasJuntadasLinha1.length <= maximo) {
+            if (
+                palavrasJuntadasLinha1.length + palavra.length <= maximo &&
+                !linha1Terminada
+            ) {
                 palavrasJuntadasLinha1 += palavra + " ";
             } else {
+                linha1Terminada = true;
                 palavrasJuntadasLinha2 += palavra + " ";
             }
         });

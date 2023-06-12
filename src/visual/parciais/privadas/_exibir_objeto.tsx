@@ -27,7 +27,7 @@ export default function ExibirObjeto({
             <Grade
                 imagem={objeto.imagem}
                 titulo={objeto.nome}
-                linha1={objeto.descricao}
+                linha1={ServicoFormatador.linhas1E2DaGrade(objeto.descricao).linha1}
                 linha2={
                     "Data do cadastro: " +
                     ServicoFormatador.formatarData(objeto.data_cadastro)
