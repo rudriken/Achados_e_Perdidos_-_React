@@ -8,9 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <ThemeProvider theme={tema}>
             <ProvedorPrincipal>
-                <ProvedorDosObjetos>
-                    <Component {...pageProps} />
-                </ProvedorDosObjetos>
+                <Component {...pageProps} />
             </ProvedorPrincipal>
         </ThemeProvider>
     );

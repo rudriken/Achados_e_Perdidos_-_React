@@ -21,7 +21,7 @@ export default function Plataforma() {
     const { usuario } = estadoDoLocalUsuario.local;
     const { objetos, buscando } = estadoDosObjetos;
     const [objeto, alterarObjeto] = useState({} as ObjetoInterface);
-    let [novosObjetos, alterarNovosObjetos] = useState([] as ObjetoInterface[]);
+    const [novosObjetos, alterarNovosObjetos] = useState([] as ObjetoInterface[]);
 
     useEffect(() => {
         (async () => {
@@ -44,7 +44,7 @@ export default function Plataforma() {
                 link={"Objetos"}
                 cardapio={["Alterar Dados", "Sair"]}
             />
-            {(parcial === parciais.privadas[0] || parcial === parciais.privadas[4]) && (
+            {parcial === parciais.privadas[0] && (
                 <ListarObjetos
                     objetos={objetos}
                     buscando={buscando}
