@@ -76,10 +76,10 @@ export const ServicoEstruturaFormulario = {
                 .max(255, "Nome muito grande, inaceitável"),
             descricao: yup
                 .string()
-                .required()
+                .required("É obrigatório preencher este campo!")
                 .min(3, "Descrição muito curta!")
                 .max(255, "Descrição muito longa, inaceitável!"),
-            imagem: yup.string().required(),
+            imagem: yup.string().required("É obrigatório definir uma imagem!"),
         });
     },
 };

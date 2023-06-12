@@ -11,6 +11,9 @@ export default function useCadastroDeObjeto() {
         resolver: yupResolver(ServicoEstruturaFormulario.cadastroObjeto()),
     });
     const [mensagem, alterarMensagem] = useState(false);
+    const [imagemFile, alterarImagemFile] = useState({} as File);
+    const [objetoTrabalhado, alterarObjetoTrabalhado] = useState({} as ObjetoInterface);
+    const [campoAlterado, alterarCampoAlterado] = useState(false);
 
     async function cadastrarObjeto(dados: ObjetoInterface, imagemFileObjeto: File) {
         try {
@@ -74,5 +77,11 @@ export default function useCadastroDeObjeto() {
         excluirObjeto,
         mensagem,
         alterarMensagem,
+        imagemFile,
+        alterarImagemFile,
+        objetoTrabalhado,
+        alterarObjetoTrabalhado,
+        campoAlterado,
+        alterarCampoAlterado,
     };
 }

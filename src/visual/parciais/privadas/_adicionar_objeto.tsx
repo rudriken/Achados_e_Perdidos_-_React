@@ -14,11 +14,17 @@ export default function AdicionarObjeto({
 }: {
     irPara_listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
-    const { formularioMetodosCadastroObjeto, cadastrarObjeto, mensagem, alterarMensagem } =
-            useCadastroDeObjeto(),
+    const {
+            formularioMetodosCadastroObjeto,
+            cadastrarObjeto,
+            mensagem,
+            alterarMensagem,
+            imagemFile,
+            alterarImagemFile,
+            objetoTrabalhado,
+            alterarObjetoTrabalhado,
+        } = useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
-    const [imagemFile, alterarImagemFile] = useState({} as File);
-    const [objetoCriado, alterarObjetoCriado] = useState({} as ObjetoInterface);
 
     return (
         <FormProvider {...formularioMetodosCadastroObjeto}>
@@ -29,7 +35,7 @@ export default function AdicionarObjeto({
                 />
                 <form
                     onSubmit={handleSubmit(async () => {
-                        alterarObjetoCriado(
+                        alterarObjetoTrabalhado(
                             (await cadastrarObjeto(
                                 formularioMetodosCadastroObjeto.getValues(),
                                 imagemFile
@@ -67,7 +73,7 @@ export default function AdicionarObjeto({
                     aberto={mensagem}
                     aoCancelar={() => {
                         alterarMensagem(false);
-                        irPara_listar_objetos(objetoCriado);
+                        irPara_listar_objetos(objetoTrabalhado);
                     }}
                     titulo={"Sucesso!"}
                     subtitulo={"Cadastro do objeto realizado com sucesso!"}

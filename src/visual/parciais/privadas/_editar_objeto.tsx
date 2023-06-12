@@ -16,12 +16,19 @@ export default function EditarObjeto({
     objeto: ObjetoInterface;
     irPara_listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
-    const { formularioMetodosCadastroObjeto, alterarObjeto, mensagem, alterarMensagem } =
-            useCadastroDeObjeto(),
+    const {
+            formularioMetodosCadastroObjeto,
+            alterarObjeto,
+            mensagem,
+            alterarMensagem,
+            imagemFile,
+            alterarImagemFile,
+            campoAlterado,
+            alterarCampoAlterado,
+            objetoTrabalhado,
+            alterarObjetoTrabalhado,
+        } = useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
-    const [imagemFile, alterarImagemFile] = useState({} as File);
-    const [campoAlterado, alterarCampoAlterado] = useState(false);
-    const [objetoEditado, alterarObjetoEditado] = useState({} as ObjetoInterface);
 
     return (
         <FormProvider {...formularioMetodosCadastroObjeto}>
@@ -32,7 +39,7 @@ export default function EditarObjeto({
                 />
                 <form
                     onSubmit={handleSubmit(async () => {
-                        alterarObjetoEditado(
+                        alterarObjetoTrabalhado(
                             (await alterarObjeto(
                                 objeto,
                                 formularioMetodosCadastroObjeto.getValues(),
@@ -76,7 +83,7 @@ export default function EditarObjeto({
                     aberto={mensagem}
                     aoCancelar={() => {
                         alterarMensagem(false);
-                        irPara_listar_objetos(objetoEditado);
+                        irPara_listar_objetos(objetoTrabalhado);
                     }}
                     titulo={"Sucesso!"}
                     subtitulo={"Objeto alterado com sucesso!"}
