@@ -7,6 +7,7 @@ import { ContextoDoLocalUsuario } from "@/logica/contextos/ContextoDoLocalUsuari
 import { ProvedorPrincipal } from "@/logica/contextos/ContextoPrincipal";
 import tema from "@/visual/temas/tema";
 import { AppConteiner } from "./_app.style";
+import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 
 export function App({ Component, pageProps }: AppProps) {
     const { estadoDoLocalUsuario } = useContext(ContextoDoLocalUsuario);
@@ -37,9 +38,12 @@ export function App({ Component, pageProps }: AppProps) {
                         {podemosExibir() ? (
                             <Component {...pageProps} />
                         ) : (
-                            <Container sx={{ textAlign: "center", my: 10 }}>
-                                <CircularProgress />
-                            </Container>
+                            <>
+                                <Cabecalho imagem={"img/logos/logo.svg"} />
+                                <Container sx={{ textAlign: "center", my: 10 }}>
+                                    <CircularProgress size={100} />
+                                </Container>
+                            </>
                         )}
                     </main>
                 </AppConteiner>
