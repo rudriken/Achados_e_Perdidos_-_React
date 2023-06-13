@@ -51,6 +51,7 @@ export default function Plataforma() {
                 usuario={usuario.nome}
                 imagem={"img/logos/logo.svg"}
                 link={"Objetos"}
+                linkIrPara={() => alterarParcial(parciais.privadas[0])}
                 cardapio={["Alterar Dados", "Sair"]}
             />
             {(parcial === parciais.privadas[0] || parcial === parciais.privadas[4]) && (

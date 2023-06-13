@@ -13,6 +13,7 @@ interface CabecalhoProps {
     usuario?: string;
     imagem: string;
     link?: string;
+    linkIrPara?: () => void;
     botao?: string;
     botaoIrPara?: string;
     cardapio?: string[];
@@ -22,6 +23,7 @@ export default function Cabecalho({
     usuario,
     imagem,
     link,
+    linkIrPara,
     botao,
     botaoIrPara,
     cardapio,
@@ -32,7 +34,9 @@ export default function Cabecalho({
             <a href={"/"}>
                 <CabecalhoLogo src={imagem} alt={"Achados e Perdidos"} />
             </a>
-            <CabecalhoLink>{link ? <Botao texto={link} /> : <div></div>}</CabecalhoLink>
+            <CabecalhoLink>
+                {link ? <Botao texto={link} aoClicar={linkIrPara} /> : <div></div>}
+            </CabecalhoLink>
             <CabecalhoBotao>
                 {botao ? (
                     <Botao

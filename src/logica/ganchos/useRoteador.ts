@@ -9,11 +9,8 @@ export const rotasPublicas = ["/", "/login", "/cadastro"];
 export default function useRoteador(usuario: UsuarioInterface, logando: boolean): NextRouter {
     const roteador = useRouter();
     const logado = usuario.nome.length > 0;
-    console.log("usuario: ", usuario);
-    console.log("logando: ", logando);
 
     useEffect(() => {
-        console.log("roteador.route: ", roteador.route);
         tratarNavegacao(roteador.route);
         roteador.events.on("routeChangeStart", tratarNavegacao);
         return () => {
