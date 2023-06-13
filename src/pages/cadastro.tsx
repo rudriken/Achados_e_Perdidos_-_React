@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { Container, Typography } from "@mui/material";
+import { GetStaticProps } from "next";
 import useCadastro from "@/logica/ganchos/pages/useCadastro";
 import {
     FormularioLocal,
@@ -11,6 +12,14 @@ import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPa
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
+
+export const getStaticProps: GetStaticProps = async () => {
+    return {
+        props: {
+            titulo: "Cadastro",
+        },
+    };
+};
 
 export default function Cadastro() {
     const { formularioMetodosCadastro, cadastrar, mensagem, alterarMensagem } = useCadastro(),

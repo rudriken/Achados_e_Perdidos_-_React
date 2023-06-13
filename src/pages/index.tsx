@@ -1,5 +1,6 @@
 import { FormProvider } from "react-hook-form";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
+import { GetStaticProps } from "next";
 import useIndex from "@/logica/ganchos/pages/useIndex";
 import ListarLocais from "@/visual/parciais/publicas/_listar_locais";
 import ListarObjetos from "@/visual/parciais/publicas/_listar_objetos";
@@ -8,6 +9,14 @@ import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPa
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import { parciais } from "@/logica/tipos/globais";
+
+export const getStaticProps: GetStaticProps = async () => {
+    return {
+        props: {
+            titulo: "",
+        },
+    };
+};
 
 export default function Inicial() {
     const {

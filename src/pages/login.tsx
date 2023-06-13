@@ -1,11 +1,20 @@
 import { FormProvider } from "react-hook-form";
 import { Container, Typography } from "@mui/material";
+import { GetStaticProps } from "next";
 import useLogin from "@/logica/ganchos/pages/useLogin";
 import { FormularioLogin } from "@/visual/componentes/entradas/Formularios/Formularios";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
+
+export const getStaticProps: GetStaticProps = async () => {
+    return {
+        props: {
+            titulo: "Login",
+        },
+    };
+};
 
 export default function Login() {
     const { formularioMetodosLogin, logar, erro } = useLogin(),

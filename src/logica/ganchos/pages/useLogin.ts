@@ -14,7 +14,7 @@ export default function useLogin() {
     async function logar(credenciais: LoginInterface): Promise<void> {
         const sucesso = await ServicoLogin.entrar(credenciais);
         if (sucesso) {
-            alterarErro(false);
+            window.location.reload();
         } else {
             alterarErro(true);
         }
