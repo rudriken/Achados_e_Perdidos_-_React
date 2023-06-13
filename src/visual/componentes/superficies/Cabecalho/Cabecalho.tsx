@@ -29,7 +29,9 @@ export default function Cabecalho({
     const [abrirMenu, alterarAbrirMenu] = useState(false);
     return (
         <CabecalhoConteiner>
-            <CabecalhoLogo src={imagem} alt={"Achados e Perdidos"} />
+            <a href={"/"}>
+                <CabecalhoLogo src={imagem} alt={"Achados e Perdidos"} />
+            </a>
             <CabecalhoLink>{link ? <Botao texto={link} /> : <div></div>}</CabecalhoLink>
             <CabecalhoBotao>
                 {botao ? (
