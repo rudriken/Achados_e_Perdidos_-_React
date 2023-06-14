@@ -4,7 +4,11 @@ import CampoDeTexto from "../../CampoDeTexto/CampoDeTexto";
 import { LocalInterface } from "@/logica/interfaces/interfaces";
 import { useEffect } from "react";
 
-export function FormularioIndex({ textoMudou }: { textoMudou: (texto: string) => void }) {
+interface FormularioIndexProps {
+    textoMudou?: (texto: string) => void;
+}
+
+export function FormularioIndex({ textoMudou }: FormularioIndexProps) {
     const {
         register,
         formState: { errors },
@@ -14,7 +18,7 @@ export function FormularioIndex({ textoMudou }: { textoMudou: (texto: string) =>
     const nome = watch("nome");
 
     useEffect(() => {
-        textoMudou(nome);
+        textoMudou?.(nome);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nome]);
 
