@@ -25,9 +25,15 @@ export default function useLogin() {
         }
     }
 
+    function deslogar() {
+        ServicoLogin.sair();
+        window.location.reload();
+    }
+
     return {
         formularioMetodosLogin,
         logar,
+        deslogar,
         erro,
     };
 }

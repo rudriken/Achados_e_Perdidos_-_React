@@ -11,6 +11,7 @@ interface CardapioProps {
     quandoClicar?: (evento: React.MouseEvent) => void;
     quandoMenuAberto?: (evento: React.MouseEvent) => void;
     quandoFecharMenu?: (evento: React.MouseEvent) => void;
+    quandoClicarNoItem: (indice: number) => void;
 }
 
 export default function Cardapio({
@@ -20,6 +21,7 @@ export default function Cardapio({
     quandoClicar,
     quandoMenuAberto,
     quandoFecharMenu,
+    quandoClicarNoItem,
 }: CardapioProps) {
     const conteinerRef = useRef(null);
 
@@ -39,8 +41,8 @@ export default function Cardapio({
                         <li key={indice}>
                             <Elo
                                 rotulo={opcao}
-                                url={`/${ServicoFormatador.transformarString(opcao)}`}
                                 fonteCor={"#000000"}
+                                acao={() => quandoClicarNoItem(indice)}
                             />
                         </li>
                     );

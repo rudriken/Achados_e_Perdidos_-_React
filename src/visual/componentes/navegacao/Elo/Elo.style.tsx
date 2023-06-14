@@ -13,5 +13,6 @@ export const Elo = styled(Link)`
     font-size: 18px;
     :hover {
         background-color: ${({ theme }) => theme.palette.background.default};
+        cursor: pointer;
     }
 `;

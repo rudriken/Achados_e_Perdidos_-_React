@@ -9,6 +9,8 @@ import EditarObjeto from "@/visual/parciais/privadas/_editar_objeto";
 import ApagarObjeto from "@/visual/parciais/privadas/_apagar_objeto";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
+import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
+import Sair from "@/visual/parciais/privadas/_sair";
 
 export const getStaticProps: GetStaticProps = async () => {
     return {
@@ -31,6 +33,7 @@ export default function Plataforma() {
     const { objetos, buscando } = estadoDosObjetos;
     const [objeto, alterarObjeto] = useState({} as ObjetoInterface);
     const [novosObjetos, alterarNovosObjetos] = useState([] as ObjetoInterface[]);
+    const menuOpcoes = ["Alterar Dados", "Sair"];
 
     useEffect(() => {
         (async () => {
@@ -52,7 +55,12 @@ export default function Plataforma() {
                 imagem={"img/logos/logo.svg"}
                 link={"Objetos"}
                 linkIrPara={() => alterarParcial(parciais.privadas[0])}
-                cardapio={["Alterar Dados", "Sair"]}
+                cardapio={menuOpcoes}
+                aoClicarNoItem={(opcoes, indice) => {
+                    if (opcoes[indice] === menuOpcoes[1]) {
+                        alterarParcial(parciais.privadas[5]);
+                    }
+                }}
             />
             {(parcial === parciais.privadas[0] || parcial === parciais.privadas[4]) && (
                 <ListarObjetos
@@ -120,6 +128,14 @@ export default function Plataforma() {
                         );
                     }}
                     irPara_listar_objetos={(_objetoExcluido) => {
+                        alterarParcial(parciais.privadas[0]);
+                    }}
+                />
+            )}
+
+            {parcial === parciais.privadas[5] && (
+                <Sair
+                    irPara_listar_objetos={() => {
                         alterarParcial(parciais.privadas[0]);
                     }}
                 />

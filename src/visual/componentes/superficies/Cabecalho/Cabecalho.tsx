@@ -17,6 +17,7 @@ interface CabecalhoProps {
     botao?: string;
     botaoIrPara?: string;
     cardapio?: string[];
+    aoClicarNoItem: (opcoes: string[], indice: number) => void;
 }
 
 export default function Cabecalho({
@@ -27,6 +28,7 @@ export default function Cabecalho({
     botao,
     botaoIrPara,
     cardapio,
+    aoClicarNoItem,
 }: CabecalhoProps): JSX.Element {
     const [abrirMenu, alterarAbrirMenu] = useState(false);
     return (
@@ -57,6 +59,7 @@ export default function Cabecalho({
                         quandoClicar={() => alterarAbrirMenu(true)}
                         quandoMenuAberto={() => alterarAbrirMenu(false)}
                         quandoFecharMenu={() => alterarAbrirMenu(false)}
+                        quandoClicarNoItem={(indice) => aoClicarNoItem(cardapio, indice)}
                     />
                 )}
                 {!usuario && !botao && cardapio && (
