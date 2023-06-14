@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ServicoApi } from "@/logica/servicos/ServicoApi";
@@ -6,12 +6,15 @@ import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
 import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
 import { LocalStorage } from "@/logica/servicos/ServicoArmazenamento";
 import { LocalUsuarioInterface, LoginInterface } from "@/logica/interfaces/interfaces";
+import { ContextoDoLocalUsuario } from "@/logica/contextos/ContextoDoLocalUsuario";
 
 export default function useCadastro() {
     const formularioMetodosCadastro = useForm<LocalUsuarioInterface>({
             resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
         }),
-        [mensagem, alterarMensagem] = useState(false);
+        [sucesso, alterarSucesso] = useState(false),
+        [erro, alterarErro] = useState(false);
+    const { despachoDoLocalUsuario } = useContext(ContextoDoLocalUsuario);
 
     async function cadastrar(
         dados: LocalUsuarioInterface,
@@ -34,9 +37,9 @@ export default function useCadastro() {
                     },
                 }
             );
-            alterarMensagem(true);
+            alterarSucesso(true);
         } catch (erro) {
-            return;
+            alterarErro(true);
         }
     }
 
@@ -46,10 +49,19 @@ export default function useCadastro() {
         } catch (erro) {}
     }
 
+    async function irParaParaAreaPrivada() {
+        const localUsuario = await ServicoLogin.informacoesDoLocalUsuario();
+        if (localUsuario) {
+            despachoDoLocalUsuario({ tipo: "ATUALIZAR_DADOS", carga: localUsuario });
+        }
+    }
+
     return {
         formularioMetodosCadastro,
         cadastrar,
-        mensagem,
-        alterarMensagem,
+        alterarSucesso,
+        sucesso,
+        erro,
+        irParaParaAreaPrivada,
     };
 }

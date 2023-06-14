@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { Container, Typography } from "@mui/material";
 import { GetStaticProps } from "next";
@@ -12,6 +12,7 @@ import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPa
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
+import { ContextoDoLocalUsuario } from "@/logica/contextos/ContextoDoLocalUsuario";
 
 export const getStaticProps: GetStaticProps = async () => {
     return {
@@ -22,7 +23,8 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export default function Cadastro() {
-    const { formularioMetodosCadastro, cadastrar, mensagem, alterarMensagem } = useCadastro(),
+    const { formularioMetodosCadastro, cadastrar, sucesso, erro, irParaParaAreaPrivada } =
+            useCadastro(),
         { handleSubmit } = formularioMetodosCadastro;
     const [imagemFile, alterarImagemFile] = useState({} as File);
 
@@ -66,6 +68,15 @@ export default function Cadastro() {
                         <FormularioUsuario />
                     </fieldset>
 
+                    {erro && (
+                        <Typography
+                            color={"red"}
+                            style={{ padding: 0, margin: 0, transform: "translateY(-20px)" }}
+                        >
+                            Este e-mail já existe no nosso banco de dados!
+                        </Typography>
+                    )}
+
                     <Botao
                         texto={"Cadastre-se"}
                         modo={"contained"}
@@ -78,16 +89,14 @@ export default function Cadastro() {
                 </form>
             </Container>
 
-            {mensagem && (
+            {sucesso && (
                 <Dialogo
-                    aberto={mensagem}
-                    aoCancelar={() => {
-                        alterarMensagem(false);
-                    }}
+                    aberto={sucesso}
                     titulo={"Sucesso!"}
                     subtitulo={"Cadastro do usuário e local realizado com sucesso!"}
                     temBotaoCancelar
                     rotuloCancelar={"Fechar"}
+                    aoCancelar={irParaParaAreaPrivada}
                 />
             )}
         </FormProvider>

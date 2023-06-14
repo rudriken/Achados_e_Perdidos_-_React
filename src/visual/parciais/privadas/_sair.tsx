@@ -19,10 +19,10 @@ export default function Sair({
                     "Não se preocupe se confirmar, pois poderá retornar aqui a qualquer momento!"
                 }
                 temBotaoCancelar
-                rotuloCancelar={"Não"}
+                rotuloCancelar={"NÃO"}
                 aoCancelar={irPara_listar_objetos}
                 temBotaoConfirmar
-                rotuloConfirmar={"Sim"}
+                rotuloConfirmar={"SIM"}
                 aoConfirmar={deslogar}
             />
         </>

@@ -17,7 +17,7 @@ interface CabecalhoProps {
     botao?: string;
     botaoIrPara?: string;
     cardapio?: string[];
-    aoClicarNoItem: (opcoes: string[], indice: number) => void;
+    aoClicarNoItem?: (opcoes: string[], indice: number) => void;
 }
 
 export default function Cabecalho({
@@ -59,7 +59,7 @@ export default function Cabecalho({
                         quandoClicar={() => alterarAbrirMenu(true)}
                         quandoMenuAberto={() => alterarAbrirMenu(false)}
                         quandoFecharMenu={() => alterarAbrirMenu(false)}
-                        quandoClicarNoItem={(indice) => aoClicarNoItem(cardapio, indice)}
+                        quandoClicarNoItem={(indice) => aoClicarNoItem?.(cardapio, indice)}
                     />
                 )}
                 {!usuario && !botao && cardapio && (
