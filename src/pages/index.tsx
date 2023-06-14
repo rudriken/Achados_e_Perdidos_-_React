@@ -1,5 +1,5 @@
 import { FormProvider } from "react-hook-form";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { GetStaticProps } from "next";
 import useIndex from "@/logica/ganchos/pages/useIndex";
 import ListarLocais from "@/visual/parciais/publicas/_listar_locais";
@@ -29,8 +29,11 @@ export default function Inicial() {
             pegarObjetos,
             objetos,
             nomeBuscado,
+            mensagem,
+            alterarMensagem,
         } = useIndex(),
         { handleSubmit } = formularioMetodosIndex;
+
     return (
         <FormProvider {...formularioMetodosIndex}>
             <Cabecalho
@@ -62,7 +65,20 @@ export default function Inicial() {
                             }
                         />
 
-                        <FormularioIndex />
+                        <FormularioIndex
+                            textoMudou={(texto) => {
+                                if (texto !== nomeBuscado) {
+                                    alterarMensagem(false);
+                                }
+                            }}
+                        />
+
+                        {mensagem && (
+                            <Typography color={"red"} style={{ marginTop: 10 }}>
+                                Não encontramos nenhum local cadastrado que tenha em seu nome
+                                &apos;{nomeBuscado}&apos;
+                            </Typography>
+                        )}
 
                         <Botao
                             texto={"Buscar"}
