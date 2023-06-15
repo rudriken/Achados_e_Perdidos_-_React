@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Skeleton, Typography } from "@mui/material";
 import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Tabela, { T_Celula, T_Linha } from "../../componentes/exibe-dados/Tabela/Tabela";
@@ -49,35 +49,48 @@ export default function ListarObjetos({
                             ...objeto,
                             acoes: (
                                 <>
-                                    {objeto.links.filter((link) => link.rel === "self")
-                                        .length === 1 && (
-                                        <Botao
-                                            texto={"Editar"}
-                                            altura={40}
-                                            cor={"success"}
-                                            aoClicar={() => irPara_editar_objeto(objeto)}
-                                        />
-                                    )}
-                                    {objeto.links.filter(
-                                        (link) => link.rel === "apagar_objeto"
-                                    ).length === 1 && (
-                                        <Botao
-                                            texto={"Apagar"}
-                                            altura={40}
-                                            cor={"error"}
-                                            aoClicar={() => irPara_apagar_objeto(objeto)}
-                                        />
-                                    )}
-                                    {objeto.links.filter(
-                                        (link) => link.rel === "definir_dono_objeto"
-                                    ).length === 1 && (
-                                        <Botao
-                                            texto={"Informar Entrega"}
-                                            altura={40}
-                                            cor={"info"}
-                                            largura={170}
-                                        />
-                                    )}
+                                    <Botao
+                                        texto={"Editar"}
+                                        altura={40}
+                                        cor={"success"}
+                                        aoClicar={() => irPara_editar_objeto(objeto)}
+                                        desabilitado={
+                                            objeto.links.filter((link) => link.rel === "self")
+                                                .length === 0
+                                        }
+                                    />
+                                    <Botao
+                                        texto={"Apagar"}
+                                        altura={40}
+                                        cor={"error"}
+                                        aoClicar={() => irPara_apagar_objeto(objeto)}
+                                        desabilitado={
+                                            objeto.links.filter(
+                                                (link) => link.rel === "apagar_objeto"
+                                            ).length === 0
+                                        }
+                                    />
+
+                                    <Botao
+                                        texto={
+                                            objeto.links.filter(
+                                                (link) => link.rel === "definir_dono_objeto"
+                                            ).length === 1
+                                                ? "Informar Entrega"
+                                                : "Objeto já entregue"
+                                        }
+                                        altura={40}
+                                        cor={"info"}
+                                        largura={170}
+                                        desabilitado={
+                                            !(
+                                                objeto.links.filter(
+                                                    (link) =>
+                                                        link.rel === "definir_dono_objeto"
+                                                ).length === 1
+                                            )
+                                        }
+                                    />
                                 </>
                             ),
                         };
