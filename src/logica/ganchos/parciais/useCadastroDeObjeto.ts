@@ -10,6 +10,9 @@ export default function useCadastroDeObjeto() {
     const formularioMetodosCadastroObjeto = useForm<ObjetoInterface>({
         resolver: yupResolver(ServicoEstruturaFormulario.cadastroObjeto()),
     });
+    const formularioMetodosInformaDono = useForm<ObjetoInterface>({
+        resolver: yupResolver(ServicoEstruturaFormulario.informaDono()),
+    });
     const [mensagem, alterarMensagem] = useState(false);
     const [imagemFile, alterarImagemFile] = useState({} as File);
     const [objetoTrabalhado, alterarObjetoTrabalhado] = useState({} as ObjetoInterface);
@@ -70,6 +73,18 @@ export default function useCadastroDeObjeto() {
         }
     }
 
+    async function informarDono(objeto: ObjetoInterface, dados: ObjetoInterface) {
+        const resposta = (
+            await ServicoApi.post<{ message: string }>(
+                `/api/objetos/${objeto.id}/donos`,
+                dados
+            )
+        ).data;
+        if (resposta) {
+            alterarMensagem(true);
+        }
+    }
+
     return {
         formularioMetodosCadastroObjeto,
         cadastrarObjeto,
@@ -83,5 +98,7 @@ export default function useCadastroDeObjeto() {
         alterarObjetoTrabalhado,
         campoAlterado,
         alterarCampoAlterado,
+        formularioMetodosInformaDono,
+        informarDono,
     };
 }

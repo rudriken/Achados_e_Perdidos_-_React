@@ -48,6 +48,9 @@ export interface ObjetoInterface {
     entregue: boolean;
     data_cadastro: string;
     imagem: string;
+    local_id: number;
+    dono_nome: string;
+    dono_cpf: string;
     links: LinksInterface[];
     acoes: JSX.Element;
 }

@@ -71,14 +71,14 @@ export default function AdicionarObjeto({
             {mensagem && (
                 <Dialogo
                     aberto={mensagem}
-                    aoCancelar={() => {
-                        alterarMensagem(false);
-                        irPara_listar_objetos(objetoTrabalhado);
-                    }}
                     titulo={"Sucesso!"}
                     subtitulo={"Cadastro do objeto realizado com sucesso!"}
                     temBotaoCancelar
                     rotuloCancelar={"Voltar"}
+                    aoCancelar={() => {
+                        alterarMensagem(false);
+                        irPara_listar_objetos(objetoTrabalhado);
+                    }}
                 />
             )}
         </FormProvider>

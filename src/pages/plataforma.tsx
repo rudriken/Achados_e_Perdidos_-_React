@@ -11,6 +11,7 @@ import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
 import Sair from "@/visual/parciais/privadas/_sair";
+import InformarDono from "@/visual/parciais/privadas/_informar_dono";
 
 export const getStaticProps: GetStaticProps = async () => {
     return {
@@ -81,6 +82,10 @@ export default function Plataforma() {
                         alterarObjeto(objeto);
                         alterarParcial(parciais.privadas[4]);
                     }}
+                    irPara_informar_dono={(objeto) => {
+                        alterarObjeto(objeto);
+                        alterarParcial(parciais.privadas[6]);
+                    }}
                 />
             )}
 
@@ -136,6 +141,15 @@ export default function Plataforma() {
             {parcial === parciais.privadas[5] && (
                 <Sair
                     irPara_listar_objetos={() => {
+                        alterarParcial(parciais.privadas[0]);
+                    }}
+                />
+            )}
+
+            {parcial === parciais.privadas[6] && (
+                <InformarDono
+                    objeto={objeto}
+                    irPara_listar_objetos={(_objeto) => {
                         alterarParcial(parciais.privadas[0]);
                     }}
                 />

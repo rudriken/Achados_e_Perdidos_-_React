@@ -88,6 +88,9 @@ const ServicoFormatador = {
         });
         return { linha1: palavrasJuntadasLinha1, linha2: palavrasJuntadasLinha2 };
     },
+    pegarSomenteNumero: (caractere: string) => {
+        return caractere.replace(/\D/g, "");
+    },
 };
 
 export default ServicoFormatador;

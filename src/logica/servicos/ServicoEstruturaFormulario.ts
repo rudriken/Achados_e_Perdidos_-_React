@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { ServicoValidacao } from "./ServicoValidacao";
 
 export const ServicoEstruturaFormulario = {
     cadastro: () => {
@@ -80,6 +81,21 @@ export const ServicoEstruturaFormulario = {
                 .min(3, "Descrição muito curta!")
                 .max(255, "Descrição muito longa, inaceitável!"),
             imagem: yup.string().required("É obrigatório definir uma imagem!"),
+        });
+    },
+    informaDono: () => {
+        return yup.object().shape({
+            dono_nome: yup
+                .string()
+                .required("É obrigatório preencher este campo!")
+                .min(3, "Nome muito curto!")
+                .max(255, "Nome muito grande, inaceitável"),
+            dono_cpf: yup
+                .string()
+                .required("É obrigatório preencher este campo!")
+                .min(11, "É aceito somente 11 números")
+                .max(11, "É aceito somente 11 números")
+                .test("validar CPF", "CPF inválido", ServicoValidacao.verificarCPF),
         });
     },
 };

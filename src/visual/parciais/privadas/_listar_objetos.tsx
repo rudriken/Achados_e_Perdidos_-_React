@@ -6,6 +6,16 @@ import Botao from "../../componentes/entradas/Botao/Botao";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import Elo from "../../componentes/navegacao/Elo/Elo";
 
+interface ListarObjetosProps {
+    objetos: ObjetoInterface[];
+    buscando: boolean;
+    irPara_adicionar_objeto: () => void;
+    irPara_exibir_objeto: (objeto: ObjetoInterface) => void;
+    irPara_editar_objeto: (objeto: ObjetoInterface) => void;
+    irPara_apagar_objeto: (objeto: ObjetoInterface) => void;
+    irPara_informar_dono: (objeto: ObjetoInterface) => void;
+}
+
 export default function ListarObjetos({
     objetos,
     buscando,
@@ -13,14 +23,8 @@ export default function ListarObjetos({
     irPara_exibir_objeto,
     irPara_editar_objeto,
     irPara_apagar_objeto,
-}: {
-    objetos: ObjetoInterface[];
-    buscando: boolean;
-    irPara_adicionar_objeto: () => void;
-    irPara_exibir_objeto: (objeto: ObjetoInterface) => void;
-    irPara_editar_objeto: (objeto: ObjetoInterface) => void;
-    irPara_apagar_objeto: (objeto: ObjetoInterface) => void;
-}) {
+    irPara_informar_dono,
+}: ListarObjetosProps) {
     return (
         <Container
             style={{
@@ -81,6 +85,7 @@ export default function ListarObjetos({
                                         }
                                         altura={40}
                                         cor={"info"}
+                                        aoClicar={() => irPara_informar_dono(objeto)}
                                         largura={170}
                                         desabilitado={
                                             !(
