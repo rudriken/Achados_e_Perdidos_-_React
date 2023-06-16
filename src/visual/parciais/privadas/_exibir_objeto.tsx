@@ -1,16 +1,15 @@
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Grade from "@/visual/componentes/exibe-dados/Grade/Grade";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
-export default function ExibirObjeto({
-    objeto,
-    irPara_listar_objetos,
-}: {
+interface ExibirObjetoProps {
     objeto: ObjetoInterface;
     irPara_listar_objetos: (objeto: ObjetoInterface) => void;
-}) {
+}
+
+export default function ExibirObjeto({ objeto, irPara_listar_objetos }: ExibirObjetoProps) {
     return (
         <Container
             style={{

@@ -1,4 +1,4 @@
-import { ObjetoInterface } from "../interfaces/interfaces";
+import { LocalInterface, ObjetoInterface } from "../interfaces/interfaces";
 
 export const ServicoHateoas = {
     self: (objeto: ObjetoInterface): boolean => {
@@ -26,6 +26,13 @@ export const ServicoHateoas = {
         return (
             objeto.links.filter((link) => {
                 return link.rel === "definir_dono_objeto";
+            }).length === 1
+        );
+    },
+    objetosLocalBusca: (local: LocalInterface): boolean => {
+        return (
+            local.links.filter((link) => {
+                return link.rel === "objetos_local";
             }).length === 1
         );
     },

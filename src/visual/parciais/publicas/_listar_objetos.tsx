@@ -1,16 +1,15 @@
 import { Container, Typography } from "@mui/material";
-import { LocalInterface, ObjetoInterface } from "@/logica/interfaces/interfaces";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 import Grade from "@/visual/componentes/exibe-dados/Grade/Grade";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
+import { LocalInterface, ObjetoInterface } from "@/logica/interfaces/interfaces";
 
-export default function ListarObjetos({
-    objetos,
-    local,
-}: {
+interface ListarObjetosProps {
     objetos: ObjetoInterface[];
     local: LocalInterface;
-}) {
+}
+
+export default function ListarObjetos({ objetos, local }: ListarObjetosProps) {
     return (
         <Container
             style={{
@@ -25,10 +24,10 @@ export default function ListarObjetos({
                     "Verifique na lista abaixo se o objeto que perdeu está disponível nesse local"
                 }
             />
-            {objetos.map((objeto, indice) => {
+            {objetos.map((objeto) => {
                 return (
                     <Grade
-                        key={indice}
+                        key={objeto.id}
                         imagem={objeto.imagem}
                         titulo={objeto.nome}
                         linha1={ServicoFormatador.linhas1E2DaGrade(objeto.descricao).linha1}

@@ -2,11 +2,11 @@ import useLogin from "@/logica/ganchos/pages/useLogin";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 
-export default function Sair({
-    irPara_listar_objetos,
-}: {
+interface SairProps {
     irPara_listar_objetos: (objeto: ObjetoInterface) => void;
-}) {
+}
+
+export default function Sair({ irPara_listar_objetos }: SairProps) {
     const { deslogar } = useLogin();
 
     return (

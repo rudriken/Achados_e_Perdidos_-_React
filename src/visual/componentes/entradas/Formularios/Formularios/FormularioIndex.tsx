@@ -5,10 +5,10 @@ import { LocalInterface } from "@/logica/interfaces/interfaces";
 import { useEffect } from "react";
 
 interface FormularioIndexProps {
-    textoMudou?: (texto: string) => void;
+    verificarMudancaDeBusca?: (novaBusca: string) => void;
 }
 
-export function FormularioIndex({ textoMudou }: FormularioIndexProps) {
+export function FormularioIndex({ verificarMudancaDeBusca }: FormularioIndexProps) {
     const {
         register,
         formState: { errors },
@@ -18,7 +18,7 @@ export function FormularioIndex({ textoMudou }: FormularioIndexProps) {
     const nome = watch("nome");
 
     useEffect(() => {
-        textoMudou?.(nome);
+        verificarMudancaDeBusca?.(nome);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nome]);
 

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { Container } from "@mui/material";
 import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
@@ -9,11 +8,11 @@ import Dialogo from "../../componentes/retorno/Dialogo/Dialogo";
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
-export default function AdicionarObjeto({
-    irPara_listar_objetos,
-}: {
+interface AdicionarObjetoProps {
     irPara_listar_objetos: (objeto: ObjetoInterface) => void;
-}) {
+}
+
+export default function AdicionarObjeto({ irPara_listar_objetos }: AdicionarObjetoProps) {
     const {
             formularioMetodosCadastroObjeto,
             cadastrarObjeto,

@@ -66,8 +66,8 @@ export default function Inicial() {
                         />
 
                         <FormularioIndex
-                            textoMudou={(texto) => {
-                                if (texto !== nomeBuscado) {
+                            verificarMudancaDeBusca={(novaBusca) => {
+                                if (novaBusca !== nomeBuscado) {
                                     alterarMensagem(false);
                                 }
                             }}

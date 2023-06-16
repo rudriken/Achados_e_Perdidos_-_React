@@ -1,18 +1,19 @@
-import { useState } from "react";
 import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
 import Dialogo from "../../componentes/retorno/Dialogo/Dialogo";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import { Typography } from "@mui/material";
 
+interface ApagarObjetoProps {
+    objeto: ObjetoInterface;
+    atualizar_lista_objetos: (objeto: ObjetoInterface) => void;
+    irPara_listar_objetos: (objeto: ObjetoInterface) => void;
+}
+
 export default function ApagarObjeto({
     objeto,
     atualizar_lista_objetos,
     irPara_listar_objetos,
-}: {
-    objeto: ObjetoInterface;
-    atualizar_lista_objetos: (objeto: ObjetoInterface) => void;
-    irPara_listar_objetos: (objeto: ObjetoInterface) => void;
-}) {
+}: ApagarObjetoProps) {
     const { excluirObjeto, mensagem } = useCadastroDeObjeto();
 
     return (

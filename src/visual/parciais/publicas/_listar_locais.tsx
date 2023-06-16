@@ -1,18 +1,21 @@
-import { LocalInterface } from "@/logica/interfaces/interfaces";
 import { Container, Typography } from "@mui/material";
-import Grade from "../../componentes/exibe-dados/Grade/Grade";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
+import { ServicoHateoas } from "@/logica/servicos/ServicoHateoas";
+import Grade from "../../componentes/exibe-dados/Grade/Grade";
 import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
+import { LocalInterface } from "@/logica/interfaces/interfaces";
+
+interface ListarLocaisProps {
+    nome: string;
+    locais: LocalInterface[];
+    irPara_listar_objetos: (local: LocalInterface) => void;
+}
 
 export default function ListarLocais({
     nome,
     locais,
     irPara_listar_objetos,
-}: {
-    nome: string;
-    locais: LocalInterface[];
-    irPara_listar_objetos: (local: LocalInterface) => void;
-}) {
+}: ListarLocaisProps) {
     return (
         <Container
             style={{
@@ -27,10 +30,10 @@ export default function ListarLocais({
                     "Clique sobre um local para ver os objetos que estão disponíveis no setor de achados e perdidos"
                 }
             />
-            {locais.map((local, indice) => {
+            {locais.map((local) => {
                 return (
                     <Grade
-                        key={indice}
+                        key={local.id}
                         imagem={local.imagem}
                         titulo={local.nome}
                         linha1={ServicoFormatador.linhas1E2DaGrade(local.endereco).linha1}
@@ -38,11 +41,7 @@ export default function ListarLocais({
                         rotuloDoBotao={"Ver objetos"}
                         modoDoBotao={"contained"}
                         aoClicar={() => irPara_listar_objetos(local)}
-                        desabilitarBotao={
-                            local.links.filter((link) => {
-                                return link.rel === "objetos_local";
-                            }).length === 0
-                        }
+                        desabilitarBotao={!ServicoHateoas.objetosLocalBusca(local)}
                     />
                 );
             })}
