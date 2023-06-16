@@ -10,18 +10,23 @@ export default function useLogin() {
     const formularioMetodosLogin = useForm<LoginInterface>({
             resolver: yupResolver(ServicoEstruturaFormulario.login()),
         }),
-        [erro, alterarErro] = useState(false);
+        [erro, alterarErro] = useState(false),
+        [entrou, alterarEntrou] = useState(false),
+        [esperarEntrar, alterarEsperarEntrar] = useState(false);
     const { despachoDoLocalUsuario } = useContext(ContextoDoLocalUsuario);
 
     async function logar(credenciais: LoginInterface): Promise<void> {
+        alterarEsperarEntrar(true);
         const sucesso = await ServicoLogin.entrar(credenciais);
         if (sucesso) {
+            alterarEntrou(true);
             const localUsuario = await ServicoLogin.informacoesDoLocalUsuario();
             if (localUsuario) {
                 despachoDoLocalUsuario({ tipo: "ATUALIZAR_DADOS", carga: localUsuario });
             }
         } else {
             alterarErro(true);
+            alterarEsperarEntrar(false);
         }
     }
 
@@ -35,5 +40,9 @@ export default function useLogin() {
         logar,
         deslogar,
         erro,
+        alterarErro,
+        entrou,
+        esperarEntrar,
+        alterarEsperarEntrar,
     };
 }

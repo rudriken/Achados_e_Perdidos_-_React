@@ -1,5 +1,5 @@
 import { FormProvider } from "react-hook-form";
-import { Container, Typography } from "@mui/material";
+import { CircularProgress, Container, Typography } from "@mui/material";
 import { GetStaticProps } from "next";
 import useLogin from "@/logica/ganchos/pages/useLogin";
 import { FormularioLogin } from "@/visual/componentes/entradas/Formularios/Formularios";
@@ -17,7 +17,8 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export default function Login() {
-    const { formularioMetodosLogin, logar, erro } = useLogin(),
+    const { formularioMetodosLogin, logar, erro, alterarErro, entrou, esperarEntrar } =
+            useLogin(),
         { handleSubmit } = formularioMetodosLogin;
 
     return (
@@ -44,9 +45,15 @@ export default function Login() {
                     </fieldset>
 
                     <div style={{ marginBottom: 20, height: 16 }}>
-                        {erro && (
+                        {erro && !entrou && (
                             <Typography color={"error"} textAlign={"center"}>
                                 Usuário e/ou senha inválido(s)
+                            </Typography>
+                        )}
+                        {esperarEntrar && !entrou && <CircularProgress size={20} />}
+                        {entrou && (
+                            <Typography textAlign={"center"} style={{ color: "green" }}>
+                                Sucesso. Entrando ...
                             </Typography>
                         )}
                     </div>
@@ -56,7 +63,8 @@ export default function Login() {
                         modo={"contained"}
                         tipo={"submit"}
                         cor={"primary"}
-                        desabilitado={false}
+                        desabilitado={esperarEntrar}
+                        aoClicar={() => alterarErro(false)}
                     />
                 </form>
             </Container>
