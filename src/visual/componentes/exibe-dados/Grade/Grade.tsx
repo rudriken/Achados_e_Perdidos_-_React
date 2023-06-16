@@ -16,6 +16,7 @@ interface GradeProps {
     linha2: string;
     rotuloDoBotao: string;
     modoDoBotao?: modosTipo;
+    desabilitarBotao?: boolean;
     aoClicar: () => void;
 }
 
@@ -26,6 +27,7 @@ export default function Grade({
     linha2,
     rotuloDoBotao,
     modoDoBotao = "text",
+    desabilitarBotao = false,
     aoClicar,
 }: GradeProps) {
     return (
@@ -44,6 +46,7 @@ export default function Grade({
                     largura={200}
                     altura={40}
                     aoClicar={aoClicar}
+                    desabilitado={desabilitarBotao}
                 />
             </GradeBotao>
         </GradeConteiner>

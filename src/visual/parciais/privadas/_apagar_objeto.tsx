@@ -2,6 +2,7 @@ import { useState } from "react";
 import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
 import Dialogo from "../../componentes/retorno/Dialogo/Dialogo";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
+import { Typography } from "@mui/material";
 
 export default function ApagarObjeto({
     objeto,
@@ -20,6 +21,12 @@ export default function ApagarObjeto({
                 aberto
                 titulo={`Excluir o objeto '${objeto.nome}'`}
                 subtitulo={"Deseja realmente excluí-lo?"}
+                conteudo={
+                    <Typography color={"red"}>
+                        Se arrepender não tem perdão! <br />
+                        Esta ação apagará definitivamente este objeto do banco de dados
+                    </Typography>
+                }
                 temBotaoCancelar
                 rotuloCancelar={"NÃO"}
                 aoCancelar={() => {

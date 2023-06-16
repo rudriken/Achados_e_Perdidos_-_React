@@ -1,4 +1,5 @@
 import { Container, Skeleton, Typography } from "@mui/material";
+import { ServicoHateoas } from "@/logica/servicos/ServicoHateoas";
 import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Tabela, { T_Celula, T_Linha } from "../../componentes/exibe-dados/Tabela/Tabela";
 import Botao from "../../componentes/entradas/Botao/Botao";
@@ -57,43 +58,26 @@ export default function ListarObjetos({
                                         altura={40}
                                         cor={"success"}
                                         aoClicar={() => irPara_editar_objeto(objeto)}
-                                        desabilitado={
-                                            objeto.links.filter(
-                                                (link) => link.rel === "atualizar_objeto"
-                                            ).length === 0
-                                        }
+                                        largura={100}
+                                        desabilitado={!ServicoHateoas.atualizarObjeto(objeto)}
                                     />
                                     <Botao
                                         texto={"Apagar"}
                                         altura={40}
                                         cor={"error"}
                                         aoClicar={() => irPara_apagar_objeto(objeto)}
-                                        desabilitado={
-                                            objeto.links.filter(
-                                                (link) => link.rel === "apagar_objeto"
-                                            ).length === 0
-                                        }
+                                        largura={100}
+                                        desabilitado={!ServicoHateoas.apagarObjeto(objeto)}
                                     />
 
                                     <Botao
-                                        texto={
-                                            objeto.links.filter(
-                                                (link) => link.rel === "definir_dono_objeto"
-                                            ).length === 1
-                                                ? "Informar Entrega"
-                                                : "Objeto já entregue"
-                                        }
+                                        texto={"Informar Entrega"}
                                         altura={40}
                                         cor={"info"}
                                         aoClicar={() => irPara_informar_dono(objeto)}
                                         largura={170}
                                         desabilitado={
-                                            !(
-                                                objeto.links.filter(
-                                                    (link) =>
-                                                        link.rel === "definir_dono_objeto"
-                                                ).length === 1
-                                            )
+                                            !ServicoHateoas.definirDonoObjeto(objeto)
                                         }
                                     />
                                 </>
@@ -109,11 +93,15 @@ export default function ListarObjetos({
                                         rotulo={item.nome}
                                         fonteTamanho={14}
                                         fonteAlinhamento={"left"}
+                                        fonteCor={
+                                            ServicoHateoas.definirDonoObjeto(item)
+                                                ? "#abb6c3"
+                                                : "#e9e8e8"
+                                        }
                                         acao={() => {
-                                            const object = objetos.filter(
-                                                (obj) => obj.id === item.id
-                                            )[0];
-                                            irPara_exibir_objeto(object);
+                                            if (ServicoHateoas.self(item)) {
+                                                irPara_exibir_objeto(item);
+                                            }
                                         }}
                                     />
                                 </T_Celula>
@@ -122,11 +110,15 @@ export default function ListarObjetos({
                                         rotulo={item.descricao}
                                         fonteTamanho={14}
                                         fonteAlinhamento={"left"}
+                                        fonteCor={
+                                            ServicoHateoas.definirDonoObjeto(item)
+                                                ? "#abb6c3"
+                                                : "#e9e8e8"
+                                        }
                                         acao={() => {
-                                            const object = objetos.filter(
-                                                (obj) => obj.id === item.id
-                                            )[0];
-                                            irPara_exibir_objeto(object);
+                                            if (ServicoHateoas.self(item)) {
+                                                irPara_exibir_objeto(item);
+                                            }
                                         }}
                                     />
                                 </T_Celula>

@@ -38,6 +38,11 @@ export default function ListarLocais({
                         rotuloDoBotao={"Ver objetos"}
                         modoDoBotao={"contained"}
                         aoClicar={() => irPara_listar_objetos(local)}
+                        desabilitarBotao={
+                            local.links.filter((link) => {
+                                return link.rel === "objetos_local";
+                            }).length === 0
+                        }
                     />
                 );
             })}

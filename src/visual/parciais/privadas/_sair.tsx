@@ -1,6 +1,4 @@
 import useLogin from "@/logica/ganchos/pages/useLogin";
-import usePlataforma from "@/logica/ganchos/pages/usePlataforma";
-import { parciais } from "@/logica/tipos/globais";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 
 export default function Sair({

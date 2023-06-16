@@ -92,10 +92,12 @@ export default function Cadastro() {
                 <Dialogo
                     aberto={sucesso}
                     titulo={"Sucesso!"}
-                    subtitulo={
-                        "Cadastro do usuário e local realizado com sucesso! " +
-                        "Ao clicar em 'Fechar' você será redirecionado(a) em " +
-                        "poucos segundos para a sua área restrita."
+                    subtitulo={"Cadastro do usuário e local realizado com sucesso! "}
+                    conteudo={
+                        <Typography color={"blue"}>
+                            Ao clicar em &apos;Fechar&apos; você será redirecionado(a) em
+                            poucos segundos para a sua área restrita.
+                        </Typography>
                     }
                     temBotaoCancelar
                     rotuloCancelar={"Fechar"}
