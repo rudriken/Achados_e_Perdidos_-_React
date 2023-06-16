@@ -5,8 +5,8 @@ export const parciais = {
         "_exibir_objeto",
         "_editar_objeto",
         "_apagar_objeto",
-        "_sair",
         "_informar_dono",
+        "_sair",
     ],
     publicas: ["_listar_locais", "_listar_objetos"],
 };

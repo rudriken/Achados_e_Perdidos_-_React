@@ -58,7 +58,7 @@ export default function Plataforma() {
                 cardapio={menuOpcoes}
                 aoClicarNoItem={(opcoes, indice) => {
                     if (opcoes[indice] === menuOpcoes[1]) {
-                        alterarParcial(parciais.privadas[5]);
+                        alterarParcial(parciais.privadas[6]);
                     }
                 }}
             />
@@ -83,7 +83,7 @@ export default function Plataforma() {
                     }}
                     irPara_informar_dono={(objeto) => {
                         alterarObjeto(objeto);
-                        alterarParcial(parciais.privadas[6]);
+                        alterarParcial(parciais.privadas[5]);
                     }}
                 />
             )}
@@ -138,18 +138,18 @@ export default function Plataforma() {
             )}
 
             {parcial === parciais.privadas[5] && (
-                <Sair
-                    irPara_listar_objetos={() => {
+                <InformarDono
+                    objeto={objeto}
+                    irPara_listar_objetos={async (_objetoInformadoDono) => {
+                        await pegarObjetos();
                         alterarParcial(parciais.privadas[0]);
                     }}
                 />
             )}
 
             {parcial === parciais.privadas[6] && (
-                <InformarDono
-                    objeto={objeto}
-                    irPara_listar_objetos={async (_objeto) => {
-                        await pegarObjetos();
+                <Sair
+                    irPara_listar_objetos={(_objetoInutil) => {
                         alterarParcial(parciais.privadas[0]);
                     }}
                 />

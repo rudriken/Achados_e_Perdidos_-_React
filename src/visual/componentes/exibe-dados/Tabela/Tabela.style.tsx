@@ -31,7 +31,7 @@ export const TLinha = styled(TableRow)``;
 export const TCelula = styled(TableCell)`
     padding: ${({ theme }) => theme.spacing(0) + " " + theme.spacing(4)};
     border: 1px solid ${({ theme }) => theme.palette.text.secondary};
-    &.MuiTableCell-root:nth-child(3) {
+    &.MuiTableCell-root:nth-of-type(3) {
         width: 370px;
     }
 `;

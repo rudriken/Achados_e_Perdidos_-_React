@@ -1,10 +1,11 @@
 import useLogin from "@/logica/ganchos/pages/useLogin";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 
 export default function Sair({
     irPara_listar_objetos,
 }: {
-    irPara_listar_objetos: () => void;
+    irPara_listar_objetos: (objeto: ObjetoInterface) => void;
 }) {
     const { deslogar } = useLogin();
 
@@ -18,7 +19,7 @@ export default function Sair({
                 }
                 temBotaoCancelar
                 rotuloCancelar={"NÃO"}
-                aoCancelar={irPara_listar_objetos}
+                aoCancelar={() => irPara_listar_objetos({} as ObjetoInterface)}
                 temBotaoConfirmar
                 rotuloConfirmar={"SIM"}
                 aoConfirmar={deslogar}
