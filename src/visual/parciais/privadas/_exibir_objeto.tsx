@@ -1,8 +1,8 @@
 import { Container, Typography } from "@mui/material";
-import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
-import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
+import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Grade from "@/visual/componentes/exibe-dados/Grade/Grade";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 export default function ExibirObjeto({
     objeto,

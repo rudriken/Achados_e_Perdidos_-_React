@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { Container, Typography } from "@mui/material";
 import { GetStaticProps } from "next";
@@ -12,7 +12,6 @@ import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPa
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
-import { ContextoDoLocalUsuario } from "@/logica/contextos/ContextoDoLocalUsuario";
 
 export const getStaticProps: GetStaticProps = async () => {
     return {
@@ -93,7 +92,11 @@ export default function Cadastro() {
                 <Dialogo
                     aberto={sucesso}
                     titulo={"Sucesso!"}
-                    subtitulo={"Cadastro do usuário e local realizado com sucesso!"}
+                    subtitulo={
+                        "Cadastro do usuário e local realizado com sucesso! " +
+                        "Ao clicar em 'Fechar' você será redirecionado(a) em " +
+                        "poucos segundos para a sua área restrita."
+                    }
                     temBotaoCancelar
                     rotuloCancelar={"Fechar"}
                     aoCancelar={irParaParaAreaPrivada}

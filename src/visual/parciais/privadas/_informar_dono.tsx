@@ -1,12 +1,12 @@
-import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
-import { ObjetoInterface } from "@/logica/interfaces/interfaces";
-import { conjuntoDeCampo } from "@/logica/tipos/globais";
-import Botao from "@/visual/componentes/entradas/Botao/Botao";
-import FormularioInformaDono from "@/visual/componentes/entradas/Formularios/Formularios/FormularioInformaDono";
-import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
-import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { Container } from "@mui/material";
 import { FormProvider } from "react-hook-form";
+import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
+import FormularioInformaDono from "@/visual/componentes/entradas/Formularios/Formularios/FormularioInformaDono";
+import { conjuntoDeCampo } from "@/logica/tipos/globais";
+import Botao from "@/visual/componentes/entradas/Botao/Botao";
+import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
+import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 interface InformarDonoProps {
     objeto: ObjetoInterface;
@@ -55,8 +55,8 @@ export default function InformarDono({ objeto, irPara_listar_objetos }: Informar
             {mensagem && (
                 <Dialogo
                     aberto={mensagem}
-					titulo={"Sucesso!"}
-					subtitulo={"Dono do objeto definido com sucesso!"}
+                    titulo={"Sucesso!"}
+                    subtitulo={"Dono do objeto definido com sucesso!"}
                     temBotaoCancelar
                     rotuloCancelar={"Voltar"}
                     aoCancelar={() => {

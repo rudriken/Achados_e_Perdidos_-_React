@@ -7,11 +7,10 @@ import AdicionarObjeto from "@/visual/parciais/privadas/_adicionar_objeto";
 import ExibirObjeto from "@/visual/parciais/privadas/_exibir_objeto";
 import EditarObjeto from "@/visual/parciais/privadas/_editar_objeto";
 import ApagarObjeto from "@/visual/parciais/privadas/_apagar_objeto";
+import InformarDono from "@/visual/parciais/privadas/_informar_dono";
+import Sair from "@/visual/parciais/privadas/_sair";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
-import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
-import Sair from "@/visual/parciais/privadas/_sair";
-import InformarDono from "@/visual/parciais/privadas/_informar_dono";
 
 export const getStaticProps: GetStaticProps = async () => {
     return {
@@ -149,7 +148,8 @@ export default function Plataforma() {
             {parcial === parciais.privadas[6] && (
                 <InformarDono
                     objeto={objeto}
-                    irPara_listar_objetos={(_objeto) => {
+                    irPara_listar_objetos={async (_objeto) => {
+                        await pegarObjetos();
                         alterarParcial(parciais.privadas[0]);
                     }}
                 />

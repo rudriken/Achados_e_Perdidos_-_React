@@ -1,10 +1,9 @@
-import React, { useState } from "react";
 import { Container, Skeleton, Typography } from "@mui/material";
 import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Tabela, { T_Celula, T_Linha } from "../../componentes/exibe-dados/Tabela/Tabela";
 import Botao from "../../componentes/entradas/Botao/Botao";
-import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import Elo from "../../componentes/navegacao/Elo/Elo";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 interface ListarObjetosProps {
     objetos: ObjetoInterface[];
@@ -59,8 +58,9 @@ export default function ListarObjetos({
                                         cor={"success"}
                                         aoClicar={() => irPara_editar_objeto(objeto)}
                                         desabilitado={
-                                            objeto.links.filter((link) => link.rel === "self")
-                                                .length === 0
+                                            objeto.links.filter(
+                                                (link) => link.rel === "atualizar_objeto"
+                                            ).length === 0
                                         }
                                     />
                                     <Botao
