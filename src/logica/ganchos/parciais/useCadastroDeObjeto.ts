@@ -17,9 +17,11 @@ export default function useCadastroDeObjeto() {
     const [imagemFile, alterarImagemFile] = useState({} as File);
     const [objetoTrabalhado, alterarObjetoTrabalhado] = useState({} as ObjetoInterface);
     const [campoAlterado, alterarCampoAlterado] = useState(false);
+    const [esperar, alterarEsperar] = useState(false);
 
     async function cadastrarObjeto(dados: ObjetoInterface, imagemFileObjeto: File) {
         try {
+            alterarEsperar(true);
             const objeto = (await ServicoApi.post<ObjetoInterface>("api/objetos", dados))
                 .data;
             await ServicoApi.post(
@@ -27,9 +29,11 @@ export default function useCadastroDeObjeto() {
                 { imagem_objeto: imagemFileObjeto },
                 { headers: { "Content-Type": "multipart/form-data" } }
             );
+            alterarEsperar(false);
             alterarMensagem(true);
             return objeto;
         } catch (erro) {
+            alterarEsperar(false);
             return false;
         }
     }
@@ -41,6 +45,7 @@ export default function useCadastroDeObjeto() {
     ) {
         const objetoASerGravado = { ...objetoDoBanco, ...objetoAlterado };
         try {
+            alterarEsperar(true);
             const objeto = (
                 await ServicoApi.put<ObjetoInterface>(`api/objetos/${objetoASerGravado.id}`, {
                     ...objetoASerGravado,
@@ -56,9 +61,11 @@ export default function useCadastroDeObjeto() {
                     { headers: { "Content-Type": "multipart/form-data" } }
                 );
             }
+            alterarEsperar(false);
             alterarMensagem(true);
             return objeto;
         } catch (erro) {
+            alterarEsperar(false);
             return false;
         }
     }
@@ -74,6 +81,7 @@ export default function useCadastroDeObjeto() {
     }
 
     async function informarDono(objeto: ObjetoInterface, dados: ObjetoInterface) {
+        alterarEsperar(true);
         const resposta = (
             await ServicoApi.post<{ message: string }>(
                 `/api/objetos/${objeto.id}/donos`,
@@ -83,6 +91,7 @@ export default function useCadastroDeObjeto() {
         if (resposta) {
             alterarMensagem(true);
         }
+        alterarEsperar(false);
     }
 
     return {
@@ -100,5 +109,7 @@ export default function useCadastroDeObjeto() {
         alterarCampoAlterado,
         formularioMetodosInformaDono,
         informarDono,
+        esperar,
+        alterarEsperar,
     };
 }

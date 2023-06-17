@@ -24,6 +24,7 @@ export default function AdicionarObjeto({ irPara_listar_objetos }: AdicionarObje
             alterarObjetoTrabalhado,
             campoAlterado,
             alterarCampoAlterado,
+            esperar,
         } = useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
 
@@ -53,8 +54,8 @@ export default function AdicionarObjeto({ irPara_listar_objetos }: AdicionarObje
                 >
                     <fieldset {...conjuntoDeCampo}>
                         <FormularioObjeto
-                            imagemFileObjeto={(imagemFile) => alterarImagemFile(imagemFile)}
                             novoCadastro
+                            imagemFileObjeto={(imagemFile) => alterarImagemFile(imagemFile)}
                             qualquerCampoAlterado={(campoObjetoAlterado) => {
                                 alterarCampoAlterado(campoObjetoAlterado);
                             }}
@@ -68,7 +69,7 @@ export default function AdicionarObjeto({ irPara_listar_objetos }: AdicionarObje
                         cor={"primary"}
                         largura={200}
                         fonteTamanho={16}
-                        desabilitado={!campoAlterado}
+                        desabilitado={!campoAlterado || esperar}
                     />
                 </form>
             </Container>

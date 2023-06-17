@@ -11,14 +11,19 @@ interface FormularioLocalProps {
     imagemFileLocal: (imagem: File) => void;
     qualquerCampoAlterado: (valorAlterado: boolean) => void;
     local?: LocalInterface;
+    novoCadastro?: boolean;
 }
 
 export function FormularioLocal({
     imagemFileLocal,
     qualquerCampoAlterado,
     local,
+    novoCadastro = false,
 }: FormularioLocalProps) {
-    console.log(local);
+    if (local?.descricao === null) {
+        local = { ...local, descricao: "" };
+    }
+
     const {
         control,
         formState: { errors },
@@ -27,15 +32,22 @@ export function FormularioLocal({
     const [caracteresDescricao, alterarCaracteresDescricao] = useState(0);
     const caracteresDescricaoMaximo = 255;
     const [imagemFile, alterarImagemFile] = useState({} as File);
-    const nomeAlterado = watch("nome") !== local?.nome;
-    const enderecoAlterado = watch("endereco") !== local?.endereco;
-    const contatoAlterado = watch("contato") !== local?.contato;
-    const descricaoAlterada = watch("descricao") !== local?.descricao;
+    const nomeAlterado = watch("nome") !== (local?.nome || "");
+    const enderecoAlterado = watch("endereco") !== (local?.endereco || "");
+    const contatoAlterado = watch("contato") !== (local?.contato || "");
+    const descricaoAlterada = watch("descricao") !== (local?.descricao || "");
     const imagemAlterada =
         watch("imagem") !==
-        ServicoFormatador.caminhoRelativoDaImagem(local?.imagem || "", "local");
+        (ServicoFormatador.caminhoRelativoDaImagem(local?.imagem || "", "local") || "");
 
-    console.log(descricaoAlterada);
+    console.log(
+        nomeAlterado,
+        enderecoAlterado,
+        contatoAlterado,
+        descricaoAlterada,
+        imagemAlterada
+    );
+
     useEffect(() => {
         imagemFileLocal(imagemFile);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,11 +55,17 @@ export function FormularioLocal({
 
     useEffect(() => {
         if (
-            nomeAlterado ||
-            enderecoAlterado ||
-            contatoAlterado ||
-            descricaoAlterada ||
-            imagemAlterada
+            (novoCadastro &&
+                nomeAlterado &&
+                enderecoAlterado &&
+                contatoAlterado &&
+                imagemAlterada) ||
+            (!novoCadastro &&
+                (nomeAlterado ||
+                    enderecoAlterado ||
+                    contatoAlterado ||
+                    descricaoAlterada ||
+                    imagemAlterada))
         ) {
             qualquerCampoAlterado(true);
         } else {
@@ -61,7 +79,7 @@ export function FormularioLocal({
             <Controller
                 control={control}
                 name={"nome"}
-                defaultValue={local ? local.nome : ""}
+                defaultValue={!novoCadastro ? local?.nome : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeTexto
@@ -80,7 +98,7 @@ export function FormularioLocal({
             <Controller
                 control={control}
                 name={"endereco"}
-                defaultValue={local ? local.endereco : ""}
+                defaultValue={!novoCadastro ? local?.endereco : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeTexto
@@ -99,7 +117,7 @@ export function FormularioLocal({
             <Controller
                 control={control}
                 name={"contato"}
-                defaultValue={local ? local.contato : ""}
+                defaultValue={!novoCadastro ? local?.contato : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeTexto
@@ -120,11 +138,11 @@ export function FormularioLocal({
             <Controller
                 control={control}
                 name={"descricao"}
-                defaultValue={local ? local.descricao : ""}
+                defaultValue={!novoCadastro ? local?.descricao : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeTexto
-                            value={field.value === null ? "" : field.value}
+                            value={field.value}
                             onChange={(elemento) => {
                                 if (
                                     elemento.target.value.length <= caracteresDescricaoMaximo
@@ -152,8 +170,11 @@ export function FormularioLocal({
                 control={control}
                 name={"imagem"}
                 defaultValue={
-                    local
-                        ? ServicoFormatador.caminhoRelativoDaImagem(local.imagem, "local")
+                    !novoCadastro
+                        ? ServicoFormatador.caminhoRelativoDaImagem(
+                              local?.imagem || "",
+                              "local"
+                          )
                         : ""
                 }
                 render={({ field }) => {

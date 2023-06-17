@@ -5,8 +5,8 @@ import { ServicoApi } from "@/logica/servicos/ServicoApi";
 import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
 import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
 import { LocalStorage } from "@/logica/servicos/ServicoArmazenamento";
-import { LocalUsuarioInterface, LoginInterface } from "@/logica/interfaces/interfaces";
 import { ContextoDoLocalUsuario } from "@/logica/contextos/ContextoDoLocalUsuario";
+import { LocalUsuarioInterface, LoginInterface } from "@/logica/interfaces/interfaces";
 
 export default function useCadastro() {
     const formularioMetodosCadastro = useForm<LocalUsuarioInterface>({
@@ -19,6 +19,7 @@ export default function useCadastro() {
     const [erro, alterarErro] = useState(false);
     const [campoLocalAlterado, alterarCampoLocalAlterado] = useState(false);
     const [campoUsuarioAlterado, alterarCampoUsuarioAlterado] = useState(false);
+    const [esperar, alterarEsperar] = useState(false);
     const { despachoDoLocalUsuario } = useContext(ContextoDoLocalUsuario);
 
     async function cadastrar(
@@ -26,6 +27,7 @@ export default function useCadastro() {
         imagemFileLocal: File
     ): Promise<void> {
         try {
+            alterarEsperar(true);
             await ServicoApi.post<LocalUsuarioInterface>("/api/locais", dados);
             await logar({
                 email: dados.usuario.email,
@@ -42,8 +44,10 @@ export default function useCadastro() {
                     },
                 }
             );
+            alterarEsperar(false);
             alterarSucesso(true);
         } catch (erro) {
+            alterarEsperar(false);
             alterarErro(true);
         }
     }
@@ -54,7 +58,7 @@ export default function useCadastro() {
         } catch (erro) {}
     }
 
-    async function irParaParaAreaPrivada() {
+    async function atualizarContextoDoLocalUsuario() {
         const localUsuario = await ServicoLogin.informacoesDoLocalUsuario();
         if (localUsuario) {
             despachoDoLocalUsuario({ tipo: "ATUALIZAR_DADOS", carga: localUsuario });
@@ -65,19 +69,22 @@ export default function useCadastro() {
         dados: LocalUsuarioInterface,
         imagemFileLocal: File
     ): Promise<void> {
-        console.log(dados);
-        // try {
-        //     const resposta = (
-        //         await ServicoApi.put<LocalUsuarioInterface>("/api/locais", dados)
-        //     ).data;
-        //     if (imagemFileLocal) {
-        //         await ServicoApi.post("api/locais/imagem", { imagem_local: imagemFileLocal });
-        //     }
-        //     console.log(resposta);
-        //     alterarSucesso(true);
-        // } catch (erro) {
-        //     alterarErro(true);
-        // }
+        try {
+            alterarEsperar(true);
+            await ServicoApi.put<LocalUsuarioInterface>("/api/locais", dados);
+            if (imagemFileLocal.name) {
+                await ServicoApi.post(
+                    "api/locais/imagem",
+                    { imagem_local: imagemFileLocal },
+                    { headers: { "Content-Type": "multipart/form-data" } }
+                );
+            }
+            alterarEsperar(false);
+            alterarSucesso(true);
+        } catch (erro) {
+            alterarEsperar(false);
+            alterarErro(true);
+        }
     }
 
     return {
@@ -88,10 +95,12 @@ export default function useCadastro() {
         alterarSucesso,
         sucesso,
         erro,
-        irParaParaAreaPrivada,
+        atualizarContextoDoLocalUsuario,
         campoLocalAlterado,
         alterarCampoLocalAlterado,
         campoUsuarioAlterado,
         alterarCampoUsuarioAlterado,
+        esperar,
+        alterarEsperar,
     };
 }

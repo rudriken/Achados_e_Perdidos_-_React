@@ -93,8 +93,8 @@ export const ServicoEstruturaFormulario = {
             dono_cpf: yup
                 .string()
                 .required("É obrigatório preencher este campo!")
-                .min(11, "É aceito somente 11 números")
-                .max(11, "É aceito somente 11 números")
+                .min(11, "Tem que ter 11 números, sem espaços, traços e/ou pontos!")
+                .max(11, "Tem que ter 11 números, sem espaços, traços e/ou pontos!")
                 .test("validar CPF", "CPF inválido", ServicoValidacao.verificarCPF),
         });
     },

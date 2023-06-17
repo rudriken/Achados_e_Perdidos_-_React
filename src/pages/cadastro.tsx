@@ -31,7 +31,7 @@ export default function Cadastro() {
             alterarCampoLocalAlterado,
             campoUsuarioAlterado,
             alterarCampoUsuarioAlterado,
-            irParaParaAreaPrivada,
+            atualizarContextoDoLocalUsuario,
         } = useCadastro(),
         { handleSubmit } = formularioMetodosCadastro;
     const [imagemFile, alterarImagemFile] = useState({} as File);
@@ -62,6 +62,7 @@ export default function Cadastro() {
                             Dados do local
                         </Typography>
                         <FormularioLocal
+                            novoCadastro
                             imagemFileLocal={(imagemFile) => {
                                 alterarImagemFile(imagemFile);
                             }}
@@ -77,6 +78,7 @@ export default function Cadastro() {
                         </Typography>
 
                         <FormularioUsuario
+                            novoCadastro
                             qualquerCampoAlterado={(campoUsuarioAlterado) => {
                                 alterarCampoUsuarioAlterado(campoUsuarioAlterado);
                             }}
@@ -99,7 +101,7 @@ export default function Cadastro() {
                         cor={"primary"}
                         largura={200}
                         fonteTamanho={16}
-                        desabilitado={!campoLocalAlterado && !campoUsuarioAlterado}
+                        desabilitado={!campoLocalAlterado || !campoUsuarioAlterado}
                     />
                 </form>
             </Container>
@@ -117,7 +119,7 @@ export default function Cadastro() {
                     }
                     temBotaoCancelar
                     rotuloCancelar={"Fechar"}
-                    aoCancelar={irParaParaAreaPrivada}
+                    aoCancelar={atualizarContextoDoLocalUsuario}
                 />
             )}
         </FormProvider>

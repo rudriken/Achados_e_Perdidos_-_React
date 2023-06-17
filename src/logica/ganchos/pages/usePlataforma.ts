@@ -18,10 +18,14 @@ export default function usePlataforma() {
                     headers: { Authorization: "Bearer " + LocalStorage.pegar("token", "") },
                 })
             ).data;
-            despachoDosObjetos({ tipo: "ATUALIZAR_OBJETOS", carga: objetos });
+            atualizarContextoDosObjetos(objetos);
         } catch (erro) {
             return false;
         }
+    }
+
+    function atualizarContextoDosObjetos(objetos: ObjetoInterface[]) {
+        despachoDosObjetos({ tipo: "ATUALIZAR_OBJETOS", carga: objetos });
     }
 
     return {
@@ -32,5 +36,6 @@ export default function usePlataforma() {
         estadoDosObjetos,
         despachoDosObjetos,
         pegarObjetos,
+        atualizarContextoDosObjetos,
     };
 }

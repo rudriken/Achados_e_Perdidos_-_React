@@ -7,30 +7,40 @@ import { LocalUsuarioInterface, UsuarioInterface } from "@/logica/interfaces/int
 interface FormularioUsuarioProps {
     usuario?: UsuarioInterface;
     qualquerCampoAlterado: (valorAlterado: boolean) => void;
-    alteracao?: boolean;
+    novoCadastro?: boolean;
 }
 
 export function FormularioUsuario({
     usuario,
     qualquerCampoAlterado,
-    alteracao = false,
+    novoCadastro = false,
 }: FormularioUsuarioProps) {
     const {
         control,
         formState: { errors },
         watch,
     } = useFormContext<LocalUsuarioInterface>();
-    const nomeAlterado = watch("usuario.nome") !== usuario?.nome;
-    const emailAlterado = watch("usuario.email") !== usuario?.email;
-    const passwordAlterado = Boolean(watch("usuario.password"));
-    const password_confirmationAlterado = Boolean(watch("usuario.password_confirmation"));
+    const nomeAlterado = watch("usuario.nome") !== (usuario?.nome || "");
+    const emailAlterado = watch("usuario.email") !== (usuario?.email || "");
+    const passwordAlterado = novoCadastro
+        ? watch("usuario.password") !== ""
+        : Boolean(watch("usuario.password"));
+    const password_confirmationAlterado = novoCadastro
+        ? watch("usuario.password_confirmation") !== ""
+        : Boolean(watch("usuario.password_confirmation"));
 
     useEffect(() => {
         if (
-            nomeAlterado ||
-            emailAlterado ||
-            passwordAlterado ||
-            password_confirmationAlterado
+            (novoCadastro &&
+                nomeAlterado &&
+                emailAlterado &&
+                passwordAlterado &&
+                password_confirmationAlterado) ||
+            (!novoCadastro &&
+                (nomeAlterado ||
+                    emailAlterado ||
+                    passwordAlterado ||
+                    password_confirmationAlterado))
         ) {
             qualquerCampoAlterado(true);
         } else {
@@ -91,7 +101,7 @@ export function FormularioUsuario({
                             onChange={(elemento) => field.onChange(elemento.target.value)}
                             label={"Senha"}
                             placeholder={"Digite a sua senha"}
-                            required={!alteracao}
+                            required={novoCadastro}
                             type={"password"}
                             error={errors?.usuario?.password !== undefined}
                             helperText={errors?.usuario?.password?.message}
@@ -111,7 +121,7 @@ export function FormularioUsuario({
                             onChange={(elemento) => field.onChange(elemento.target.value)}
                             label={"Confirme sua senha"}
                             placeholder={"Confirme sua senha"}
-                            required={!alteracao || passwordAlterado}
+                            required={novoCadastro || passwordAlterado}
                             type={"password"}
                             error={errors?.usuario?.password_confirmation !== undefined}
                             helperText={errors?.usuario?.password_confirmation?.message}

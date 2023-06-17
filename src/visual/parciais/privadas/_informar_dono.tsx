@@ -1,13 +1,12 @@
 import { Container } from "@mui/material";
 import { FormProvider } from "react-hook-form";
 import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
-
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
-import FormularioInformaDono from "@/visual/componentes/entradas/Formularios/Formularios";
+import FormularioInformaDono from "@/visual/componentes/entradas/Formularios/Formularios/FormularioInformaDono";
 
 interface InformarDonoProps {
     objeto: ObjetoInterface;
@@ -15,8 +14,15 @@ interface InformarDonoProps {
 }
 
 export default function InformarDono({ objeto, irPara_listar_objetos }: InformarDonoProps) {
-    const { formularioMetodosInformaDono, informarDono, mensagem, alterarMensagem } =
-            useCadastroDeObjeto(),
+    const {
+            formularioMetodosInformaDono,
+            informarDono,
+            mensagem,
+            alterarMensagem,
+            campoAlterado,
+            alterarCampoAlterado,
+            esperar,
+        } = useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosInformaDono;
     return (
         <FormProvider {...formularioMetodosInformaDono}>
@@ -38,7 +44,11 @@ export default function InformarDono({ objeto, irPara_listar_objetos }: Informar
                     }}
                 >
                     <fieldset {...conjuntoDeCampo}>
-                        <FormularioInformaDono />
+                        <FormularioInformaDono
+                            qualquerCampoAlterado={(campoInformeDonoAlterado) => {
+                                alterarCampoAlterado(campoInformeDonoAlterado);
+                            }}
+                        />
                     </fieldset>
 
                     <Botao
@@ -48,7 +58,7 @@ export default function InformarDono({ objeto, irPara_listar_objetos }: Informar
                         cor={"primary"}
                         largura={250}
                         fonteTamanho={16}
-                        desabilitado={false}
+                        desabilitado={!campoAlterado || esperar}
                     />
                 </form>
             </Container>

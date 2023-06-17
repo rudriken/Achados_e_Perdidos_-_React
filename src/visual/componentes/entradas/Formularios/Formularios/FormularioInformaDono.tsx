@@ -3,12 +3,32 @@ import { FormularioCampos } from "../Formularios.style";
 import { CampoDeTexto } from "../../CampoDeTexto/CampoDeTexto.style";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
+import { useEffect } from "react";
 
-export default function FormularioInformaDono() {
+interface FormularioInformaDonoProps {
+    qualquerCampoAlterado: (valorAlterado: boolean) => void;
+}
+
+export default function FormularioInformaDono({
+    qualquerCampoAlterado,
+}: FormularioInformaDonoProps) {
     const {
         control,
         formState: { errors },
+        watch,
     } = useFormContext<ObjetoInterface>();
+
+    const donoNomeAlterado = watch("dono_nome") !== "";
+    const donoCpfAlterado = watch("dono_cpf")?.length === 11;
+
+    useEffect(() => {
+        if (donoNomeAlterado && donoCpfAlterado) {
+            qualquerCampoAlterado(true);
+        } else {
+            qualquerCampoAlterado(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [donoNomeAlterado, donoCpfAlterado]);
 
     return (
         <FormularioCampos>

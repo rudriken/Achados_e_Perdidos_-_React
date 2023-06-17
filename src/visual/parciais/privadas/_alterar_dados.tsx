@@ -28,11 +28,12 @@ export default function AlterarDados({
             atualizar,
             sucesso,
             erro,
-            irParaParaAreaPrivada,
+            atualizarContextoDoLocalUsuario,
             campoLocalAlterado,
             alterarCampoLocalAlterado,
             campoUsuarioAlterado,
             alterarCampoUsuarioAlterado,
+            esperar,
         } = useCadastro(),
         { handleSubmit } = formularioMetodosAlteracaoDados;
     const [imagemFile, alterarImagemFile] = useState({} as File);
@@ -82,7 +83,6 @@ export default function AlterarDados({
                             qualquerCampoAlterado={(campoUsuarioAlterado) => {
                                 alterarCampoUsuarioAlterado(campoUsuarioAlterado);
                             }}
-                            alteracao
                         />
                     </fieldset>
 
@@ -93,7 +93,9 @@ export default function AlterarDados({
                         cor={"primary"}
                         largura={200}
                         fonteTamanho={16}
-                        desabilitado={!campoLocalAlterado && !campoUsuarioAlterado}
+                        desabilitado={
+                            (!campoLocalAlterado && !campoUsuarioAlterado) || esperar
+                        }
                     />
                 </form>
             </Container>
@@ -102,12 +104,13 @@ export default function AlterarDados({
                 <Dialogo
                     aberto={sucesso}
                     titulo={"Sucesso!"}
-                    subtitulo={
-                        "Alteração dos dados de local e usuário realizado com sucesso!"
-                    }
+                    subtitulo={"Alteração cadastral feita com sucesso!"}
                     temBotaoCancelar
                     rotuloCancelar={"Voltar"}
-                    aoCancelar={irPara_listar_objetos}
+                    aoCancelar={() => {
+                        atualizarContextoDoLocalUsuario();
+                        irPara_listar_objetos();
+                    }}
                 />
             )}
         </FormProvider>

@@ -25,6 +25,7 @@ export default function EditarObjeto({ objeto, irPara_listar_objetos }: EditarOb
             alterarCampoAlterado,
             objetoTrabalhado,
             alterarObjetoTrabalhado,
+            esperar,
         } = useCadastroDeObjeto(),
         { handleSubmit } = formularioMetodosCadastroObjeto;
 
@@ -56,7 +57,6 @@ export default function EditarObjeto({ objeto, irPara_listar_objetos }: EditarOb
                     <fieldset {...conjuntoDeCampo}>
                         <FormularioObjeto
                             imagemFileObjeto={(imagem) => alterarImagemFile(imagem)}
-                            alteracao
                             objeto={objeto}
                             qualquerCampoAlterado={(campoAlterado) => {
                                 alterarCampoAlterado(campoAlterado);
@@ -71,7 +71,7 @@ export default function EditarObjeto({ objeto, irPara_listar_objetos }: EditarOb
                         cor={"primary"}
                         largura={200}
                         fonteTamanho={16}
-                        desabilitado={!campoAlterado}
+                        desabilitado={!campoAlterado || esperar}
                     />
                 </form>
             </Container>

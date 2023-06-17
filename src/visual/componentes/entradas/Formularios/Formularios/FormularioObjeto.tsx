@@ -9,7 +9,6 @@ import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 interface FormularioObjetoProps {
     imagemFileObjeto: (imagem: File) => void;
     novoCadastro?: boolean;
-    alteracao?: boolean;
     objeto?: ObjetoInterface;
     qualquerCampoAlterado: (valorAlterado: boolean) => void;
 }
@@ -17,7 +16,6 @@ interface FormularioObjetoProps {
 export function FormularioObjeto({
     imagemFileObjeto,
     novoCadastro = false,
-    alteracao = false,
     objeto,
     qualquerCampoAlterado,
 }: FormularioObjetoProps) {
@@ -27,11 +25,11 @@ export function FormularioObjeto({
         watch,
     } = useFormContext<ObjetoInterface>();
     const [imagemFile, alterarImagemFile] = useState({} as File);
-    const nomealterado = watch("nome") !== objeto?.nome;
-    const descricaoAlterada = watch("descricao") !== objeto?.descricao;
-    const imagemLAterada =
+    const nomeAlterado = watch("nome") !== (objeto?.nome || "");
+    const descricaoAlterada = watch("descricao") !== (objeto?.descricao || "");
+    const imagemAlterada =
         watch("imagem") !==
-        ServicoFormatador.caminhoRelativoDaImagem(objeto?.imagem || "", "objeto");
+        (ServicoFormatador.caminhoRelativoDaImagem(objeto?.imagem || "", "objeto") || "");
 
     useEffect(() => {
         imagemFileObjeto(imagemFile);
@@ -39,20 +37,23 @@ export function FormularioObjeto({
     }, [imagemFile]);
 
     useEffect(() => {
-        if (nomealterado || descricaoAlterada || imagemLAterada) {
+        if (
+            (novoCadastro && nomeAlterado && descricaoAlterada && imagemAlterada) ||
+            (!novoCadastro && (nomeAlterado || descricaoAlterada || imagemAlterada))
+        ) {
             qualquerCampoAlterado(true);
         } else {
             qualquerCampoAlterado(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nomealterado, descricaoAlterada, imagemLAterada]);
+    }, [nomeAlterado, descricaoAlterada, imagemAlterada]);
 
     return (
         <FormularioCampos>
             <Controller
                 control={control}
                 name={"nome"}
-                defaultValue={alteracao ? objeto?.nome : ""}
+                defaultValue={!novoCadastro ? objeto?.nome : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeTexto
@@ -64,7 +65,6 @@ export function FormularioObjeto({
                             error={errors?.nome !== undefined}
                             helperText={errors?.nome?.message}
                             style={{ marginBottom: 16 }}
-                            disabled={!novoCadastro && !alteracao}
                         />
                     );
                 }}
@@ -72,7 +72,7 @@ export function FormularioObjeto({
             <Controller
                 control={control}
                 name={"descricao"}
-                defaultValue={alteracao ? objeto?.descricao : ""}
+                defaultValue={!novoCadastro ? objeto?.descricao : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeTexto
@@ -84,7 +84,6 @@ export function FormularioObjeto({
                             error={errors?.descricao !== undefined}
                             helperText={errors?.descricao?.message}
                             style={{ marginBottom: 16 }}
-                            disabled={!novoCadastro && !alteracao}
                         />
                     );
                 }}
@@ -93,7 +92,7 @@ export function FormularioObjeto({
                 control={control}
                 name={"imagem"}
                 defaultValue={
-                    alteracao
+                    !novoCadastro
                         ? ServicoFormatador.caminhoRelativoDaImagem(
                               objeto?.imagem || "",
                               "objeto"
@@ -113,7 +112,6 @@ export function FormularioObjeto({
                             required
                             error={errors?.imagem !== undefined}
                             helperText={errors?.imagem?.message}
-                            disabled={!novoCadastro && !alteracao}
                         />
                     );
                 }}
