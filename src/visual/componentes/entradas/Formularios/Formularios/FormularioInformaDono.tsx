@@ -20,7 +20,7 @@ export default function FormularioInformaDono() {
                     return (
                         <CampoDeTexto
                             value={field.value}
-                            onChange={(valor) => field.onChange(valor.target.value)}
+                            onChange={(elemento) => field.onChange(elemento.target.value)}
                             label={"Nome"}
                             placeholder={"Digite o nome completo"}
                             required
@@ -39,12 +39,12 @@ export default function FormularioInformaDono() {
                     return (
                         <CampoDeTexto
                             value={field.value}
-                            onChange={(valor) => {
-                                valor.target.value = ServicoFormatador.pegarSomenteNumero(
-                                    valor.target.value
+                            onChange={(elemento) => {
+                                elemento.target.value = ServicoFormatador.pegarSomenteNumero(
+                                    elemento.target.value
                                 );
-                                if (valor.target.value.length <= 11) {
-                                    field.onChange(valor.target.value);
+                                if (elemento.target.value.length <= 11) {
+                                    field.onChange(elemento.target.value);
                                 }
                             }}
                             label={"CPF"}

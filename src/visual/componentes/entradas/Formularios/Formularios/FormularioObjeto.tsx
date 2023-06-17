@@ -6,31 +6,32 @@ import { FormularioCampos } from "../Formularios.style";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 
+interface FormularioObjetoProps {
+    imagemFileObjeto: (imagem: File) => void;
+    novoCadastro?: boolean;
+    alteracao?: boolean;
+    objeto?: ObjetoInterface;
+    qualquerCampoAlterado: (valorAlterado: boolean) => void;
+}
+
 export function FormularioObjeto({
-    imagemFileObjeto = (imagem: File) => {
-        imagem;
-    },
+    imagemFileObjeto,
     novoCadastro = false,
     alteracao = false,
-    objeto = {
-        nome: "",
-        descricao: "",
-        imagem: "",
-    } as ObjetoInterface,
-    qualquerCampoAlterado = (valorAlterado: boolean) => {
-        valorAlterado;
-    },
-}) {
+    objeto,
+    qualquerCampoAlterado,
+}: FormularioObjetoProps) {
     const {
         control,
         formState: { errors },
         watch,
     } = useFormContext<ObjetoInterface>();
     const [imagemFile, alterarImagemFile] = useState({} as File);
-    const nomealterado = watch("nome") !== objeto.nome;
-    const descricaoAlterada = watch("descricao") !== objeto.descricao;
+    const nomealterado = watch("nome") !== objeto?.nome;
+    const descricaoAlterada = watch("descricao") !== objeto?.descricao;
     const imagemLAterada =
-        watch("imagem") !== ServicoFormatador.caminhoRelativoDaImagemDoObjeto(objeto.imagem);
+        watch("imagem") !==
+        ServicoFormatador.caminhoRelativoDaImagem(objeto?.imagem || "", "objeto");
 
     useEffect(() => {
         imagemFileObjeto(imagemFile);
@@ -51,12 +52,12 @@ export function FormularioObjeto({
             <Controller
                 control={control}
                 name={"nome"}
-                defaultValue={alteracao ? objeto.nome : ""}
+                defaultValue={alteracao ? objeto?.nome : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeTexto
                             value={field.value}
-                            onChange={(valor) => field.onChange(valor.target.value)}
+                            onChange={(elemento) => field.onChange(elemento.target.value)}
                             label={"Nome"}
                             placeholder={"Digite o nome do objeto"}
                             required
@@ -71,12 +72,12 @@ export function FormularioObjeto({
             <Controller
                 control={control}
                 name={"descricao"}
-                defaultValue={alteracao ? objeto.descricao : ""}
+                defaultValue={alteracao ? objeto?.descricao : ""}
                 render={({ field }) => {
                     return (
                         <CampoDeTexto
                             value={field.value}
-                            onChange={(valor) => field.onChange(valor.target.value)}
+                            onChange={(elemento) => field.onChange(elemento.target.value)}
                             label={"Descrição"}
                             placeholder={"Digite a descrição do objeto"}
                             required
@@ -93,16 +94,19 @@ export function FormularioObjeto({
                 name={"imagem"}
                 defaultValue={
                     alteracao
-                        ? ServicoFormatador.caminhoRelativoDaImagemDoObjeto(objeto.imagem)
+                        ? ServicoFormatador.caminhoRelativoDaImagem(
+                              objeto?.imagem || "",
+                              "objeto"
+                          )
                         : ""
                 }
                 render={({ field }) => {
                     return (
                         <CampoDeArquivo
                             value={field.value}
-                            onChange={(valor) => {
-                                alterarImagemFile(valor[0]);
-                                field.onChange(valor.item(0)?.name);
+                            onChange={(elemento) => {
+                                alterarImagemFile(elemento[0]);
+                                field.onChange(elemento.item(0)?.name);
                             }}
                             label={"Imagem do objeto"}
                             placeholder={"Selecione a imagem do objeto"}

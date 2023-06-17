@@ -10,10 +10,15 @@ import { ContextoDoLocalUsuario } from "@/logica/contextos/ContextoDoLocalUsuari
 
 export default function useCadastro() {
     const formularioMetodosCadastro = useForm<LocalUsuarioInterface>({
-            resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
-        }),
-        [sucesso, alterarSucesso] = useState(false),
-        [erro, alterarErro] = useState(false);
+        resolver: yupResolver(ServicoEstruturaFormulario.cadastro()),
+    });
+    const formularioMetodosAlteracaoDados = useForm<LocalUsuarioInterface>({
+        resolver: yupResolver(ServicoEstruturaFormulario.alteracaoDados()),
+    });
+    const [sucesso, alterarSucesso] = useState(false);
+    const [erro, alterarErro] = useState(false);
+    const [campoLocalAlterado, alterarCampoLocalAlterado] = useState(false);
+    const [campoUsuarioAlterado, alterarCampoUsuarioAlterado] = useState(false);
     const { despachoDoLocalUsuario } = useContext(ContextoDoLocalUsuario);
 
     async function cadastrar(
@@ -56,12 +61,37 @@ export default function useCadastro() {
         }
     }
 
+    async function atualizar(
+        dados: LocalUsuarioInterface,
+        imagemFileLocal: File
+    ): Promise<void> {
+        console.log(dados);
+        // try {
+        //     const resposta = (
+        //         await ServicoApi.put<LocalUsuarioInterface>("/api/locais", dados)
+        //     ).data;
+        //     if (imagemFileLocal) {
+        //         await ServicoApi.post("api/locais/imagem", { imagem_local: imagemFileLocal });
+        //     }
+        //     console.log(resposta);
+        //     alterarSucesso(true);
+        // } catch (erro) {
+        //     alterarErro(true);
+        // }
+    }
+
     return {
         formularioMetodosCadastro,
+        formularioMetodosAlteracaoDados,
         cadastrar,
+        atualizar,
         alterarSucesso,
         sucesso,
         erro,
         irParaParaAreaPrivada,
+        campoLocalAlterado,
+        alterarCampoLocalAlterado,
+        campoUsuarioAlterado,
+        alterarCampoUsuarioAlterado,
     };
 }

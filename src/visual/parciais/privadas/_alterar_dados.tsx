@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { Container, Typography } from "@mui/material";
-import { GetStaticProps } from "next";
 import useCadastro from "@/logica/ganchos/pages/useCadastro";
 import {
     FormularioLocal,
@@ -9,45 +8,46 @@ import {
 } from "@/visual/componentes/entradas/Formularios/Formularios";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
-import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
-import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
+import { LocalUsuarioInterface } from "@/logica/interfaces/interfaces";
+import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 
-export const getStaticProps: GetStaticProps = async () => {
-    return {
-        props: {
-            titulo: "Cadastro",
-        },
-    };
-};
+interface AlterarDadosProps {
+    localUsuario: LocalUsuarioInterface;
+    irPara_listar_objetos: () => void;
+}
 
-export default function Cadastro() {
+export default function AlterarDados({
+    localUsuario,
+    irPara_listar_objetos,
+}: AlterarDadosProps) {
+    const local = localUsuario;
+    const usuario = localUsuario.usuario;
     const {
-            formularioMetodosCadastro,
-            cadastrar,
+            formularioMetodosAlteracaoDados,
+            atualizar,
             sucesso,
             erro,
+            irParaParaAreaPrivada,
             campoLocalAlterado,
             alterarCampoLocalAlterado,
             campoUsuarioAlterado,
             alterarCampoUsuarioAlterado,
-            irParaParaAreaPrivada,
         } = useCadastro(),
-        { handleSubmit } = formularioMetodosCadastro;
+        { handleSubmit } = formularioMetodosAlteracaoDados;
     const [imagemFile, alterarImagemFile] = useState({} as File);
-
     return (
-        <FormProvider {...formularioMetodosCadastro}>
-            <Cabecalho imagem={"img/logos/logo.svg"} />
+        <FormProvider {...formularioMetodosAlteracaoDados}>
             <Container>
                 <TituloPagina
-                    titulo={"Cadastrar-se na plataforma"}
-                    subtitulo={"Primeiro vamos precisar de alguns dados pessoais"}
+                    titulo={"Alterar os dados do local"}
+                    subtitulo={
+                        "Alteração dos dados cadastrais, troca de senha ou exclusão do local"
+                    }
                 />
-
                 <form
                     onSubmit={handleSubmit(() =>
-                        cadastrar(formularioMetodosCadastro.getValues(), imagemFile)
+                        atualizar(formularioMetodosAlteracaoDados.getValues(), imagemFile)
                     )}
                     autoComplete={"on"}
                     style={{
@@ -62,6 +62,7 @@ export default function Cadastro() {
                             Dados do local
                         </Typography>
                         <FormularioLocal
+                            local={local}
                             imagemFileLocal={(imagemFile) => {
                                 alterarImagemFile(imagemFile);
                             }}
@@ -77,23 +78,16 @@ export default function Cadastro() {
                         </Typography>
 
                         <FormularioUsuario
+                            usuario={usuario}
                             qualquerCampoAlterado={(campoUsuarioAlterado) => {
                                 alterarCampoUsuarioAlterado(campoUsuarioAlterado);
                             }}
+                            alteracao
                         />
                     </fieldset>
 
-                    {erro && (
-                        <Typography
-                            color={"red"}
-                            style={{ padding: 0, margin: 0, transform: "translateY(-20px)" }}
-                        >
-                            Este e-mail já existe no nosso banco de dados!
-                        </Typography>
-                    )}
-
                     <Botao
-                        texto={"Cadastre-se"}
+                        texto={"Atualizar"}
                         modo={"contained"}
                         tipo={"submit"}
                         cor={"primary"}
@@ -108,16 +102,12 @@ export default function Cadastro() {
                 <Dialogo
                     aberto={sucesso}
                     titulo={"Sucesso!"}
-                    subtitulo={"Cadastro do usuário e local realizado com sucesso! "}
-                    conteudo={
-                        <Typography color={"blue"}>
-                            Ao clicar em &apos;Fechar&apos; você será redirecionado(a) em
-                            poucos segundos para a sua área restrita.
-                        </Typography>
+                    subtitulo={
+                        "Alteração dos dados de local e usuário realizado com sucesso!"
                     }
                     temBotaoCancelar
-                    rotuloCancelar={"Fechar"}
-                    aoCancelar={irParaParaAreaPrivada}
+                    rotuloCancelar={"Voltar"}
+                    aoCancelar={irPara_listar_objetos}
                 />
             )}
         </FormProvider>

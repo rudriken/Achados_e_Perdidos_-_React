@@ -1,4 +1,5 @@
-import { caminhoAbsolutoDaImagemDoObjeto } from "../tipos/globais";
+import { LocalInterface, ObjetoInterface } from "../interfaces/interfaces";
+import { caminhoAbsolutoDaImagem } from "../tipos/globais";
 
 const ServicoFormatador = {
     transformarString: (cadeia: string) => {
@@ -61,8 +62,14 @@ const ServicoFormatador = {
         }
         return stringTransformada;
     },
-    caminhoRelativoDaImagemDoObjeto: (caminhoImagemBanco: string): string => {
-        caminhoImagemBanco = caminhoImagemBanco.replace(caminhoAbsolutoDaImagemDoObjeto, "");
+    caminhoRelativoDaImagem: (
+        caminhoImagemBanco: string,
+        item: "local" | "objeto"
+    ): string => {
+        caminhoImagemBanco = caminhoImagemBanco.replace(
+            item === "local" ? caminhoAbsolutoDaImagem.local : caminhoAbsolutoDaImagem.objeto,
+            ""
+        );
         return caminhoImagemBanco;
     },
     formatarData: (data: string): string => {

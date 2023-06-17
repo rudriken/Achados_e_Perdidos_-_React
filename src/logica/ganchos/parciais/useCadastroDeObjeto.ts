@@ -47,7 +47,7 @@ export default function useCadastroDeObjeto() {
                 })
             ).data;
             if (
-                ServicoFormatador.caminhoRelativoDaImagemDoObjeto(objetoDoBanco.imagem) !==
+                ServicoFormatador.caminhoRelativoDaImagem(objetoDoBanco.imagem, "objeto") !==
                 objetoASerGravado.imagem
             ) {
                 await ServicoApi.post(

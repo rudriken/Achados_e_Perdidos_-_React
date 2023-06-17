@@ -11,6 +11,7 @@ import InformarDono from "@/visual/parciais/privadas/_informar_dono";
 import Sair from "@/visual/parciais/privadas/_sair";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
+import AlterarDados from "@/visual/parciais/privadas/_alterar_dados";
 
 export const getStaticProps: GetStaticProps = async () => {
     return {
@@ -57,8 +58,11 @@ export default function Plataforma() {
                 linkIrPara={() => alterarParcial(parciais.privadas[0])}
                 cardapio={menuOpcoes}
                 aoClicarNoItem={(opcoes, indice) => {
-                    if (opcoes[indice] === menuOpcoes[1]) {
+                    if (opcoes[indice] === menuOpcoes[0]) {
                         alterarParcial(parciais.privadas[6]);
+                    }
+                    if (opcoes[indice] === menuOpcoes[1]) {
+                        alterarParcial(parciais.privadas[7]);
                     }
                 }}
             />
@@ -148,6 +152,15 @@ export default function Plataforma() {
             )}
 
             {parcial === parciais.privadas[6] && (
+                <AlterarDados
+                    localUsuario={estadoDoLocalUsuario.local}
+                    irPara_listar_objetos={() => {
+                        alterarParcial(parciais.privadas[0]);
+                    }}
+                />
+            )}
+
+            {parcial === parciais.privadas[7] && (
                 <Sair
                     irPara_listar_objetos={(_objetoInutil) => {
                         alterarParcial(parciais.privadas[0]);

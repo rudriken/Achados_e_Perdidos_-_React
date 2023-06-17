@@ -1,12 +1,13 @@
 import { Container } from "@mui/material";
 import { FormProvider } from "react-hook-form";
 import useCadastroDeObjeto from "@/logica/ganchos/parciais/useCadastroDeObjeto";
-import FormularioInformaDono from "@/visual/componentes/entradas/Formularios/Formularios/FormularioInformaDono";
+
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
+import FormularioInformaDono from "@/visual/componentes/entradas/Formularios/Formularios";
 
 interface InformarDonoProps {
     objeto: ObjetoInterface;

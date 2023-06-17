@@ -6,13 +6,16 @@ export const parciais = {
         "_editar_objeto",
         "_apagar_objeto",
         "_informar_dono",
+        "_alterar_dados",
         "_sair",
     ],
     publicas: ["_listar_locais", "_listar_objetos"],
 };
 
-export const caminhoAbsolutoDaImagemDoObjeto =
-    process.env.NEXT_PUBLIC_API + "public/objetos/";
+export const caminhoAbsolutoDaImagem = {
+    local: process.env.NEXT_PUBLIC_API + "public/locais/",
+    objeto: process.env.NEXT_PUBLIC_API + "public/objetos/",
+};
 
 interface ConjuntoDeCampoStyle {
     paddingTop: number;

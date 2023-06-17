@@ -7,7 +7,8 @@ export default function Formularios({}: FormulariosProps) {
 }
 
 export * from "./Formularios/FormularioIndex";
+export * from "./Formularios/FormularioInformaDono";
 export * from "./Formularios/FormularioLocal";
-export * from "./Formularios/FormularioUsuario";
 export * from "./Formularios/FormularioLogin";
 export * from "./Formularios/FormularioObjeto";
+export * from "./Formularios/FormularioUsuario";
