@@ -8,18 +8,20 @@ import {
 } from "@/visual/componentes/entradas/Formularios/Formularios";
 import Botao from "@/visual/componentes/entradas/Botao/Botao";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
+import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 import { conjuntoDeCampo } from "@/logica/tipos/globais";
 import { LocalUsuarioInterface } from "@/logica/interfaces/interfaces";
-import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
 
 interface AlterarDadosProps {
     localUsuario: LocalUsuarioInterface;
     irPara_listar_objetos: () => void;
+    irPara_excluir_local: () => void;
 }
 
 export default function AlterarDados({
     localUsuario,
     irPara_listar_objetos,
+    irPara_excluir_local,
 }: AlterarDadosProps) {
     const local = localUsuario;
     const usuario = localUsuario.usuario;
@@ -34,6 +36,7 @@ export default function AlterarDados({
             campoUsuarioAlterado,
             alterarCampoUsuarioAlterado,
             esperar,
+            excluirLocal,
         } = useCadastro(),
         { handleSubmit } = formularioMetodosAlteracaoDados;
     const [imagemFile, alterarImagemFile] = useState({} as File);
@@ -96,8 +99,41 @@ export default function AlterarDados({
                         desabilitado={
                             (!campoLocalAlterado && !campoUsuarioAlterado) || esperar
                         }
+                        margemInferior={64}
                     />
                 </form>
+
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <fieldset {...conjuntoDeCampo}>
+                        <Typography sx={{ my: 1, color: "#abb6c3", fontWeight: "bold" }}>
+                            Excluir local da plataforma
+                        </Typography>
+                        <Typography sx={{ my: 1, color: "#abb6c3" }}>
+                            Tem certeza de que deseja excluir o local da plataforma? Todos os
+                            itens cadastrados serão excluídos junto com o local.
+                        </Typography>
+
+                        <div style={{ display: "flex", flexDirection: "row-reverse" }}>
+                            <Botao
+                                texto={"Excluir local"}
+                                modo={"contained"}
+                                cor={"error"}
+                                largura={150}
+                                fonteTamanho={16}
+                                margemInferior={8}
+                                margemSuperior={32}
+                                aoClicar={irPara_excluir_local}
+                            />
+                        </div>
+                    </fieldset>
+                </div>
             </Container>
 
             {sucesso && (

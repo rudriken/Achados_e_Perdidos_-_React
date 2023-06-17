@@ -8,6 +8,7 @@ export const parciais = {
         "_informar_dono",
         "_alterar_dados",
         "_sair",
+        "_excluir_local",
     ],
     publicas: ["_listar_locais", "_listar_objetos"],
 };

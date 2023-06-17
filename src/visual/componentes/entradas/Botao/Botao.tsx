@@ -10,6 +10,8 @@ interface BotaoProps {
     largura?: number;
     altura?: number;
     margem?: number;
+    margemSuperior?: number;
+    margemInferior?: number;
     preenchimento?: number;
     fonteTamanho?: number;
     irPara?: string;
@@ -25,6 +27,8 @@ export default function Botao({
     largura = 150,
     altura = 50,
     margem = 0,
+    margemSuperior = 0,
+    margemInferior = 0,
     preenchimento = 0,
     fonteTamanho = 18,
     irPara,
@@ -42,6 +46,8 @@ export default function Botao({
                 width: largura,
                 height: altura,
                 margin: margem,
+                marginTop: margemSuperior,
+                marginBottom: margemInferior,
                 padding: preenchimento,
                 fontSize: fonteTamanho,
             }}

@@ -8,10 +8,11 @@ import ExibirObjeto from "@/visual/parciais/privadas/_exibir_objeto";
 import EditarObjeto from "@/visual/parciais/privadas/_editar_objeto";
 import ApagarObjeto from "@/visual/parciais/privadas/_apagar_objeto";
 import InformarDono from "@/visual/parciais/privadas/_informar_dono";
+import AlterarDados from "@/visual/parciais/privadas/_alterar_dados";
 import Sair from "@/visual/parciais/privadas/_sair";
+import ExcluirLocal from "@/visual/parciais/privadas/_excluir_local";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
-import AlterarDados from "@/visual/parciais/privadas/_alterar_dados";
 
 export const getStaticProps: GetStaticProps = async () => {
     return {
@@ -157,6 +158,9 @@ export default function Plataforma() {
                     irPara_listar_objetos={() => {
                         alterarParcial(parciais.privadas[0]);
                     }}
+                    irPara_excluir_local={() => {
+                        alterarParcial(parciais.privadas[8]);
+                    }}
                 />
             )}
 
@@ -164,6 +168,14 @@ export default function Plataforma() {
                 <Sair
                     irPara_listar_objetos={(_objetoInutil) => {
                         alterarParcial(parciais.privadas[0]);
+                    }}
+                />
+            )}
+
+            {parcial === parciais.privadas[8] && (
+                <ExcluirLocal
+                    voltarPara_alterar_dados={() => {
+                        alterarParcial(parciais.privadas[6]);
                     }}
                 />
             )}

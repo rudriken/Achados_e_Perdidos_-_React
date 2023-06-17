@@ -40,14 +40,6 @@ export function FormularioLocal({
         watch("imagem") !==
         (ServicoFormatador.caminhoRelativoDaImagem(local?.imagem || "", "local") || "");
 
-    console.log(
-        nomeAlterado,
-        enderecoAlterado,
-        contatoAlterado,
-        descricaoAlterada,
-        imagemAlterada
-    );
-
     useEffect(() => {
         imagemFileLocal(imagemFile);
         // eslint-disable-next-line react-hooks/exhaustive-deps

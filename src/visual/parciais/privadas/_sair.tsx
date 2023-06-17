@@ -1,6 +1,6 @@
 import useLogin from "@/logica/ganchos/pages/useLogin";
-import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 import Dialogo from "@/visual/componentes/retorno/Dialogo/Dialogo";
+import { ObjetoInterface } from "@/logica/interfaces/interfaces";
 
 interface SairProps {
     irPara_listar_objetos: (objeto: ObjetoInterface) => void;

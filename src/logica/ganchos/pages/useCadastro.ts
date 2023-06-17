@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import useLogin from "./useLogin";
 import { ServicoApi } from "@/logica/servicos/ServicoApi";
 import { ServicoLogin } from "@/logica/servicos/ServicoLogin";
 import { ServicoEstruturaFormulario } from "@/logica/servicos/ServicoEstruturaFormulario";
@@ -21,6 +22,7 @@ export default function useCadastro() {
     const [campoUsuarioAlterado, alterarCampoUsuarioAlterado] = useState(false);
     const [esperar, alterarEsperar] = useState(false);
     const { despachoDoLocalUsuario } = useContext(ContextoDoLocalUsuario);
+    const { deslogar } = useLogin();
 
     async function cadastrar(
         dados: LocalUsuarioInterface,
@@ -87,6 +89,11 @@ export default function useCadastro() {
         }
     }
 
+    async function excluirLocal() {
+        await ServicoApi.delete("/api/locais");
+        deslogar();
+    }
+
     return {
         formularioMetodosCadastro,
         formularioMetodosAlteracaoDados,
@@ -102,5 +109,6 @@ export default function useCadastro() {
         alterarCampoUsuarioAlterado,
         esperar,
         alterarEsperar,
+        excluirLocal,
     };
 }
