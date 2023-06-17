@@ -152,7 +152,7 @@ export default function Plataforma() {
                 />
             )}
 
-            {parcial === parciais.privadas[6] && (
+            {(parcial === parciais.privadas[6] || parcial === parciais.privadas[8]) && (
                 <AlterarDados
                     localUsuario={estadoDoLocalUsuario.local}
                     irPara_listar_objetos={() => {

@@ -18,9 +18,10 @@ export default function ExcluirLocal({ voltarPara_alterar_dados }: ExcluirLocalP
                     <Typography color={"error"}>
                         Esta ação apagará tudo que você já registrou nesta plataforma,
                         incluindo sua conta. Não há volta! <br />
-                        Se quer realmente fazer isso, é só clicar em &quot;Apagar tudo!&quot;.
+                        Se quer realmente fazer isso, é só clicar em{" "}
+                        <strong>&quot;Apagar tudo!&quot;</strong>.
                         <br />
-                        Se não, é só cancelar!
+                        Se não, é só <span style={{ color: "green" }}>cancelar</span>!
                     </Typography>
                 }
                 temBotaoCancelar
@@ -28,6 +29,7 @@ export default function ExcluirLocal({ voltarPara_alterar_dados }: ExcluirLocalP
                 aoCancelar={voltarPara_alterar_dados}
                 temBotaoConfirmar
                 rotuloConfirmar={"Apagar tudo!"}
+                corDoBotaoConfirmar={"error"}
                 aoConfirmar={excluirLocal}
             />
         </>

@@ -6,6 +6,7 @@ import {
     DialogoConteudo,
 } from "./Dialogo.style";
 import Botao from "../../entradas/Botao/Botao";
+import { coresTipo } from "@/logica/tipos/tipagem";
 
 interface DialogoProps {
     aberto: boolean;
@@ -16,6 +17,8 @@ interface DialogoProps {
     rotuloConfirmar?: string;
     temBotaoCancelar?: boolean;
     temBotaoConfirmar?: boolean;
+    corDoBotaoCancelar?: coresTipo;
+    corDoBotaoConfirmar?: coresTipo;
     aoCancelar?: () => void;
     aoConfirmar?: () => void;
 }
@@ -29,6 +32,8 @@ export default function Dialogo({
     rotuloConfirmar = "Confirmar",
     temBotaoCancelar,
     temBotaoConfirmar,
+    corDoBotaoCancelar = "info",
+    corDoBotaoConfirmar = "primary",
     aoCancelar,
     aoConfirmar,
 }: DialogoProps): JSX.Element {
@@ -54,7 +59,7 @@ export default function Dialogo({
                         {temBotaoCancelar ? (
                             <Botao
                                 texto={rotuloCancelar}
-                                cor={"info"}
+                                cor={corDoBotaoCancelar}
                                 modo={"text"}
                                 largura={larguraBotao}
                                 margem={margemBotao}
@@ -69,7 +74,7 @@ export default function Dialogo({
                         {temBotaoConfirmar ? (
                             <Botao
                                 texto={rotuloConfirmar}
-                                cor={"primary"}
+                                cor={corDoBotaoConfirmar}
                                 modo={"contained"}
                                 largura={larguraBotao}
                                 margem={margemBotao}
