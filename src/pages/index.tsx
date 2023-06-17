@@ -75,8 +75,15 @@ export default function Inicial() {
 
                         {mensagem && (
                             <Typography color={"red"} style={{ marginTop: 10 }}>
-                                Não encontramos nenhum local cadastrado que tenha em seu nome
-                                &apos;{nomeBuscado}&apos;
+                                Não encontramos nenhum local cadastrado que tenha em seu nome{" "}
+                                <strong>
+                                    &apos;
+                                    {nomeBuscado.length > 50
+                                        ? nomeBuscado.substring(0, 50) + "..."
+                                        : nomeBuscado}
+                                    &apos;
+                                </strong>
+                                !
                             </Typography>
                         )}
 
@@ -84,7 +91,7 @@ export default function Inicial() {
                             texto={"Buscar"}
                             modo={"contained"}
                             tipo={"submit"}
-                            margem={32}
+                            margemSuperior={32}
                         />
                     </form>
                 </Container>

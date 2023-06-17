@@ -32,6 +32,7 @@ export default function Cadastro() {
             campoUsuarioAlterado,
             alterarCampoUsuarioAlterado,
             atualizarContextoDoLocalUsuario,
+            esperar,
         } = useCadastro(),
         { handleSubmit } = formularioMetodosCadastro;
     const [imagemFile, alterarImagemFile] = useState({} as File);
@@ -98,10 +99,9 @@ export default function Cadastro() {
                         texto={"Cadastre-se"}
                         modo={"contained"}
                         tipo={"submit"}
-                        cor={"primary"}
                         largura={200}
                         fonteTamanho={16}
-                        desabilitado={!campoLocalAlterado || !campoUsuarioAlterado}
+                        desabilitado={!campoLocalAlterado || !campoUsuarioAlterado || esperar}
                     />
                 </form>
             </Container>
