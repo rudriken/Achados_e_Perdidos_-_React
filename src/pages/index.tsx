@@ -31,6 +31,8 @@ export default function Inicial() {
             nomeBuscado,
             mensagem,
             alterarMensagem,
+            esperar,
+            alterarEsperar,
         } = useIndex(),
         { handleSubmit } = formularioMetodosIndex;
 
@@ -92,6 +94,7 @@ export default function Inicial() {
                             modo={"contained"}
                             tipo={"submit"}
                             margemSuperior={32}
+                            desabilitado={esperar}
                         />
                     </form>
                 </Container>

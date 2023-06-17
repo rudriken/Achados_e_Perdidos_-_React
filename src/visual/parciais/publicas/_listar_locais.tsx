@@ -1,4 +1,5 @@
 import { Container, Typography } from "@mui/material";
+import useIndex from "@/logica/ganchos/pages/useIndex";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 import { ServicoHateoas } from "@/logica/servicos/ServicoHateoas";
 import Grade from "../../componentes/exibe-dados/Grade/Grade";
@@ -16,6 +17,8 @@ export default function ListarLocais({
     locais,
     irPara_listar_objetos,
 }: ListarLocaisProps) {
+    const { alterarEsperar, esperar } = useIndex();
+    console.log(esperar);
     return (
         <Container
             style={{
@@ -40,8 +43,11 @@ export default function ListarLocais({
                         linha2={ServicoFormatador.linhas1E2DaGrade(local.endereco).linha2}
                         rotuloDoBotao={"Ver objetos"}
                         modoDoBotao={"contained"}
-                        aoClicar={() => irPara_listar_objetos(local)}
-                        desabilitarBotao={!ServicoHateoas.objetosLocalBusca(local)}
+                        aoClicar={() => {
+                            alterarEsperar(true);
+                            irPara_listar_objetos(local);
+                        }}
+                        desabilitarBotao={!ServicoHateoas.objetosLocalBusca(local) || esperar}
                     />
                 );
             })}

@@ -16,8 +16,10 @@ export default function useIndex() {
     const [objetos, alterarObjetos] = useState([] as ObjetoInterface[]);
     const [nomeBuscado, alterarNomeBuscado] = useState("");
     const [mensagem, alterarMensagem] = useState(false);
+    const [esperar, alterarEsperar] = useState(false);
 
     async function consultar(busca: LocalInterface) {
+        alterarEsperar(true);
         alterarNomeBuscado(busca.nome);
         const locaisEncontrados = (
             await ServicoApi.get<LocalInterface[]>(`/api/locais/busca?nome=${busca.nome}`)
@@ -26,6 +28,7 @@ export default function useIndex() {
         if (locaisEncontrados.length > 0) {
             alterarParcial(parciais.publicas[0]);
         } else {
+            alterarEsperar(false);
             alterarMensagem(true);
         }
     }
@@ -35,6 +38,7 @@ export default function useIndex() {
         const objetosEncontrados = (
             await ServicoApi.get<ObjetoInterface[]>(`/api/locais/${local.id}/objetos`)
         ).data;
+        alterarEsperar(false);
         alterarObjetos(objetosEncontrados);
     }
 
@@ -50,5 +54,7 @@ export default function useIndex() {
         nomeBuscado,
         mensagem,
         alterarMensagem,
+        esperar,
+        alterarEsperar,
     };
 }
