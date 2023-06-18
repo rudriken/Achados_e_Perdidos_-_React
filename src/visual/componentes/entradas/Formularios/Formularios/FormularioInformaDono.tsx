@@ -1,16 +1,18 @@
+import { useEffect } from "react";
 import { useFormContext, Controller } from "react-hook-form";
+import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 import { FormularioCampos } from "../Formularios.style";
 import { CampoDeTexto } from "../../CampoDeTexto/CampoDeTexto.style";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
-import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
-import { useEffect } from "react";
 
 interface FormularioInformaDonoProps {
     qualquerCampoAlterado: (valorAlterado: boolean) => void;
+    erroDeCampo: (erroDeCampo: boolean) => void;
 }
 
 export default function FormularioInformaDono({
     qualquerCampoAlterado,
+    erroDeCampo,
 }: FormularioInformaDonoProps) {
     const {
         control,
@@ -20,6 +22,10 @@ export default function FormularioInformaDono({
 
     const donoNomeAlterado = watch("dono_nome") !== "";
     const donoCpfAlterado = watch("dono_cpf")?.length === 11;
+    const erroDeCampoDonoNome = errors.dono_nome !== undefined;
+    const erroDeCampoDonoCpf = errors.dono_cpf !== undefined;
+
+    // console.log(erroDeCampoDonoNome, erroDeCampoDonoCpf);
 
     useEffect(() => {
         if (donoNomeAlterado && donoCpfAlterado) {
@@ -29,6 +35,11 @@ export default function FormularioInformaDono({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [donoNomeAlterado, donoCpfAlterado]);
+
+    useEffect(() => {
+        erroDeCampo(erroDeCampoDonoNome || erroDeCampoDonoCpf);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [erroDeCampoDonoNome, erroDeCampoDonoCpf]);
 
     return (
         <FormularioCampos>

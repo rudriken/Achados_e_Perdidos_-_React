@@ -19,6 +19,7 @@ export default function useCadastroDeObjeto() {
     const [objetoTrabalhado, alterarObjetoTrabalhado] = useState({} as ObjetoInterface);
     const [campoAlterado, alterarCampoAlterado] = useState(false);
     const [esperar, alterarEsperar] = useState(false);
+    const [temErroDeCampo, alterarTemErroDeCampo] = useState(false);
     const { pegarObjetos } = usePlataforma();
 
     async function cadastrarObjeto(dados: ObjetoInterface, imagemFileObjeto: File) {
@@ -114,5 +115,7 @@ export default function useCadastroDeObjeto() {
         informarDono,
         esperar,
         alterarEsperar,
+        temErroDeCampo,
+        alterarTemErroDeCampo,
     };
 }

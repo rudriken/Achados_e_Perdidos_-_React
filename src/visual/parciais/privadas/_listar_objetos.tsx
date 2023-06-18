@@ -5,6 +5,7 @@ import Tabela, { T_Celula, T_Linha } from "../../componentes/exibe-dados/Tabela/
 import Botao from "../../componentes/entradas/Botao/Botao";
 import Elo from "../../componentes/navegacao/Elo/Elo";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
+import { Fragment } from "react";
 
 interface ListarObjetosProps {
     objetos: ObjetoInterface[];
@@ -87,43 +88,37 @@ export default function ListarObjetos({
                     renderizarLinha={(_item, indice) => {
                         const item = _item as ObjetoInterface;
                         return (
-                            <T_Linha key={indice}>
-                                <T_Celula>
-                                    <Elo
-                                        rotulo={item.nome}
-                                        fonteTamanho={14}
-                                        fonteAlinhamento={"left"}
-                                        fonteCor={
-                                            ServicoHateoas.definirDonoObjeto(item)
-                                                ? "#abb6c3"
-                                                : "#e9e8e8"
-                                        }
-                                        acao={() => {
-                                            if (ServicoHateoas.self(item)) {
-                                                irPara_exibir_objeto(item);
-                                            }
-                                        }}
-                                    />
-                                </T_Celula>
-                                <T_Celula>
-                                    <Elo
-                                        rotulo={item.descricao}
-                                        fonteTamanho={14}
-                                        fonteAlinhamento={"left"}
-                                        fonteCor={
-                                            ServicoHateoas.definirDonoObjeto(item)
-                                                ? "#abb6c3"
-                                                : "#e9e8e8"
-                                        }
-                                        acao={() => {
-                                            if (ServicoHateoas.self(item)) {
-                                                irPara_exibir_objeto(item);
-                                            }
-                                        }}
-                                    />
-                                </T_Celula>
-                                <T_Celula>{item.acoes}</T_Celula>
-                            </T_Linha>
+                            <Fragment key={indice}>
+                                {ServicoHateoas.definirDonoObjeto(item) && (
+                                    <T_Linha>
+                                        <T_Celula>
+                                            <Elo
+                                                rotulo={item.nome}
+                                                fonteTamanho={14}
+                                                fonteAlinhamento={"left"}
+                                                acao={() => {
+                                                    if (ServicoHateoas.self(item)) {
+                                                        irPara_exibir_objeto(item);
+                                                    }
+                                                }}
+                                            />
+                                        </T_Celula>
+                                        <T_Celula>
+                                            <Elo
+                                                rotulo={item.descricao}
+                                                fonteTamanho={14}
+                                                fonteAlinhamento={"left"}
+                                                acao={() => {
+                                                    if (ServicoHateoas.self(item)) {
+                                                        irPara_exibir_objeto(item);
+                                                    }
+                                                }}
+                                            />
+                                        </T_Celula>
+                                        <T_Celula>{item.acoes}</T_Celula>
+                                    </T_Linha>
+                                )}
+                            </Fragment>
                         );
                     }}
                 />
