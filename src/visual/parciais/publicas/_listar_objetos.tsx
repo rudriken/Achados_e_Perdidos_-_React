@@ -7,9 +7,14 @@ import { LocalInterface, ObjetoInterface } from "@/logica/interfaces/interfaces"
 interface ListarObjetosProps {
     objetos: ObjetoInterface[];
     local: LocalInterface;
+    irPara_ver_contato: (objeto: ObjetoInterface) => void;
 }
 
-export default function ListarObjetos({ objetos, local }: ListarObjetosProps) {
+export default function ListarObjetos({
+    objetos,
+    local,
+    irPara_ver_contato,
+}: ListarObjetosProps) {
     return (
         <Container
             style={{
@@ -37,7 +42,7 @@ export default function ListarObjetos({ objetos, local }: ListarObjetosProps) {
                         }
                         rotuloDoBotao={"Entrar em contato"}
                         modoDoBotao={"contained"}
-                        aoClicar={() => {}}
+                        aoClicar={() => irPara_ver_contato(objeto)}
                     />
                 );
             })}

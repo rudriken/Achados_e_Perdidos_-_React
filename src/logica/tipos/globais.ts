@@ -10,7 +10,7 @@ export const parciais = {
         "_sair",
         "_excluir_local",
     ],
-    publicas: ["_listar_locais", "_listar_objetos"],
+    publicas: ["_listar_locais", "_listar_objetos", "_ver_contato"],
 };
 
 export const caminhoAbsolutoDaImagem = {

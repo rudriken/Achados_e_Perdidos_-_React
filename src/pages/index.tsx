@@ -4,6 +4,7 @@ import { GetStaticProps } from "next";
 import useIndex from "@/logica/ganchos/pages/useIndex";
 import ListarLocais from "@/visual/parciais/publicas/_listar_locais";
 import ListarObjetos from "@/visual/parciais/publicas/_listar_objetos";
+import VerContato from "@/visual/parciais/publicas/_ver_contato";
 import { FormularioIndex } from "@/visual/componentes/entradas/Formularios/Formularios";
 import TituloPagina from "@/visual/componentes/exibe-dados/TituloPagina/TituloPagina";
 import Cabecalho from "@/visual/componentes/superficies/Cabecalho/Cabecalho";
@@ -32,7 +33,8 @@ export default function Inicial() {
             mensagem,
             alterarMensagem,
             esperar,
-            alterarEsperar,
+            objeto,
+            alterarObjeto,
         } = useIndex(),
         { handleSubmit } = formularioMetodosIndex;
 
@@ -111,8 +113,28 @@ export default function Inicial() {
                 />
             )}
 
-            {parcial === parciais.publicas[1] && (
-                <ListarObjetos local={local} objetos={objetos} />
+            {(parcial === parciais.publicas[1] || parcial === parciais.publicas[2]) && (
+                <ListarObjetos
+                    local={local}
+                    objetos={objetos}
+                    irPara_ver_contato={(objeto) => {
+                        alterarObjeto(objeto);
+                        alterarParcial(parciais.publicas[2]);
+                    }}
+                />
+            )}
+
+            {parcial === parciais.publicas[2] && (
+                <VerContato
+                    local={local}
+                    objeto={objeto}
+                    irPara_listar_objetos={() => {
+                        alterarParcial(parciais.publicas[1]);
+                    }}
+                    irPara_index={() => {
+                        alterarParcial("index");
+                    }}
+                />
             )}
         </FormProvider>
     );

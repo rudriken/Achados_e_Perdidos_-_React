@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MutableRefObject, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ServicoApi } from "@/logica/servicos/ServicoApi";
@@ -17,6 +17,7 @@ export default function useIndex() {
     const [nomeBuscado, alterarNomeBuscado] = useState("");
     const [mensagem, alterarMensagem] = useState(false);
     const [esperar, alterarEsperar] = useState(false);
+    const [objeto, alterarObjeto] = useState({} as ObjetoInterface);
 
     async function consultar(busca: LocalInterface) {
         alterarEsperar(true);
@@ -56,5 +57,7 @@ export default function useIndex() {
         alterarMensagem,
         esperar,
         alterarEsperar,
+        objeto,
+        alterarObjeto,
     };
 }
