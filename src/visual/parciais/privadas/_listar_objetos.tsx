@@ -134,7 +134,7 @@ export default function ListarObjetos({
             <Botao
                 texto={"Novo Objeto"}
                 modo={"contained"}
-                margem={32}
+                margemSuperior={32}
                 desabilitado={buscando}
                 aoClicar={irPara_adicionar_objeto}
                 tipo={"button"}

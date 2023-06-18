@@ -18,7 +18,6 @@ export default function ListarLocais({
     irPara_listar_objetos,
 }: ListarLocaisProps) {
     const { alterarEsperar, esperar } = useIndex();
-    console.log(esperar);
     return (
         <Container
             style={{

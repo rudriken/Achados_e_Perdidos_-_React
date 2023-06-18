@@ -5,6 +5,7 @@ import { ServicoApi } from "../../servicos/ServicoApi";
 import { ServicoEstruturaFormulario } from "../../servicos/ServicoEstruturaFormulario";
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 import { ObjetoInterface } from "../../interfaces/interfaces";
+import usePlataforma from "../pages/usePlataforma";
 
 export default function useCadastroDeObjeto() {
     const formularioMetodosCadastroObjeto = useForm<ObjetoInterface>({
@@ -18,6 +19,7 @@ export default function useCadastroDeObjeto() {
     const [objetoTrabalhado, alterarObjetoTrabalhado] = useState({} as ObjetoInterface);
     const [campoAlterado, alterarCampoAlterado] = useState(false);
     const [esperar, alterarEsperar] = useState(false);
+    const { pegarObjetos } = usePlataforma();
 
     async function cadastrarObjeto(dados: ObjetoInterface, imagemFileObjeto: File) {
         try {
@@ -89,6 +91,7 @@ export default function useCadastroDeObjeto() {
             )
         ).data;
         if (resposta) {
+            await pegarObjetos();
             alterarMensagem(true);
         }
         alterarEsperar(false);

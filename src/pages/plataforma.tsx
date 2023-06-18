@@ -145,8 +145,7 @@ export default function Plataforma() {
             {parcial === parciais.privadas[5] && (
                 <InformarDono
                     objeto={objeto}
-                    irPara_listar_objetos={async (_objetoInformadoDono) => {
-                        await pegarObjetos();
+                    irPara_listar_objetos={(_objetoInformadoDono) => {
                         alterarParcial(parciais.privadas[0]);
                     }}
                 />
