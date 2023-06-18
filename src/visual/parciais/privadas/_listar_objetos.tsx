@@ -1,11 +1,11 @@
-import { Container, Skeleton, Typography } from "@mui/material";
+import { Fragment } from "react";
+import { Container, Typography } from "@mui/material";
 import { ServicoHateoas } from "@/logica/servicos/ServicoHateoas";
 import TituloPagina from "../../componentes/exibe-dados/TituloPagina/TituloPagina";
 import Tabela, { T_Celula, T_Linha } from "../../componentes/exibe-dados/Tabela/Tabela";
 import Botao from "../../componentes/entradas/Botao/Botao";
 import Elo from "../../componentes/navegacao/Elo/Elo";
 import { ObjetoInterface } from "@/logica/interfaces/interfaces";
-import { Fragment } from "react";
 
 interface ListarObjetosProps {
     objetos: ObjetoInterface[];
@@ -38,14 +38,6 @@ export default function ListarObjetos({
                 titulo={"Lista de Objetos Disponíveis"}
                 subtitulo={"Lista dos objetos não entregues ao dono"}
             />
-            {buscando && (
-                <Skeleton
-                    variant={"rectangular"}
-                    width={"100%"}
-                    height={100}
-                    animation={"wave"}
-                />
-            )}
             {!buscando && Array.isArray(objetos) && objetos.length > 0 && (
                 <Tabela
                     cabecalho={["Nome", "Descrição", "Ações"]}

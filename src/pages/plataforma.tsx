@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Container, Skeleton } from "@mui/material";
 import { GetStaticProps } from "next";
 import usePlataforma from "@/logica/ganchos/pages/usePlataforma";
 import { parciais } from "@/logica/tipos/globais";
@@ -67,6 +68,18 @@ export default function Plataforma() {
                     }
                 }}
             />
+
+            {parcial === "nenhuma" && (
+                <Container>
+                    <Skeleton
+                        variant={"rectangular"}
+                        width={"100%"}
+                        height={600}
+                        animation={"wave"}
+                    />
+                </Container>
+            )}
+
             {(parcial === parciais.privadas[0] || parcial === parciais.privadas[4]) && (
                 <ListarObjetos
                     objetos={objetos}
@@ -165,7 +178,7 @@ export default function Plataforma() {
 
             {parcial === parciais.privadas[7] && (
                 <Sair
-                    irPara_listar_objetos={(_objetoInutil) => {
+                    irPara_listar_objetos={(_objeto_inutil) => {
                         alterarParcial(parciais.privadas[0]);
                     }}
                 />
