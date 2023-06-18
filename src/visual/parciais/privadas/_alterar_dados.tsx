@@ -36,10 +36,14 @@ export default function AlterarDados({
             campoUsuarioAlterado,
             alterarCampoUsuarioAlterado,
             esperar,
-            excluirLocal,
+            temErroDeCampoLocal,
+            alterarTemErroDeCampoLocal,
+            temErroDeCampoUsuario,
+            alterarTemErroDeCampoUsuario,
         } = useCadastro(),
         { handleSubmit } = formularioMetodosAlteracaoDados;
     const [imagemFile, alterarImagemFile] = useState({} as File);
+
     return (
         <FormProvider {...formularioMetodosAlteracaoDados}>
             <Container>
@@ -73,6 +77,9 @@ export default function AlterarDados({
                             qualquerCampoAlterado={(campoLocalAlterado) => {
                                 alterarCampoLocalAlterado(campoLocalAlterado);
                             }}
+                            erroDeCampo={(errosDeCampos) => {
+                                alterarTemErroDeCampoLocal(errosDeCampos);
+                            }}
                         />
                     </fieldset>
 
@@ -86,6 +93,9 @@ export default function AlterarDados({
                             qualquerCampoAlterado={(campoUsuarioAlterado) => {
                                 alterarCampoUsuarioAlterado(campoUsuarioAlterado);
                             }}
+                            erroDeCampo={(errosDeCampos) => {
+                                alterarTemErroDeCampoUsuario(errosDeCampos);
+                            }}
                         />
                     </fieldset>
 
@@ -97,7 +107,10 @@ export default function AlterarDados({
                         largura={200}
                         fonteTamanho={16}
                         desabilitado={
-                            (!campoLocalAlterado && !campoUsuarioAlterado) || esperar
+                            (!campoLocalAlterado && !campoUsuarioAlterado) ||
+                            esperar ||
+                            temErroDeCampoLocal ||
+                            temErroDeCampoUsuario
                         }
                         margemInferior={64}
                     />

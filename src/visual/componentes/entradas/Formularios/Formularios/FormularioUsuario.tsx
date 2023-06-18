@@ -8,12 +8,14 @@ interface FormularioUsuarioProps {
     usuario?: UsuarioInterface;
     qualquerCampoAlterado: (valorAlterado: boolean) => void;
     novoCadastro?: boolean;
+    erroDeCampo: (erroDeCampo: boolean) => void;
 }
 
 export function FormularioUsuario({
     usuario,
     qualquerCampoAlterado,
     novoCadastro = false,
+    erroDeCampo,
 }: FormularioUsuarioProps) {
     const {
         control,
@@ -22,12 +24,21 @@ export function FormularioUsuario({
     } = useFormContext<LocalUsuarioInterface>();
     const nomeAlterado = watch("usuario.nome") !== (usuario?.nome || "");
     const emailAlterado = watch("usuario.email") !== (usuario?.email || "");
-    const passwordAlterado = novoCadastro
-        ? watch("usuario.password") !== ""
-        : Boolean(watch("usuario.password"));
-    const password_confirmationAlterado = novoCadastro
-        ? watch("usuario.password_confirmation") !== ""
-        : Boolean(watch("usuario.password_confirmation"));
+    const passwordAlterado = watch("usuario.password") !== "";
+    const password_confirmationAlterado = watch("usuario.password_confirmation") !== "";
+    const errosDeCamposNoNovoCadastro =
+        novoCadastro &&
+        (errors.usuario?.nome !== undefined ||
+            errors.usuario?.email !== undefined ||
+            errors.usuario?.password !== undefined ||
+            errors.usuario?.password_confirmation !== undefined);
+
+    const errosDeCamposNaAlteracao =
+        !novoCadastro &&
+        (errors.usuario?.nome !== undefined ||
+            errors.usuario?.email !== undefined ||
+            errors.usuario?.password_confirmation !== undefined) &&
+        watch("usuario.password") !== watch("usuario.password_confirmation");
 
     useEffect(() => {
         if (
@@ -39,8 +50,7 @@ export function FormularioUsuario({
             (!novoCadastro &&
                 (nomeAlterado ||
                     emailAlterado ||
-                    passwordAlterado ||
-                    password_confirmationAlterado))
+                    (passwordAlterado && password_confirmationAlterado)))
         ) {
             qualquerCampoAlterado(true);
         } else {
@@ -48,6 +58,16 @@ export function FormularioUsuario({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nomeAlterado, emailAlterado, passwordAlterado, password_confirmationAlterado]);
+
+    useEffect(() => {
+        erroDeCampo(errosDeCamposNoNovoCadastro);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [errosDeCamposNoNovoCadastro]);
+
+    useEffect(() => {
+        erroDeCampo(errosDeCamposNaAlteracao);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [errosDeCamposNaAlteracao]);
 
     return (
         <FormularioCampos>

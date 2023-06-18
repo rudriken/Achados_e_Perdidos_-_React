@@ -12,6 +12,7 @@ interface FormularioLocalProps {
     qualquerCampoAlterado: (valorAlterado: boolean) => void;
     local?: LocalInterface;
     novoCadastro?: boolean;
+    erroDeCampo: (erroDeCampo: boolean) => void;
 }
 
 export function FormularioLocal({
@@ -19,6 +20,7 @@ export function FormularioLocal({
     qualquerCampoAlterado,
     local,
     novoCadastro = false,
+    erroDeCampo,
 }: FormularioLocalProps) {
     if (local?.descricao === null) {
         local = { ...local, descricao: "" };
@@ -39,6 +41,12 @@ export function FormularioLocal({
     const imagemAlterada =
         watch("imagem") !==
         (ServicoFormatador.caminhoRelativoDaImagem(local?.imagem || "", "local") || "");
+    const errosDeCampos =
+        errors.nome !== undefined ||
+        errors.endereco !== undefined ||
+        errors.contato !== undefined ||
+        errors.descricao !== undefined ||
+        errors.imagem !== undefined;
 
     useEffect(() => {
         imagemFileLocal(imagemFile);
@@ -65,6 +73,11 @@ export function FormularioLocal({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nomeAlterado, enderecoAlterado, contatoAlterado, descricaoAlterada, imagemAlterada]);
+
+    useEffect(() => {
+        erroDeCampo(errosDeCampos);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [errosDeCampos]);
 
     return (
         <FormularioCampos>

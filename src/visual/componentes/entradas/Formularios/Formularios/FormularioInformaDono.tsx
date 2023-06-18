@@ -25,8 +25,6 @@ export default function FormularioInformaDono({
     const erroDeCampoDonoNome = errors.dono_nome !== undefined;
     const erroDeCampoDonoCpf = errors.dono_cpf !== undefined;
 
-    // console.log(erroDeCampoDonoNome, erroDeCampoDonoCpf);
-
     useEffect(() => {
         if (donoNomeAlterado && donoCpfAlterado) {
             qualquerCampoAlterado(true);

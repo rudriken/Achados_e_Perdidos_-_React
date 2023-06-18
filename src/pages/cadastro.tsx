@@ -33,6 +33,10 @@ export default function Cadastro() {
             alterarCampoUsuarioAlterado,
             atualizarContextoDoLocalUsuario,
             esperar,
+            temErroDeCampoLocal,
+            alterarTemErroDeCampoLocal,
+            temErroDeCampoUsuario,
+            alterarTemErroDeCampoUsuario,
         } = useCadastro(),
         { handleSubmit } = formularioMetodosCadastro;
     const [imagemFile, alterarImagemFile] = useState({} as File);
@@ -70,6 +74,9 @@ export default function Cadastro() {
                             qualquerCampoAlterado={(campoLocalAlterado) => {
                                 alterarCampoLocalAlterado(campoLocalAlterado);
                             }}
+                            erroDeCampo={(errosDeCampos) => {
+                                alterarTemErroDeCampoLocal(errosDeCampos);
+                            }}
                         />
                     </fieldset>
 
@@ -82,6 +89,9 @@ export default function Cadastro() {
                             novoCadastro
                             qualquerCampoAlterado={(campoUsuarioAlterado) => {
                                 alterarCampoUsuarioAlterado(campoUsuarioAlterado);
+                            }}
+                            erroDeCampo={(errosDeCampos) => {
+                                alterarTemErroDeCampoUsuario(errosDeCampos);
                             }}
                         />
                     </fieldset>
@@ -101,7 +111,13 @@ export default function Cadastro() {
                         tipo={"submit"}
                         largura={200}
                         fonteTamanho={16}
-                        desabilitado={!campoLocalAlterado || !campoUsuarioAlterado || esperar}
+                        desabilitado={
+                            !campoLocalAlterado ||
+                            !campoUsuarioAlterado ||
+                            esperar ||
+                            temErroDeCampoLocal ||
+                            temErroDeCampoUsuario
+                        }
                     />
                 </form>
             </Container>

@@ -22,6 +22,8 @@ export default function useCadastro() {
     const [campoUsuarioAlterado, alterarCampoUsuarioAlterado] = useState(false);
     const [esperar, alterarEsperar] = useState(false);
     const { despachoDoLocalUsuario } = useContext(ContextoDoLocalUsuario);
+    const [temErroDeCampoLocal, alterarTemErroDeCampoLocal] = useState(false);
+    const [temErroDeCampoUsuario, alterarTemErroDeCampoUsuario] = useState(false);
     const { deslogar } = useLogin();
 
     async function cadastrar(
@@ -110,5 +112,9 @@ export default function useCadastro() {
         esperar,
         alterarEsperar,
         excluirLocal,
+        temErroDeCampoLocal,
+        alterarTemErroDeCampoLocal,
+        temErroDeCampoUsuario,
+        alterarTemErroDeCampoUsuario,
     };
 }
