@@ -132,7 +132,7 @@ export default function Inicial() {
                         alterarParcial(parciais.publicas[1]);
                     }}
                     irPara_index={() => {
-                        alterarParcial("index");
+                        window.location.reload();
                     }}
                 />
             )}
