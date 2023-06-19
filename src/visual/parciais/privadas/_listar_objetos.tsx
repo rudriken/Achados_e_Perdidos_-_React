@@ -26,6 +26,8 @@ export default function ListarObjetos({
     irPara_apagar_objeto,
     irPara_informar_dono,
 }: ListarObjetosProps) {
+    objetos = objetos.filter((objeto) => ServicoHateoas.definirDonoObjeto(objeto));
+
     return (
         <Container
             style={{
@@ -69,9 +71,6 @@ export default function ListarObjetos({
                                         cor={"info"}
                                         aoClicar={() => irPara_informar_dono(objeto)}
                                         largura={170}
-                                        desabilitado={
-                                            !ServicoHateoas.definirDonoObjeto(objeto)
-                                        }
                                     />
                                 </>
                             ),
@@ -116,7 +115,7 @@ export default function ListarObjetos({
                 />
             )}
             {!buscando && objetos.length === 0 && (
-                <Typography color={"red"}>Nenhum objeto cadastrado</Typography>
+                <Typography color={"red"}>Nenhum objeto cadastrado e disponível!</Typography>
             )}
             <Botao
                 texto={"Novo Objeto"}
