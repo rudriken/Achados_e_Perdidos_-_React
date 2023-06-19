@@ -32,19 +32,20 @@ export default function useCadastro() {
     ): Promise<void> {
         try {
             alterarEsperar(true);
-            await ServicoApi.post<LocalUsuarioInterface>("/api/locais", dados);
+            await ServicoApi.post<LocalUsuarioInterface>("/api/locais", dados, {
+                headers: { Authorization: "Bearer " + LocalStorage.pegar("token", "") },
+            });
             await logar({
                 email: dados.usuario.email,
                 password: dados.usuario.password as string,
             });
-            const chave = LocalStorage.pegar("token", "");
             await ServicoApi.post(
                 "api/locais/imagem",
                 { imagem_local: imagemFileLocal },
                 {
                     headers: {
+                        Authorization: "Bearer " + LocalStorage.pegar("token", ""),
                         "Content-Type": "multipart/form-data",
-                        Authorization: "Bearer " + chave,
                     },
                 }
             );
@@ -75,12 +76,19 @@ export default function useCadastro() {
     ): Promise<void> {
         try {
             alterarEsperar(true);
-            await ServicoApi.put<LocalUsuarioInterface>("/api/locais", dados);
+            await ServicoApi.put<LocalUsuarioInterface>("/api/locais", dados, {
+                headers: { Authorization: "Bearer " + LocalStorage.pegar("token", "") },
+            });
             if (imagemFileLocal.name) {
                 await ServicoApi.post(
                     "api/locais/imagem",
                     { imagem_local: imagemFileLocal },
-                    { headers: { "Content-Type": "multipart/form-data" } }
+                    {
+                        headers: {
+                            Authorization: "Bearer " + LocalStorage.pegar("token", ""),
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
                 );
             }
             alterarEsperar(false);
@@ -92,7 +100,9 @@ export default function useCadastro() {
     }
 
     async function excluirLocal() {
-        await ServicoApi.delete("/api/locais");
+        await ServicoApi.delete("/api/locais", {
+            headers: { Authorization: "Bearer " + LocalStorage.pegar("token", "") },
+        });
         deslogar();
     }
 

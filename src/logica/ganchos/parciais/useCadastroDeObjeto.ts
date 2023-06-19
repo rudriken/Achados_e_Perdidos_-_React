@@ -6,6 +6,7 @@ import { ServicoEstruturaFormulario } from "../../servicos/ServicoEstruturaFormu
 import ServicoFormatador from "@/logica/servicos/ServicoFormatador";
 import { ObjetoInterface } from "../../interfaces/interfaces";
 import usePlataforma from "../pages/usePlataforma";
+import { LocalStorage } from "@/logica/servicos/ServicoArmazenamento";
 
 export default function useCadastroDeObjeto() {
     const formularioMetodosCadastroObjeto = useForm<ObjetoInterface>({
@@ -25,12 +26,20 @@ export default function useCadastroDeObjeto() {
     async function cadastrarObjeto(dados: ObjetoInterface, imagemFileObjeto: File) {
         try {
             alterarEsperar(true);
-            const objeto = (await ServicoApi.post<ObjetoInterface>("api/objetos", dados))
-                .data;
+            const objeto = (
+                await ServicoApi.post<ObjetoInterface>("api/objetos", dados, {
+                    headers: { Authorization: "Bearer " + LocalStorage.pegar("token", "") },
+                })
+            ).data;
             await ServicoApi.post(
                 `api/objetos/${objeto.id}/imagem`,
                 { imagem_objeto: imagemFileObjeto },
-                { headers: { "Content-Type": "multipart/form-data" } }
+                {
+                    headers: {
+                        Authorization: "Bearer " + LocalStorage.pegar("token", ""),
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
             );
             alterarEsperar(false);
             alterarMensagem(true);
@@ -50,9 +59,17 @@ export default function useCadastroDeObjeto() {
         try {
             alterarEsperar(true);
             const objeto = (
-                await ServicoApi.put<ObjetoInterface>(`api/objetos/${objetoASerGravado.id}`, {
-                    ...objetoASerGravado,
-                })
+                await ServicoApi.put<ObjetoInterface>(
+                    `api/objetos/${objetoASerGravado.id}`,
+                    {
+                        ...objetoASerGravado,
+                    },
+                    {
+                        headers: {
+                            Authorization: "Bearer " + LocalStorage.pegar("token", ""),
+                        },
+                    }
+                )
             ).data;
             if (
                 ServicoFormatador.caminhoRelativoDaImagem(objetoDoBanco.imagem, "objeto") !==
@@ -61,7 +78,12 @@ export default function useCadastroDeObjeto() {
                 await ServicoApi.post(
                     `api/objetos/${objetoASerGravado.id}/imagem`,
                     { imagem_objeto: imagemFileObjeto },
-                    { headers: { "Content-Type": "multipart/form-data" } }
+                    {
+                        headers: {
+                            Authorization: "Bearer " + LocalStorage.pegar("token", ""),
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
                 );
             }
             alterarEsperar(false);
@@ -75,7 +97,9 @@ export default function useCadastroDeObjeto() {
 
     async function excluirObjeto(objeto: ObjetoInterface) {
         try {
-            await ServicoApi.delete(`api/objetos/${objeto.id}`);
+            await ServicoApi.delete(`api/objetos/${objeto.id}`, {
+                headers: { Authorization: "Bearer " + LocalStorage.pegar("token", "") },
+            });
             alterarMensagem(true);
             return objeto;
         } catch (erro) {
@@ -88,7 +112,10 @@ export default function useCadastroDeObjeto() {
         const resposta = (
             await ServicoApi.post<{ message: string }>(
                 `/api/objetos/${objeto.id}/donos`,
-                dados
+                dados,
+                {
+                    headers: { Authorization: "Bearer " + LocalStorage.pegar("token", "") },
+                }
             )
         ).data;
         if (resposta) {

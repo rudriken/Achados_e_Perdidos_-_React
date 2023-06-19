@@ -21,16 +21,24 @@ export const ServicoLogin = {
         }
     },
     sair: (): void => {
-        ServicoApi.post("api/auth/logout", { refresh: LocalStorage.pegar("refresh", "") });
+        ServicoApi.post(
+            "api/auth/logout",
+            { refresh: LocalStorage.pegar("refresh", "") },
+            {
+                headers: { Authorization: "Bearer " + LocalStorage.pegar("token", "") },
+            }
+        );
         LocalStorage.apagar("token");
         LocalStorage.apagar("refresh");
     },
     informacoesDoLocalUsuario: async (): Promise<LocalUsuarioInterface | false> => {
         const token = LocalStorage.pegar("token", "");
         if (token) {
-            ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;
+            // ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;
             const localUsuario: LocalUsuarioInterface | undefined = (
-                await ServicoApi.get<LocalUsuarioInterface>("api/locais")
+                await ServicoApi.get<LocalUsuarioInterface>("api/locais", {
+                    headers: { Authorization: "Bearer " + token },
+                })
             ).data;
             if (localUsuario) {
                 return localUsuario;
@@ -46,8 +54,12 @@ export const ServicoLogin = {
     > => {
         const token = LocalStorage.pegar("token", "");
         if (token) {
-            ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;
-            const objetos = (await ServicoApi.get<ObjetoInterface[]>("api/objetos")).data;
+            // ServicoApi.defaults.headers.common.Authorization = "Bearer " + token;
+            const objetos = (
+                await ServicoApi.get<ObjetoInterface[]>("api/objetos", {
+                    headers: { Authorization: "Bearer " + token },
+                })
+            ).data;
             if (objetos.length === 0) {
                 return "objetos_vazio";
             }
