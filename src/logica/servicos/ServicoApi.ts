@@ -21,6 +21,5 @@ setInterval(async () => {
         ).data;
         LocalStorage.gravar("token", resposta.access);
         LocalStorage.gravar("refresh", resposta.refresh);
-        console.log(resposta);
     }
 }, 60000);
