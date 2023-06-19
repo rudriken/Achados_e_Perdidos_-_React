@@ -118,6 +118,7 @@ export default function Cadastro() {
                             temErroDeCampoLocal ||
                             temErroDeCampoUsuario
                         }
+                        margemInferior={64}
                     />
                 </form>
             </Container>

@@ -22,4 +22,4 @@ setInterval(async () => {
         LocalStorage.gravar("token", resposta.access);
         LocalStorage.gravar("refresh", resposta.refresh);
     }
-}, 60000);
+}, 1200000);
